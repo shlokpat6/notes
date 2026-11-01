@@ -1,0 +1,71 @@
+# Github
+- A website to host remote repositories, which are just copies of local repositories stored online
+- Alternatives include GitLab and BitBucket
+- Online services like these are beneficial as they allow you and others to view a repository and also for others to clone it and add their own features, such as in open source and team projects
+- It displays the contents of the readme.md file on the home page
+- Connecting to a remote repository
+    - Connecting your computer to a remote repo storage like github requires authentication
+        - Ensures that only authorized individuals or services can access and interact with GitHub repositories, protecting sensitive information and preventing unauthorized changes
+    - Github allows for two methods of authentication
+        - HTTPS
+            - Requires authenticating github username and password each time you interact with the remote repository such as pushing code
+            - Not common
+        - SSH or secure shell
+            - Involves generating an SSH key pair on your local machine and adding the public key to your github account
+                - A private key
+                    - Used by the GitHub server to verify ownership of account by comparing to public key
+                    - Keep secure on local machine and don’t share
+                - A public key
+                    - Enter into the server’s SSH key page
+            - Generally, does not require entering your Github username and password each time you interact with Github
+                - Instead the SSH keys are compared automatically every time you interact
+                - The exception is if you added a password during the ssh keygen process
+                    - You can bypass this by configuring an ssh agent
+- SSH in relation to GitHub
+    - SSH allows us to interact with our remote repo without needing our username or password
+    - It requires having a private key listed on our device and a public key provided to github
+    - Once that is set, we can push and pull to the repo smoothly
+    - You don’t have to keep doing this- it’s a one time thing
+        - Only time the process would have to be performed again is when you’re setting up the ssh keys between a new computer and your github account
+    - Setup for first time
+        - Generating a key
+            - ssh-keygen -t ed25519 -C "your_email@example.com"
+                - this should be your github email
+                - -t ed25519: the key type. Ed25519 is modern, fast, and what GitHub recommends
+                - When you press enter, it will ask for the file name
+                    - by default it will be id_ed25519, but you can name it anything
+                        - Need to do this if you have ssh keys for multiple github profiles so as not to cause conflicts
+                    - If you just press enter, it will keep the default name
+                - It will ask for a password- you can skip by pressing enter
+                    - If you entered a password, you will be asked to verify again
+                    - If you give it a password, you’ll have to enter it every time you interact with github
+                    - To avoid having to enter the password everytime, we can setup an ssh agent
+        - This creates two files:
+            - ~/.ssh/id_ed25519: the private key. Never share this or upload it anywhere.
+            - ~/.ssh/id_ed25519.pub: the public key. This is the one you give to GitHub.
+        - Optional- add the key to an ssh agent
+            - Recommended if you added a password
+            - The agent holds your key in memory so you don't retype the passphrase on every push
+            - Commands
+                - eval "$(ssh-agent -s)"
+                - ssh-add ~/.ssh/id_ed25519
+        - Adding the public key to github
+            - Go to .ssh directory at the root of your device and copy the contents of the public key we created
+                - Can use the cat command
+                    - cat id_ed25519.pub
+            - Go to github.com and settings
+            - Look for ssh section
+                - Select add a new key
+                    - Give the pairing a name
+                        - Could just be the name of the device
+                    - Paste the copied public key into the field and select add key
+        - Test the connection
+            - ssh -T git@github.com
+                - The first time, you'll see a warning that the authenticity of github.com can't be established, along with a fingerprint. Compare it against the fingerprints published in GitHub's docs, then type yes. You should then see:
+                    - Hi username! You've successfully authenticated, but GitHub does not provide shell access.
+                - That message means it worked. (The "no shell access" part is normal.)
+
+
+
+
+
