@@ -1,0 +1,24 @@
+# Command Line Interface vs. Shell vs Terminal Notes
+- A command line interface is an alternative way to navigate an operating system to the OS GUI(the buttons and graphics you typically interact with)
+    - It allows users to access more tools and have greater technical control over an OS than the GUI would allow, which is more for casual users
+    - It’s also necessary to know when you have headless systems where there is no gui
+- The command line interface itself is just a gui where we can type commands
+- The shell is the software that is running underneath the command line interface tool
+    - It interprets all the commands and interacts with the OS
+- Terminal is one command line interface
+    - Found on Macs and Linux
+    - Uses the bash shell
+- Command prompt and powershell are the windows CLIs
+    - Each respectively use the CMD and powershell shells
+    - Command prompt is relatively limited
+    - Powershell is more capable of the two
+    - But since most IT/ development work is done on bash based CLIs, it’s recommended to learn and use that
+- Git Bash is a unix based emulator of the bash shell which allows users to use unix commands on Windows
+    - But is is limited
+        - Basically every unix command typed in git bash has to be translated into something readable by windows
+            - This translation process leads to slower execution of commands
+        - Additionally, not all unix commands are available
+- WSL on windows provides us with a full unix env, but requires some setup
+- Also Microsoft has provided a tool called Terminal which is just a CLI that allows you to use any shell as its base
+    - This is the program that opens when you run your linux distribution setup for WSL2
+- Due to the variety of operating systems, shells, and CLIs, terms like CLI and terminal are often used interchangeably
