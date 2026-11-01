@@ -1,0 +1,40 @@
+# Markdown Notes
+- VScode allows you to preview markdown files
+    - Ctrl Shift P will open the command palette
+        - Search for markdown and select the command “open preview to the side”
+            - This will open a preview window to the right
+- Markdown is just syntax that allows for the use of symbols to format text
+    - The file is rendered as an HTML, so effectively the dev wrote html without actually writing html
+- Base markdown features
+    - By default when you type text with no symbols, it will render as a paragraph element in HTML
+    - If you want a new line in the render, then in your markdown, lines should be physically separated by an empty line
+    - A pound symbol in front of text indicates a heading
+        - You can chain up to 6 pound symbols, with each making the heading smaller
+    - To make text bold, surround it by 2 asterisks on both sides
+    - To make text italicized, surround it by 1 asterisks on both sides
+    - To make text both bold and italicized, surround it by 3 asterisks on both sides
+    - To include links, surround the text that will become the link in square brackets and then immediately follow that with parentheses and inside the parentheses, the actual URL
+        - If you want the link text to be the same as the url, then it’s a little different, just include the URL inside 1 angle bracket on both sides
+    - Images, follow the same format as a link, just with an exclamation point before the opening square bracket
+        - Alt text inside the square brackets and the url inside the parentheses
+    - Block quote syntax can be accomplished by putting the a single angle bracket in front of the 1st line, then 2 in front of the second line, then 3 in front of the next, etc
+    - Horizontal line is created by putting 3 asterisks, dashes, or underlines
+    - A list can be created by just putting numbers with a period
+        - An unordered list(bullet points) can be created by just putting 1 plus or asterisk in front of each line
+            - An indented list element can be set by adding four spaces in front of the indented line
+- There are different flavors(types) of markdowns which add additional functionality on top of the base features
+    - One popular one is the Github flavored mark down(gfm)
+    - To cross out text, surround by 2 tildes on both sides
+    - To highlight text, surround by double equal signs on both sides
+        - Not supported by github’s flavor of md
+    - To superscript text, surround by 1 carrot on both sides
+        - Not supported by github’s flavor of md
+    - To subscript text, surround by 1 tilde on both sides
+        - Not supported by github’s flavor of md
+    - When you want to render code, surround the code by 1 monotick(‘) on both sides
+        - To have multiline code, surround all the code by 3 monoticks before the code and after the code
+    - Creating tables
+    - Creating checkboxes
+        - At the very front there should be a single dash followed by a space, then square brackets followed by the text
+            - If the square brackets have an empty space, the checkbox is unselected
+            - If the square bracket is full with an X, the checkbox is selected
