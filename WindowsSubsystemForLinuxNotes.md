@@ -1,0 +1,58 @@
+# Windows Subsystem For Linux
+- For power users, Windows has provided the Windows Subsystem for Linux 2(WSL2), a lightweight VM that runs a user specific linux distribution right on top of windows
+    - Unlike a traditional VM, resources are allocated dynamically, and it integrates tightly with Windows, allowing users access to the windows filesystem directly from the linux env but without the hassle of configurations and heavy setup
+    - Windows already ships with a hypervisor called Hyper-V
+        - A hypervisor is software that sits between the hardware and operating systems, and it can run multiple OS kernels simultaneously by dividing up hardware resources between them.
+    - When you launch WSL 2, the hypervisor spins up a tiny, stripped-down Linux kernel alongside the Windows kernel
+    - Both kernels are running at the same time, each thinking they have access to the hardware - but the hypervisor is quietly managing who gets what
+    - Microsoft also built deep integration points:
+        - A virtual network bridge lets Windows and Linux talk to each other
+        - The file systems are linked through a protocol called 9P
+        - Memory is shared and dynamically adjusted rather than statically reserved
+    - When you activate WSL, you actually have two completely different file systems running at the same time:
+        - Windows uses NTFS, living on your actual physical drive
+        - Each Linux distribution in WSL has its own file system, and it's stored as a virtual disk image (a .vhdx file) on your Windows drive
+            - It's a complete, real Linux file system layout, identical to what you’d find on a Ubuntu system
+    - They're separate, but WSL bridges them so you can cross between them:
+        - From Linux, you can access Windows files at /mnt/c/ (your C: drive mounted in)
+        - From Windows, you can access Linux files via \\wsl$\Ubuntu\ in File Explorer
+    - From a user perspective, running WSL2 is as simple as opening the Ubuntu CLI through windows terminal
+- Setup
+    - In a CLI type the following
+        - wsl --version
+            - Checks for the WSL version on the device
+            - If it comes back as false, then we need to install WSL
+        - wsl --install
+            - It will download wsl and ask that you reboot at the end
+            - When you come back after restart, open the CLI again
+        - wsl --update
+            - Will update if possible
+        - wsl --list --verbose
+            - Will show all the unix distributions provided on this system
+        - wsl --status
+            - Will give you the version of wsl
+            - 2 is the latest and often required
+        - wsl --install -d Ubuntu
+            - This will install the Ubuntu distribution
+    - To access our linux env, just search for Ubuntu in windows search
+        - It will open up the windows provided terminal wrapper application, in which Ubuntu is selected as the CLI
+        - The first time Ubuntu is run, you will be prompted to setup a linux username and password
+    - Because WSL is integrated within windows and not as a separate VM, we can access our files across both systems
+        - To access windows files in Linux, go to the path /mnt then the drive where windows is(so c)
+            - We can do this because the c drive is “mounted” onto the linux file system
+                - It’s not a copy of our c drive, it’s a direct live link to the actual windows c drive
+                    - But because there’s a bridge layer between windows and linux, using this live link can have performance issue
+                    - Therefore, it’s recommended to work mostly from the linux side if using wsl2
+        - To access the linux files from the windows file explorer, click on the linux icon below the drive in file explorer
+            - Then select the distribution
+                - It will have all the files found in a linux pc, as we entirely have our own linux distribution
+            - We can do this because the linux drive is “mounted” as a network drive in windows
+        - With the VM, the file systems are entirely separate
+    - By default ubuntu comes with nano as default editor
+    - Since we’re technically on a separate system when accessing the linux side, none of our original executables from the windows side will work here
+        - We have to redownload programs like python or java
+        - Git comes pre-installed with ubuntu
+        - To check what is already installed, use the which command
+        - Additionally, even if we’re accessing the windows mount through WSL, we still cannot use our windows downloaded executables because linux cannot execute the exes, even though they are visible
+        - There is no conflict if we have the same executables in linux and windows
+            - The two systems are completely isolated, with each only having access to each others files
