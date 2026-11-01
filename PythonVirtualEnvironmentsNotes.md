@@ -1,0 +1,23 @@
+# Python Virtual Environments
+- A Python virtual environment is an isolated space for a Python project where you can install its own libraries and dependencies without affecting other Python projects on your computer
+- If multiple projects use the same Python environment, their dependencies might conflict
+- With separate virtual environments, each project can use its own version of libraries and modules without interfering with the other
+- It’s recommended that you set up a virtual env for each project for this reason
+Once you’re in a directory with a venv, just use the pip install package_name command to download the package inside the venv
+- The virtual environment uses whichever python version was used to create it, so you don’t have a separate version
+    - Only the libraries are different
+- Additionally, any libraries installed outside a virtual environment, are not available inside one, and libraries installed inside a virtual environment are not available outside it
+- Creating python virtual environments
+    - Go to the directory where your python project is located
+    - Run the following command: python -m venv .{name}
+        - Replace the curly braces and name with the name of your environment
+        - Standard practice is to use .venv
+    - This creates a .{name} folder in the directory
+- To activate the virtual environment
+    - Run the following command on windows if using gitbash:
+        - If you’re using git bash, then it’s 
+            - source .venv/Scripts/activate
+    - You will see (venv) before your terminal prompt if activated successfully
+- To deactivate
+    - Run the following command: deactivate
+    - You should always deactivate once you want to stop working on a project
