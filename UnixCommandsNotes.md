@@ -1,0 +1,149 @@
+# Unix Commands Notes
+- Commands - all of these are available on git bash
+    - pwd
+        - Prints the working directory path
+    - clear
+        - Clears the CLI of all content
+    - command -- help
+        - Replace command with the actual command
+        - Will show documentation about that command
+            - Including flags
+    - whoami
+        - Will show the logged in user
+    - date
+        - tells you the current date
+    - ls
+        - Lists out the contents of the directory you’re in
+        - If you provide a path to a directory following the ls command, it will print out the contents of that directory, even if you're not currently in it
+        - some flags
+            - a 
+                - Will show hidden files
+                    - Appear with a . in front
+            - -l 
+                - Shows additional info like permissions, owner, group, file size, and last modified date
+            - -r 
+                - reverse the list order
+    - cd
+        - By itself, it will take you back to the home directory from anywhere
+        - cd .. 
+            - will take you back one directory
+        - cd [path] 
+            - will take you to whichever directory you provided a path to
+            - Note if your directory has a space in it, wrap it with single quotes
+        - cd - 
+            - Takes you back to the last directory you were in
+        - cd directory_name
+            - Changes the directory to the one specified
+    - mkdir [directory name]
+        - Makes a directory in the current location with the provided name
+    - touch [filename]
+        - Creates a file with the provided name in the current location
+        - Can create multiple by just adding multiple file names with spaces between
+        - You need to provide the file extension as well
+    - cat [filename]
+        - Shows content in the console of that file
+        - cat -n [filename]
+            - n flag shows line numbers
+    - cp [filename] [filename]
+        - copies the file into the provided path
+        - And when we put a path to a file that is not present, we’re creating a new one but as a copy of the first file
+    - mv [filename] [filename]
+        - moves the file into the provided path
+            - Like cp, the filename can just be a path to that file
+        - Can also be used to rename a file
+            - mv [oldname] [newname]
+        - You can also rename a file while moving it by giving a new name in the path
+    - rm [filename]
+        - Deletes the file with the provided name
+        - rm -i [file]
+            - Will prompt you before deleting
+        - rm -r [directoryname]
+            - r flag needed to delete a directory
+        - rm -r -f [directoryname]
+            - f flag needed to delete a directory with contents
+    - Start [file name, directory, or URL]
+        - Will open the file, a file browser for the directory or the URL in a browser
+        - Only a windows based command- so can be used in command prompt or git bash
+        - For unix systems, use xdg-open [file_name]
+    - history
+        - Shows the last few commands run with associated key
+        - To run a recent command again
+    - ![key]
+    - grep [searchterm] [filename]
+        - Outputs onto the console all patterns that match the search term in the file
+    - cat > [filename]
+        - Opens an interpretive session in the console, where whatever you type is sent to the file
+            - If there is already content in the file, it will override
+        - Ctrl d will leave this session
+    - cat >> [filename]
+        - concatenates to the end of the file
+    - which [executable]
+        - gives the path to that executable
+    - less [filename]
+        - Shows the contents of the file in separate screen on the console
+        - q exits
+    - head [filename]
+        - Shows the first 10 lines of the file in the console
+        - head -n [lines] [filename]
+            - Shows the number of lines entered from the top
+    - tail [filename]
+        - Shows the bottom 10 lines of the file in the console
+        - tail -n [lines] [filename] 
+            - Shows the number of lines entered from the bottom
+    - echo [output]
+        - Will print out the entered text in the output section
+        - echo [output] > [filename]
+            - Saves the entered text to the file, and overrides any existing text
+        - You can also just create a new file by doing this
+        - echo [output] >> [filename]
+            - Appends the output to the file
+    - find [dirname] -name [filename]
+        - Finds the files that match the provided name in the provided directory
+        - To find empty files
+            - find [dirname] -empty
+        - find [dirname] -name [filename] > [filename]
+            - Output is sent to the file
+    - ln -s [filename] [symlinkname]
+        - Creates a symlink of the directory
+        - It’s like a portal to that directory, but the directory itself is not copied
+            - Like the files are still located in the original 
+        - You can remove it via rm
+    - tar -czvf [tarballfilename] [filename]
+        - Tar balls are like a compressed folder like zip
+        - Creates a compressed directory for the provided directory
+        - The file extension for the created folder is .tar.gz
+        - To see inside one
+            - tar - tzvf [filename]
+        - To extract
+            - tar -xzvf [filename]
+- Commands - linux specific- for windows use wsl
+    - Sudo command
+        - Replace the command with the command you want
+        - This gives you superuser permission to perform an action that is restricted
+            - Will need to type your account password
+    - Sudo apt install [application]
+        - Will install the application or package
+    - tldr command
+        - Gives you information about the command
+    - man command
+        - Gives you more detailed information about the command
+- Shortcuts
+    - Up and down keys will cycle through the latest commands
+    - Tab key will auto complete unix commands or list them out if there are many that are similar
+    - Ctrl l will clear the console
+    - Ctrl c will kill the command
+    - Ctrl r will allow you to find a recent command that matches what is being typed
+    - Ctrl d will kill the CLI
+- Tips
+    - Typically your home directory(where you start out when you open the CLI) will be your users folder
+        - Ex. c/users/specific_user on windows or /home/specific_user on linux
+    - A directory is a folder
+    - Can combine flags
+        - Ex. ls -a - l or ls -al
+    - Remember that instead of putting a filename or directory, we can put a path to those elements
+        - Allows us to perform operations when we’re not in a directory where those content are located
+    - When you provide the filename, also provide the extension\
+    - We can use piping via the > symbol to redirect output
+        - By default the output of all commands goes to stdout- standard output to display onto the cli, but we can redirect it to - files and other commands
+            - Ex. command > file.txt
+    - Use the double angle bracket to append to a file instead of overwriting it like the single angle bracket would

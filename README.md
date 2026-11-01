@@ -7,3 +7,4 @@
 - Windows Subsystem For Linux
 - Command Line
 - Windows Environment Variables
+- Unix Commands
