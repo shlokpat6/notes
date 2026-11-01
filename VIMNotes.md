@@ -1,0 +1,48 @@
+# VIM Notes
+- A text editor built into the CLI
+- The successor to VI
+    - It stands for VI improved
+- It is keyboard based
+    - Increases productivity as your hands remain on the keyboard rather than moving to the mouse
+- Entering VIM
+    - In your CLI type vim [file]
+        - This can be a new file you want to create or an existing one
+- Toggling between modes- mode reflect in bottom of cli
+    - You can only move between insert, command, and visual by returning to normal
+        - When you first start, you’ll be in normal mode
+        - To go back to normal mode from the other 3 modes, press esc
+    - normal mode by pressing esc
+        - Allows us to modify the file within a limit- largely just for viewing the code
+        - Moving around using the HJKL or the arrow keys
+            - H is left
+            - J is up
+            - K is down
+            - L is right
+        - X to remove following characters
+        - dd will remove an entire line
+        - r followed by the character will replace a character
+        - u will undo a change
+    - Command mode
+        - To get to this press esc
+        - Commands require the colon key first followed by the command
+        - Some commands
+            - :set number
+                - Will give us line numbers
+            - :lineNum
+                - Where lineNum is the particular line will take us to a line
+            - Leaving VIM
+                - :q will quit an unmodified file
+                - :q! will quit and ignore changes
+                - :wq will save and quit
+            - Saving VIM 
+                - :w will save
+    - insert mode
+        - Access by press esc followed by i
+        - Frees up the full keyboard to modify the code
+        - +p command will allow you to paste
+    - visual mode
+- Running directly from VIM
+    - :! [whatever you would type in the cli to run]
+- Extra commands
+    - Shift-I will move you to the front of the line and in insert mode from normal or command mode
+    - Shift- A will move you to the back of the line and in insert mode from normal or command mode
