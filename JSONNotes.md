@@ -1,0 +1,60 @@
+# JSON
+- Javascript object notation
+- A plain-text format for storing and exchanging structured data
+    - Uses key value pairs
+- It’s easy for humans to read and nearly every programming language can parse it 
+    - So standard format for web APIs and config files
+- JSON has only six kinds of values:
+    - String: text in double quotes, like "hello"
+    - Number: 42, 3.14, -7
+    - Boolean: true or false (lowercase)
+    - Null: null
+    - Object: a collection of key/value pairs in curly braces { }
+    - Array: an ordered list in square brackets [ ]
+- Ex. Uses all data types
+    - {
+        - "name": "Ada Lovelace",
+        - "age": 36,
+        - "isActive": true,
+        - "spouse": null,
+        - "languages": ["English", "French"],
+        - "address": {
+            - "city": "London",
+            - "country": "UK"
+        - }
+    - }
+- Syntax
+    - Keys must be strings in double quotes. {"name": "Ada"} is valid; {name: "Ada"} is not.
+    - Strings use double quotes only. Single quotes are invalid.
+    - No trailing commas. [1, 2, 3,] is an error.
+    - No comments. JSON has no // or /* */.
+    - Items are separated by commas, and keys are separated from values by colons.
+- For python, at the top import JSON
+- When data comes from outside your program, it arrives as a string of characters, not as an object
+    - Ex. 
+        - You download a response from a web API
+        - You read a .json file from disk
+        - Another program sends you a message
+    - In all those scenarios, your object is of string type, not dict, which is how a JSON object looks
+        - Python has no idea the string is structured data, so we need to load the string as that structured data to turn it into a dict
+    - Ex. if we are getting from a response. Use the .loads() not .load() as we're loading a string from memory not file
+        - text = '{"name": "Ada", "languages": ["English", "French"]}'
+        - data = json.loads(text)          # converts from string to dict
+    - Ex. if we are reading from a file. Say you have a file called person.json on disk containing the json object. We need to use the .load() not .loads(). f can be anything. we're just creating a file object called f
+        - with open("person.json") as f:
+            - data = json.load(f)
+- As a dict, we can access values, using key values pairs
+    - Ex. If our dict looks like {"name": "Ada", "languages": ["English", "French"]}
+        - data["name"]  # Gives us "Ada"
+        - data["languages"][0] # Gives us English; remember that languages is an array in our dict
+- When you need to send or save your data as text, use json.dumps and json.dump
+    - Ex. with our dict as person = {"name": "Ada", "age": 36, "isActive": True, "spouse": None, "languages": ["English", "French"]}
+        - We use dumps() when we want to convert the python object dict to a string for sending as a response
+            - text = json.dumps(person)
+        - We use dump() when we want to convert the python object dict to a file for saving on disc. The w means open for writing. Without it, python opens the file read-only and dump will fail.
+            - with open("person.json", "w") as f:
+                - json.dump(person, f)
+        - Both dumps() and dump() will accept the argument indent=2 or other num to add line breaks and spacing
+    
+
+
