@@ -1,0 +1,266 @@
+# Machine Learning
+- History
+    - 1950, Alan Turing proposed whether computers could immitate human intelligence
+    - 1956, Darthmouth workshop established AI as a formal field of research
+    - But early AI was limited
+        - Intelligence was imitated via if then statements(rule based systems)
+        - The approach lead to some impressive systems despite not being more than just programming
+            - 1997 IBM's Deep Blue beat the chess world champ
+            - But this was still a specific system build for a narrow domain
+        - The point is that rule based systems work well when the enviornment is well defined
+            - Not expecting anything beyond what was programmed
+    - The idea of neural networks has been around for a time
+        - Mimicing the human brain
+            - Take some input, pass it through a web of nodes called neurons applying weights and then produce an output
+                - Based on the idea that neurons are strongly and weakly connected together, and different conbinations of this lead to human intelligence
+                - Same thing with neural networks- recreate a brain like structure and use weights as the strength of connection between neurons
+        - But early neural networks were hard to train, as hardware was too weak, not enough data, and limited algorithms to actually make everything work
+        - One leap came with the backpropogation algorithm
+            - Gave neural networks a way to trace errors backward through the network and adjust weights to make it better for the next round
+        - The next leap came in 2012
+            - Neural network called AlexNet won the imagenet compition using GPUs
+                - Considred a breakthrough because we finally had strong enough GPUs, more data, and better algorithms to train the networks efficiently 
+        - Deep learning took over from there
+            - A few years after alex net, alpha go neural network used deep learning, reinforcement learning, and search to beat one of the best go players in the world
+                - Mattered because Go is challenging to just brute force
+        - 2017, tranformer architecture introduced
+            - Key for building modern LLMs and major AI systems used now
+- Machine learning is a way to build software where systems learn patterns from data instead of relying on human defined - rules
+    - Basically you collect examples and let the system learn useful patterns from them
+        - The point is that the real world can be messy and we cannot program every possible situtation, so a model that can learn these patterns itself is more efficient
+- In machine learning, we’re training a model- a part of the system that takes an input and produces a prediction with some math
+    - We don’t manually program every detail of the math aside from the actual formula
+        - During the training the model looks at many examples and adjusts its internal values- weights, improving it
+    - To say a machine is learning means that its parameters are changing so it’s better at a task
+- This is a broad field
+    - Simple models	
+        - Linear models
+        - Decision trees
+    - Complex models
+        - Neural networks
+        - LLMs
+- Ingredients of machine learning
+    - Data
+        - Raw material the model learns from
+            - A single piece of our dataset may be called a sample/ training example
+                - Ex. A single house entry
+            - Attributes of that sample are called features/ input variables
+                - Ex. SQFT, bedrooms, bathrooms, etc
+        - The value we want the model to predict is called the label/target
+            - These are the answers, and what we want the model to be able to predict given a sample with features
+            - Ex. House price
+    - Feature engineering
+        - Creating or transforming features so that they are easier for the model to learn from
+            - Ex. raw dataset might give use the year the house was built, but maybe the model would learn better if we say age of the house
+        - Features may come in different forms
+            - Categorical or numerical
+                - Models work in numbers, so the categorial features often have to be converted into numerical as part of data preparation
+            - Considered data preperation
+        - Critical because the model is only as good as the data it learns from
+    - Data distribution
+        - Pattern of examples that the model sees
+            - Want the data be complete and representative of real life
+            - Ex. we only give our model home samples from the subburbs
+                - Makes our model specific to suburban homes, but not representative of the broader field
+        - Bias in our data
+            - Incomplete, skewed, or not representative
+    - Point is that bad data can make even the best programmed model behave poorly
+- Machine learning happens in two phases
+    - Training phase
+        - This is the learning phase
+        - Ex. we show our house price predictor model past home samples and it learns to attribute features to a price
+        - Model makes a guess, checks how wrong it was, and updates its weights
+            - Ex. the house price predictor predicts a price, compares it to the target for that sample and adjusts it's weights so the predicition can be more accurate to get there
+        - When a model is learning, what changes is the internal values that the model uses to turn inputs into prediction
+            - Under the hood, the model is doing math
+                - A simple ex of our house prediction model
+                    - prediciton = weight * feature + weight * feature ... + bias
+        - Weight determines how much a feature matters in the mathematical formula
+        - A bias here is just the mathematical preset offset
+            - Basically says that even before we account for a feature, there is some value already baked in
+                - Ex. even before we account for house features, a house has some value
+        - The weight and the bias are known as parameters
+            - Parameters are internal values that a model adjusts during training
+                - These parameters represent the model's understanding and knowledge and shape the model's prediction
+            - Modern AI systems have hundreds of billions of parameters
+        - How the formula looks depends on the type of model(linear, decision tree, neural network, etc)
+            - The number of parameters also depends on the type of model
+        - How does the model know if the parameters are any good?
+            - A loss function measures how far off the models prediction is off the correct answer
+                - Ex. for our house price model 
+                    - error = predicted price - actual price
+            - But using just raw error by itself can be problematic because errors can cancel out in opposite direction
+            - One cmmon approach for numerical predictions is to square the error
+                - Loss = (prediction - real answer) ^ 2
+                - Benefits of this approach is that bigger issues are punished more
+                - But we don’t just want the error on one sample as it’s not representative of how the model performed across the samples, so we want an average
+                    - Mean squared error (MSE)
+                        - One squared error for each sample and average together
+                            - Tells us how wrong the model is across all the predictions
+            - We would use a different loss function for categorial predictions or other situations
+                - Point is that we're calculating error so the model can improve
+        - How does the model fix its error?
+            - Gradient descent is the process of updating the parameters in the direction that reduce loss
+            - Imagine a ball on a hill
+                - The height on the hill represents the loss
+                - A higher point means the model is making a worse prediction
+                - A lower point means the model is making better prediction 
+            - The goal is to get the ball to the lowest point
+            - The parameters are like the balls position
+            - The loss function creates a surface on the hill
+            - The gradient descent tells the model which direction to move
+                - Tells us the slope of the loss function at the models current position
+                - The gradient points in the direction where the loss increases the fastest
+                - To make the loss smaller, we want the opposite
+                    - Ex. for our house price model, the model could adjust the weight for the sqft parameter
+                    - Basic update rule =  new weight = old weight - learning rate x gradient
+                        - w_new = w_old - alpha x gradient
+                        - Basically new weight = old weight - learning rate(how big of a step the model takes) x direction/steepness
+                        - If the learning rate is too small, the model will not improve quick enough
+                        - If the learning rate is too large, the model will jump too high and overshoot and have to shoot back down later
+            - The model doesn't find the perfect answer for changing the parameter each time
+                - It makes small updates over and over again until it's good
+        - The model usually processes the dataset in batches
+            - Dataset divided into small groups called batches
+            - It predicts for one batch of samples, calculates its loss, and updates its parameters using gradient descent before moving to the next batch
+                - One full pass across all the batches is called an epoch
+                - Training runs for many epochs, meaning the model sees the full dataset multiple time
+                    - Over many batches, updates, and epochs, the parameters become better tuned to the data
+        - We also want to ensure that the model does not just train on the one dataset, as it could lead to overfitting
+            - Overfitting means it might learn the training data too closely and learn quirks that only apply to that dataset
+            - So we separate the dataset into train, validate, and test
+                - Training set is the data that the model learns from and updates its parameters
+                - The validation set is used to confirm if the model is overfitting or underfitting
+                - The test set is the final check after the model has been trained and we’ve made all the changes
+                    - Supposed to estimate how the data will perform on unseen data
+            - Often the splits look like this
+                - 70%, 15%, and 15%
+                - or 80%, 10%, and 10%
+            - We also want to avoid data leakage, where information from the validation or test set leaks into training data
+                - We want it to see brand new data, not have hints to the exam beforehand
+    - Inference
+        - The usage phase
+        - Take a trained model and give it a new input that we don’t have the answer for
+        - This is what we’re doing when we use a chatbot
+        - It’s not really learning(updating it’s weights) at this point
+- Types of learning
+    - Supervised machine learning
+        - The model is learning from examples where the answers are already provided
+            - The model gets the inputs, makes the prediction, compares that prediction to the label, and improves from that feedback
+        - For our house price model, we have features about homes, but we also provide the final sale price for each sample
+    - Unsupervised learning
+        - The model discovers patterns, groups, and structure without given the labels
+        - Because it’s trying to find structure in data, it’s good at grouping via patterns
+            - Known as clustering
+        - Not as good for prediction, but very good for classification and grouping
+        - Ex. Customer segmentation- a company may have information about how customer's browse websites
+            - The model might group people together who do specific actions
+- Classification vs regression
+    - Regression is when the model is predicting a number
+        - Ex. our house price model
+    - Classification is where a model predicts classes
+        - Ex. Spam filter because model decides spam or not spam
+            - The answer cannot just be anything
+    - Easiest way to understand is if we look at a graph
+        - For classification
+            - The model is trying to draw boundaries between categories
+            - These are decision boundary
+                - Either the point is in the boundary or not
+        - For regression
+            - The model is trying to fit a line between data
+    - For outputs
+        - For regression, you get a number directly
+            - For accuracy, we check how far we are off the expected value
+        - For classification, you get probabilities 
+            - Ex. 90% spam
+            - In terms of accuracy, you’re checking if the probability is high enough
+- Neural networks
+    - A machine learning model made of many small mathematical units connected together
+        - Small units called neurons
+            - Takes in an input, multiplies each input by a weight, adds them together and adds the bias
+                - Sum = w1x1 + w2x2… + bias
+                - The inputs are features, the weights decide how much that feature matters, and the bias shifts the result up or down
+    - The many small connected units can work together to learn complex patterns
+        - The neurons are grouped into layers
+        - Has in input layer, one or more hidden layers, and the output layer
+            - Input layer receives the data, the hidden layer process the data, the output layer produces the final prediction
+        - Activation function is a math rule that allows the model to learn more complex patterns
+            - Basically it's some formula that's more than just adding together the sums of each layers
+                - There would be no benefit to layering because it's just behaving as one long line
+            - ex. ReLu
+                - Turns negative numbers into zero and leaves positive numbers alone
+                    - Helps neural networks learn patterns that are not just straight lines
+        - Error handling works like before
+            - Model makes prediction, loss function gives the error, back propagation works backward to calculate the gradient, - gradient descent uses the gradient to update the biases and weights and model trys again
+            - Over many examples and updates, the model gets better
+    - Neural networks are powerful because they can learn useful information from just raw data, reducing the feature engineering workloud for researchers
+        - With feature engineering, we're crafting features that are useful by hand
+            Ex. We might add a feature like home age, total rooms, or distance from downtown for our price model
+        - Neural networks can learn internal features themselves rather than us providing defined features
+            - For images, earlier layers might learn simple features like edges, curves, and corners
+            - Later features may combine them to learn shapes
+    - Deep learning is a subset of machine learning where a neural network has many layers
+- The basic idea for large models like GPT to our house price model remains the same
+    - Some input fed through a model
+    - Model outputs a prediction
+    - Model measures the loss
+    - Model uses back propogation to go back and adjust it's parameters using gradient descent
+    - Repeat until meeting some criteria of accuracy
+    - The only difference is the scale and data
+        - Instead of house sale samples and predicting a digit, we're giving it tokens of text and predicting the next token
+- Large language models undergo multiple stages of training
+    - Pre-training
+        - Before text goes into model, it gets broken into fragments called tokens
+            - Can be full words, or parts of it depending on the tokenizer
+        - These tokens are all given some tokenid becaused the model works with numbers
+        - Token ids get converted into long lists of numbers known as embedding
+            - The different numbers in that list for a token represent some feature of it
+            - Tokens with similar meanings can get similar numerical representations
+        - Intitally, the model is really bad a predicting the next token, but through that training loop from earlier, it gets better 
+            - Along the way it’s learning features like grammar, structure, facts, code, etc
+                - This learning is represented by the weights
+        - So pre-training gives the model it's broad langauge ability, but it's still not a good assistant or chatbot
+            - Just a really good autocomplete
+    - Post-training
+        - Fine tuning
+            - Taking a pre-trained model and training it further on examples of how exactly we want the output or it to behave
+            - We could keep giving it inputs in the form of user/ assistant
+                - Teaches it to answer like an assistant
+        - RLHF- reinforcement learning from human feedback
+            - Train to select answers that humans prefer
+        - The point is that we’re shaping the model’s responses
+- Evaluation metric
+    - How we judge a model’s performance after it’s been trained
+        - Answer questions like how was its performance, how close was it, how often was the model right, and does it work on new data
+    - For regression data, we want to know how far was the predicted value from the expected
+        - One metric is mean absolute error(MAE)
+            - Tells us how far off the model is on average
+        - Another metric is Mean squared error( MSE)
+            - Squares the errors before averaging them
+        - RMSE
+            - Square root of MSE
+            - Brings the error back to original unit
+    - For classification
+        - Accuracy is the simplest metric
+            - What percentage of prediction did the model get right
+            - Not always enough
+        - Precision
+            - How often is it right
+        - Recall
+            - How many did it catch
+    - Tough to evaluate LLMs because many responses could be right
+        - We need a mix of benchmarks
+            - Factuality tests, human preference reading, math problems, coding tests, etc.
+- Transformer architecture
+    - Changed how language models processed sequences like text
+        - Before transformers LLMs had to process text step by step
+    - Made it so that models could at relationships between many tokens at once
+        - Key idea is called attention
+            - Gives context, which is critical for langauge because we string together words in all sorts of combinations
+                - Words take on different meaning when in different combos
+            - Which parts of the input matter most when making a prediction
+- Multimodal AI
+    - Before models were built around one modality- text, image, audio, etc
+    - Modern models are multi-model, meaning they can work across multiple types of data
+- Agents
+    - An agent is a system where a model can work towards a goal, choose actions, provided a set of skills and tools
