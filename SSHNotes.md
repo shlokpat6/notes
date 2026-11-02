@@ -1,0 +1,56 @@
+# SSH
+- SSH or Secure Shell is a protocol for securily controlling another computer over a network
+- When you ssh into another computer, you get a command line session on that machine, as if you were sitting at it's keyboard
+- How it works
+    - Client and server
+        - The computer you want to ssh into runs an ssh server that listens for ssh requests
+        - Your computer runs an ssh client that connects to it
+    - Identity check of the server
+        - The first time you connect, the server shows you it's "host key fingerprint"
+            - You accept it and your computer remembers it
+            - If this changes ever, you'll get a warning when you ssh
+                - Prevents gainst imposters
+    - Encrypted tunnel
+        - The two machines communicate via an encrypted tunnel, so everyhing is unreadable to anyone looking at the network
+    - Authentication
+        - Each time you ssh into a system, you'll be asked for the password of the system you're sshing into
+        - Altneratively, you could use a key pair  
+            - Generate keys on your computer
+                - Yields a public and private key
+            - Private key stays on your computer
+            - Public key you put on the computer you want to ssh into
+            - With the key pair, when you ssh, you don't need to provide a password
+    - Shell session
+        - You do every action via the terminal on your computer
+        - On the computer being ssh'd into, there's another terminal that's opened up
+- Setup with a windows client and linux server on the same network
+    - On the linux machine, open a terminal and install and start the ssh server
+        - sudo apt update
+        - sudo apt install openssh-server
+        - sudo systemctl enable --now ssh
+    - Check that it's running
+        - sudo systemctl status ssh
+    - Find the linux machine's IP
+        - hostname -I
+    - Find the linux machine's username
+        - whoami
+    - On the windows machine, open a CLI and check if the ssh client is installed
+        - By default windows 10 and 11 come with it
+        - ssh -V
+        - If you see a version number, you're set
+        - If you don't see it, go to Settings → Apps → Optional features → Add a feature, and install OpenSSH Client
+    - On the windows machine, run the following
+        - ssh username@192.168.1.50
+            - Replace username and the IP with your actual values
+            - This is just some dummy IP
+        - The first time, type yes when asked about the fingerprint, then enter your Linux password (nothing shows as you type; that’s normal). You’re in when you see the Linux prompt
+    - type exit on the windows machine to disconnect
+    - It's recommended to use the key value pair for security and convenience
+        - On windows, generate a key pair in the CLI
+            - ssh-keygen -t ed25519
+            - Press enter to accept the default location, and skip the password unless you want one
+        - Copy the public key to the linux machine
+            - type $env:USERPROFILE\.ssh\id_ed25519.pub | ssh username@192.168.1.50 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
+                - Replace the IP with the linux machine's 
+        - Now, when you ssh into the linux machine, you don't need the password
+            - If you provided a key passphrase during generation, you'll have to type that though
