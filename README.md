@@ -12,3 +12,4 @@
 - JSON
 - A.I. Infrastructure
 - Computer Hardware
+- SSH
