@@ -1,0 +1,238 @@
+# Large Langauge Models
+- Based on the idea the language with enough context is easily predictable- meaning you can predict the next word or code or anything, given the rest of whatever you are looking at 
+- So an LLM is predicting what’s coming next
+    - They are statistical models of language
+        - Extract patterns and relationships from massive amounts of text
+        - Then they build a mathematical representation of how words relate to each other
+- Often described as next token predictors for that reason
+- In 1950, Alun Turing proposed his famous turing test
+    - If a machine can communicate with a human indistinguishly from another human, it would be reasonable to say they were intelligent
+    - But if machines can be considered intelligent how to get there?
+- In 1966, Joseph Weizenbaum at MIT created Eliza
+    - One of the earliest chatbots
+    - It used pattern matching rules, meaning if a user says this, then respond with this
+        - A bunch of if then statements
+    - Showed signs of Natural Language Processing
+        - NLP is a field of study where we get computers to understand language
+            - Not just the words, but their meaning, differnt combinations, and things like slang
+                - All elements that makes language so complicated for new learners
+        - Users could respond the same sentence in different ways(tone/ phrasing, etc) and Eliza would be able to respond
+            - Really it was just more if/then statements covering different combinations of words
+- Eliza and the others that followed for the next few decades were rule based systems
+    - Essentially a programmer would have to go in and manually write all the conditions and responses
+    - If you wanted to make your system more intelligent, you’d have to go and write more rules, so it was more programming, not learning like modern systems
+- The jump from these early chatbots to modern ones like ChatGPT required a change in the methodology
+    - Instead of programming rules, what if we let our system learn what it needs
+- Before we can go prompting, we actually have to create and train this model to understand language
+    - When we use chatgpt, the prompt is sent to a pre-trained model
+    - The training process creates a program/files that lives on a server somewhere
+- LLM stands for Large Language Model
+    - It consists of a neural network- a system of interconnected nodes called neurons situated in layers
+    - Data flows through the input layers passes through one or more hidden layers and comes out through the output layer
+    - Each connection has a weight(a number that controls how much influence a single neuron has on the next)
+- A neural network is based on the idea that the brain’s neurons could be modeled as simple on/off logic gates
+    - Connect enough of them in the right configuration and they could in theory compute anything
+        - Based on the idea the neurons can have stronger or weak connections
+            - Leads to the idea of weights in neural networks
+    - Demonstrated by the Perceptron(a physical room sized machine)
+        - Shown images on cards and learned to classify them
+    - Proved by researchers that a single layer perceptron could not solve certain basic problems
+        - Ex. exclusive or
+            - Given two binary inputs, output a 1 if exactly one of the two inputs is one
+            - Mathematically impossible for a single layer perceptron
+            - Multilayer perceptrons could solve this, but difficult to train them effictively at that time
+    - Backpropagation is a method for training multi layered networks
+        - Model makes a prediction, measures how wrong it is, and propagates the error signal through each layer adjusting each weight to make the prediction slightly less wrong and repeat billions of time
+            - With enough data and epochs(cycles), it could get close to perfect
+        - Modern neural networks are trained via some variations of this backpropagation algorithm
+- A model is literally a file of weight values inside of it
+    - Overview of exclusive or code after starting to train
+        - Ex. a single layer
+            - Two input nodes to one output node
+                - Each input needs to be connected to the output node
+                - So two weight values
+            - The final calculation on the output node also has a bias value
+        - Ex. a very basic multi layer
+            - Two input layers to 4 hidden layer neurons
+                - Each input needs to connected to each neuron, so 8 total weight values and then 4 bias values
+            - One output neuron, so the 4 hidden layer nodes have to be connected to that, producing 4 more weights and then the bias - value of the output node
+        - Now, LLMs work similarly, but with much significantly more neurons and layers
+        - In terms of the training code
+            - You always need your inputs and then what the expected output is given those inputs
+            - We generate initial weights for each connection prior to the first run
+                - Usually randomized numbers
+            - You have a training function where you give the iterations where you calculate your current outputs, calculate how far off you are off your expected, backtrack, adjust weights, and then repeat
+                - Iterations called epochs
+                - Then for each iteration, we calculate the output by using the weights, the inputs, and the bias
+                - Compare the target to the output and calculate the delta
+                    - Target is the expected output
+                - Adjust all the weights and biases accordingly via backtracking
+                - Then repeat
+    - Note,
+        - The number of input nodes depends on how pieces of information you have
+            - For exclusive or, we have the two inputs, so two input nodes, but for a model that predicts the price of a house, maybe we look at square footage, number of bedrooms, number of bathrooms, age of the house, distance from downtown, so there's 5 input nodes for 5 pieces of information
+            - The point is that input nodes represent features
+                - For a photo that 100 x 100 pixel in greyscale, there might be 10,000 input nodes, one for each pixel
+                - For a photo that is 100x100 pixels in rgb, there might be 30000 input nodes, one for each color value per pixel
+            - So the input layer is generally determined by the structure of your data
+        - The output node count is determined by what you want the layer to accomplish
+            Ex. Predict house price, just one output node
+            Ex. Determine whether email is spam, just one output node
+            Ex. Classify and image into 5 categories, 5 nodes
+            Ex. Identify handwriten digits (0 - 9), 10 nodes
+        - The hidden layers are where the network learns to recognize patterns and relationships in input data
+            - Each layer learns representations that builds on what the previous layers have learned
+            - Developers experiement with differnt architectures and compare their performance on data the network hasn't been trained on
+            - So the hidden layer size is tought to identify ahead of time
+            - The same is true for the count of nodes within a layer
+                - Start with a small amount and see how accurate before adding more
+- A neural network doesn’t just accept your block of text as input - it has two steps before it even starts to output anything back to you
+    - It first breaks it into pieces called tokens
+        - A token is the smallest unit of text a language model works with
+            - It could be a word, fragments of a word, punctuation, whitespace, etc.
+            - The point is that because a computer doesn’t understand words the way we do, we can split input differently
+        - The point is that a model needs to convert our input into numbers, which it better understands
+            - It could do that with whole words, but there are problems
+                - Language is unlimited
+                    - Every variation of a word would needs it's own entry in the model's tokenization mapping
+                        - Ex. Running, runs, runner, rerunning, runners, rerunnable
+                    - And someone could invent a new word or use a word during inference that the model has never seen
+            - Subword tokenization fixes this issue by allowing the model to break words into smaller pieces that it can use to piece together words later
+                - Essentially it should be able to handle new inputs later on that the tokenizer had not seen before
+                - Ex. Unbelievable broken up into un, believ, able
+                    - The model can now build up unbelievable, believable, ability without actively having token ids for each of those explicitly
+        - The tokenizer is what does the tokenizing
+            - It is a separate piece of software that is paired to the LLM
+            - It is trained via Byte Pair Encoding(BPE)
+                - Usually looks like this
+                    - Start with smaller units, often characters or bytes
+                    - Examine the training text to find frequently occurring adjacent units
+                    - Merge frequent pairs into larger units
+                    - Repeat until the vocabulary reaches a chosen size or another stopping condition
+            - The benefits
+                - Smaller vocabulary
+                    - Instead of needing a separate token for every word, the model can reuse a relatively small collection of common words, - word fragments, and other text units
+                        - When it sees a word it doesn’t know, it could piece it together from these fragments
+            - Then these tokens get mapped to numbers
+                - A token's index number is assigned during the tokenizer's creation and training process, before the LLM is used by a user
+                    - So a sentence becomes a sequence of these numbers called token ids
+                    - The model does not infer any meaning from these numbers though, one token id does not mean it’s inherently more import than another
+                    - The IDs are just indices from the tokenizer’s training
+            - When you enter text during inference, the tokenizer looks up those already-established IDs
+        - Tokens have consequences
+            - Token count determine cost
+            - API calls are priced per tokens
+            - Every chat has a context window based on tokens
+    - To give tokens a numerical representation the neural network can work with, the LLM is trained to map token ids to vectors
+        - Simply put, embeddings are a way of turning words, sentences, or documents into numbers so an AI can understand their meaning and relationships
+            - Embeddings are important because they help AI systems work with meaning rather than just matching exact words
+        - The embedding part of the LLM sits at the front
+            - It has an embedding matrix that contains the vector embeddings it created from from training
+                - The embedding matrix is like a giant table as big as the number of tokens * the number of dimensions, because each token is seen on all the dimensions
+                - Embedding matrices are large
+                    - GPT 3’s largest models used 12288 dimensions
+                    - Each number captured one feature the model learned during training
+        - When you do inference, the embedding layer has to do a lookup essentially of the user’s input tokens/ token ids against this embedding table to find the corresponding vector embeddings
+        - Vectors are lists of numbers that identify points in high dimensional space
+            - Basically vectors nearby mean that they share meaning or are related
+                - Ex. Military and soldier are close but miltary and soccer are further apart
+        - Cosine simulatiry
+            - Looks at the angle between two vectors
+                - Score of 1 means identical
+                - Score of 0 means unrelated
+        - This embedding part of the LLM has to learn just like the rest of the llm through making predictions, checking against correct answers, and self-correcting
+            - It’s training data is a large amount of text that helps the model link words together, like king and queen and honey and bees, etc
+            - Basically you have to get it alot of text with sentences, chapters, paragraphs, etc, so it can start to contrast words with one another
+                - It can come to understand things like king is close to queen but king is not close to jet
+                - Basically it needs to see relationships by us putting things together
+- This tokenization and embedding is considered pre-processing in relation to a model
+- So what actually processes the tokens + embedding
+    - The transformer is responsible
+        - The transformer is a type of neural network architecture
+            - An architecture is just the blueprint for how a neural network is structured
+                - Defines things like- 
+                    - What computational layers the network contains
+                    - How information flows between the layers
+                    - What mathematical operations are performed
+                    - How the model represents and processes it’s inputs
+        - There are others
+            - Convolution neural networks (CNNs), used in imaging processing 
+            - Recurrent neural networks, used in sequential data before transformer became the dominant architecture in language modeling 
+    - Note, that it’s commonly said that the transformer is the entire neural network, and thereby the entire LLM, but it’s more accurate to say that the LLM is built up of the tokenizer, and the neural network and the neural network is built up of the input layers, embedding layer, transformer blocks, and the output layers
+    - As opposed to RNNs, a transformer lets each token gather relevant information from other tokens in the sequence
+    - The transformer portion of the neural network is made up of transformer blocks
+        - Each block has a self attention and feed-forward network step
+    - Self attention
+        - For every token's embedding, the model applies three learned mathematical transformations to produce three vectors:
+            - Query (Q): What information am I looking for?
+            - Key (K): What information do I have that might be relevant?
+            - Value (V): What information can I contribute if another token attends to me?
+        - Why three vectors? Because deciding what to look for, deciding what matches, and deciding what information to retrieve are three different jobs. The model learns separate representations for each. 
+        - For every token, the model compares every query against every key, scores the matches
+        - A higher score means that, in this attention head, the token's query matches the other token's key more strongly
+        - The scores are also not yet probabilities. The model converts them into normalized weights using a function called - softmax
+        - Softmax turns the scores into weights that add up to 1
+        - The model takes the value vectors from the tokens and forms a weighted sum
+        - The output is a new vector for each token, the same shape as the input but now carrying information from the rest of the sentence based on the info found during the comparison and scoring
+            - The result is a new representation for each token, informed by its context
+        - The purpose of this is that context helps the model make predictions because with just the embedding you could end up with a situation where bank in one sentence regarding a river and bank in a sentence with money, while having the same word, are two different things
+        - Attention fixes that
+    - Multi head attention
+        - Runs this operation many times in parallel with a different set of Q,K,V weights each time
+        - Each run is a head- nobody tells the heads what to focus on
+            - They actually specialize during training
+                - One might learn which pronoun pairs with which noun, verb tenses, position, etc
+        - Different heads can learn different kinds of relationships. Their results are combined. 
+        - The output gets combined into a single vector per token
+    - Feed forward token comes next	
+        - Each token’s vector(context enriched) now pass through a small two layer network
+        - The step is about processing the vector into something useful for the model
+    - There are hundreds to possibly thousands of these transformers blocks stacked on top of each other
+        - Each layer builds on the last
+            - Early layers tend to capture syntax
+            - Middle layers capture meaning
+            - Later layers capture reasoning
+    - The actual output of a transformer is a probability distribution- a score for every token in the vocabulary
+        - Raw scores are called logits
+    - Turn the logits into probabilities by algorithm called softmax - makes it so that all the probabilities for all the tokens add up to one
+        - The model doesn’t choose the most probably top token - it samples
+            - The temperature variable affects which one is most likely to be selected
+                - A low temperature results in a very predictable outcome
+                - A high temperature results in a very create less predictable distribution
+                - Zero would mean the transformer would predict the exact same token in that scenario every time
+            - Top-p is another variable
+                - It’s a cutoff, telling the model to only sample tokens that are in a certain probability distribution
+                    - Ex. 1 means every token gets a chance and .2 means only the top 20% are selected
+            - These two parameters are how we can get different outputs from the exact same input prompts
+    - All this only yields one token
+        - To get the next token, the model appends the newly produced token to the input and run the entire cycle again
+            - Cycle repeats until the whole output is generated
+        - The process is known as auto regressive generation
+            - Essentially, the model has no plan- just figuring out things as it goes
+- When you prompt a chatbot, the bot sees not only your current input, but also the system prompt, and all the previous - chat history
+- All of that info has to fit within a specific token limit called the context window
+    - This is essentially all the transformer can see when it’s producing the next token
+    - If it goes over, older history has to be cut off, leading to “memory” loss and hallucination and degradation 
+- Overview of inference
+    - Prompt gets broken down into tokens via the tokenizer
+    - Tokens get turned into embeddings giving the overall prompt meaning
+    - Embedded tokens pass through the transformer
+        - Attention grabs context from all those tokens and pass it onto the next block
+    - Finally a probability score comes out at the end
+        - Sampling with temperature and top p to select the next token
+    - Append that new token to the prompt and repeat in a loop
+- 3 rounds of training
+    - pre-training
+        - The models are trained on enormous datasets to make all this work
+            - Well known archive called common crawl, Wikipedia, reddit, github, digitized books, academic papers, news archive, and - copyrighted material 
+        - The result of this initial training(learning) is a really fancy autocomplete
+    - The second and third stages are where we turn this into a chatbot
+        - Finetuning is a secondary phase where we take a trained LLM and pass it through a new set of training set
+            - Massive refined list of question answer pairs of what we would actually like the chatbot to actually respond in
+            - With this, we slowly refine the weights in the model so that its output is more chatbot like rather than auto complete
+        - The final round is RLHF- reinforcement learning from human feedback
+            - Real humans are hired and rank responses based on what they think are good chatbot like responses
+- Tool calling gives it more functionality
+    - You can include available tools in your prompt so that the model can do things outside just the chat application and it's own knowledge base
+        - Ex. Search web
+        - The model itself isn't doing anything beyond jsut making a request to it's wrapper application called a harness, which actually reaches out to those services and performs the tasks
