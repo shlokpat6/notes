@@ -1,0 +1,81 @@
+# Prompt Engineering
+- Chatting with an LLM is like programming in natural language
+    - We’re giving instructions in plain language
+- Prompt engineering is about crafting the prompts in such a way to get the best results in the most efficient manner
+    - By doing this, we minimize token usage and time
+- For lengthy prompts, it might be more efficient to just use the speech to text feature
+    - Could use the native speech to text functionality in the llm
+    - Or we can use something like Wispr Flow, which can be used for anything even outside of the LLMS
+- How LLMs think
+    - LLMs are large language models
+    - They are trained on large amounts of data
+    - They then use that data to act as text prediction models
+        - It’s trying to predict what the next token should be in a sequence
+            - A token might be:
+                - a full word → "apple"
+                - part of a word → "predict" + "ion"
+                - punctuation → "."
+                - even spaces/newline patterns
+        - The model looks at the preceding text and assigns probabilities to possible next tokens:
+            - Then it picks one (sometimes the highest-probability one, sometimes a more varied choice depending on settings like - temperature).
+    - And it’s giving an output via tokens(text)
+        - So you give input tokens, and it gives output tokens
+    - By default, most LLMs will not use past chats to help with predicting
+        - We have to enable that part in the settings
+        - It will only use the previous chats in the current chat as part of its context
+    - Understand how “memory” works for LLMs
+        - There is no memory
+        - The LLM is receiving all previous messages, other chats(if enabled), and a whole lot of other information injected - alongside your prompt
+            - We just see the prompt, but the LLM is getting all this info in the background every time we send a prompt
+        - If we enable chat history recall, then that will be part of what is injected alongside your prompt
+        - This other injected information alongside your prompt is called context
+    - Context, specificity, and structure directly shape predictions
+        - More relevant context and clearer instructions→ more relevant and consistent outputs
+    - Streering vs commanding
+        - Commanding is worse- you’re telling it to do something, but without guiding it in a direction
+        - Steering is better
+- Best prompting techniques
+    - Be specific and set the scene
+         - Try to define the role, audience, tone, and format 
+    - Few shot prompting
+        - Give a few examples of inputs and outputs, so that the model can infer the pattern and replicate it
+            - Especially useful for format, style, edge cases, and classification
+        - In contrast, we have zero shot prompting, where we don’t give any examples, so the model has to decide more by itself
+            - We have to spend time altering it
+    - Chain of thought(CoT)
+        - Ask the model to reason step by step before giving final answer
+            - Reduces errors on logic, math, multi-step planning, and comparisons
+        - Some models like planning or reasoning models do this by default
+    - Structured output
+        - Ask the model to provide the output in some format(like JSON, table, XML, markdown, etc) and giving an example of - what you want
+            - The point is that you then have something you can parse and use in code or docs rather than some random markdown - format that the LLMs normally give that you then have to format yourself
+    - Constraints and negative instructions
+        - Telling the LLM what you don’t want and the constraints
+        - Reduces too long, too casual, wrong structure, or off-topic tangents
+    - Iterative refinement
+        - Treat prompting as a conversation, not a one shot- keep refining
+        - The idea is that sometimes iteration is normal, and faster than writing the perfect oneshot prompt
+    - Interview style prompting- let the model ask
+        - Give the model the task, and ask it to interview you for what it needs
+    - Advanced strategies
+        - System vs User Prompts
+            - System prompt: sets identity, rules, and style
+                - Basically, we’re telling the LLM to always behave this way when it’s responding
+                - Saves us from always having to tell it to behave this way
+                - LLMs will often come packaged with system prompts that make it usable for specific tasks- like cursor for development
+                - For ChatGPT, we have personalization that somewhat works like this
+            - User prompt: The actual request
+        - Prompt chaining
+            - Break complex tasks into multiple steps and use the output of the previous step in the next step’s prompt
+            - Improves reliability and makes it easier to fix or improve one step at a time
+        - Self evaluation
+            - Ask the model to critique or score its own output
+                - But do this in another chat, so there’s no bias, and don’t tell it an LLM gave the output
+        - Temperature and other parameters
+            - LLMS are generally non-deterministic- meaning there’s randomness in their responses
+            - We can adjust them to be more deterministic by adjusting the temperature
+                - Lower temperature means more deterministic
+                    - Good for facts, code, structured output, and consistency
+                - Higher temperature means less deterministic
+                    - Good for brainstorming, varied phrasing, multiple ideas
+
