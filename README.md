@@ -1,5 +1,5 @@
 # Notes
-- This repository contains my notes from my programming journey. Hopefully you find it useful as well!
+- This repository contains my notes from my programming journey. Hopefully you find it useful as well! 
 ## Contents
 - Python Virtual Environments
 - Markdown
@@ -10,3 +10,4 @@
 - Unix Commands
 - VIM
 - JSON
+- A.I. Infrastructure

@@ -1,0 +1,220 @@
+# AI Infrastructure
+- There are many AI applications like ChatGPT, Claude, Gemini
+    - They are models at the center with an application wrapped around them
+- The simplest model is a formula with weights
+    - The formula takes your input multiplies it by some value and produces some output
+        - That value to be multiplied by is called the weight
+            - It’s learned from training
+        - But this formula is complex because language is complex, so there’s many inputs and multiplications and the outputs of all those calculations is added together
+            - With this view, the weight's purpose becomes clear; it's influcing how much that one part of the formular matters
+                - Ex. 4x2 + 4x4 + 4x70
+                    - We can see that the weight for the third input is heavily influcing the total output
+            - The fact that the third attribute heavily influences the output is not something programmed
+                - The weight is calculated during training, in which the model adjusted the weights to meet this combination
+            - But keep going- add more parts to our formula and what if we put them in layers so that the output of one stretch of our formula becomes the input for the next
+            - This is how we ended up with that lattice/web/network of vectors and dots called a neural network
+            - One particular arrangement of this network is called a transformer
+                - The arrangement is called an architecture, and there are many types
+                    - It's not just the arragnement that differs per architecture, it's the underlying math and logic as well
+            - Now what makes modern AI assistants so different isn't often the transformer
+                - Generally similar in architecture, but what differs is the weights
+    - A model is just a page of code
+        - The knowledge is in the weights
+            - Produced from training
+            - Sit as a very large file full of numbers
+        - The model itself could be large or small depending on how many weights
+            - Ex. A small model at 2GB, a midsized model at 16GB, a large model at 140 GB, and the giants at 700GB
+    - To use a model file, you load the entire model in memory and hand the question as input and let the formula run all the weights over your input and you get your output
+- But if a model is just a file, and running it just means loading it in memory and doing some math, why can’t you run a model on your own computer?
+    - In your PC, there are two relevant parts
+        - The CPU
+            - Does the thinking- the calculation, the logic, the work
+            - General-purpose computing. Flexible, handles operating systems, application logic, and sequential tasks.
+        - The RAM
+            - Computer loads the data and instructions the CPU is currently working on here
+        - The two components sit separately, connected by a channel(a bus)
+        - The RAM feeds the CPU data(inputs) and then takes back the output
+            - This pairing works for most workloads on a computer
+    - At its core, running a model means running billions of small multiplications
+        - These operations don’t all depend on each other and can run in parallel
+        - A CPU is a few powerful cores that generally works through multiplication in sequence, leading to delays when running a model
+            - On average a CPU can perform about 10 TFLOPS
+    - A GPU is built in the opposite way of the CPU
+        - Highly parallel computing
+            - Excellent for large matrix multiplications, neural network training, and LLM inference
+        - It has thousands of small simple cores which can do math at the same time
+            - On average, a GPU can perform about a 1000 TFLOPS
+        - So a GPU solves the inefficient math problem, but it still needs the same data like the CPU did
+            - All those weights need to be stored somewhere and accessed quickly
+            - The RAM sits far away from the GPU with a narrow channel
+                - For a CPU performing a few tasks at a time, that’s fine, because you only need a small amount of data at a time
+                - But for a GPU that runs many multiplications in parallel, it’s a bottleneck
+                    - So cores are sitting idly
+        - The solution to the channel bottleneck is the provide the GPU its own memory that is built right on the card and is sitting next to the cores
+            - Called VRAM
+            - Allows for data to travel a shorter distance
+            - Also has a wider pipe to allow for a higher throughput
+            - The downside to its location and placement is that the VRAM is small and model sizes can be a few GB to hundreds of GB
+                - Need ways to efficiently handle large models
+        - So when comparing GPUs for AI workloads, we look at 3 numbers
+            - How much math the card can do(compute)- the TFLOPS
+            - How many weights/parameters can be stored(memory) - GB
+            - How fast the memory can be read(bandwidth) - TB/s
+        - The numbers go up across the board substantially when comparing a simple a single CPU vs rack server of combined CPUs to a NVIDIA data center card
+            - So the point is that GPU has to be the workhorse for AI
+        - The only downside to having AI inference on a GPU is that it could consume considerable power, generate heat, and compete with other GPU workloads
+            - For intense AI application workloads, this is fine, but for something simpler, an NPU is preferred
+    - NPU or Neural Processing Unit
+        - Specialized AI computing. Designed to execute common neural network operations with high power efficiency
+- We need software to load our model onto the GPU
+    - We can use the huggingface transformers library and specifically the pipelines function
+        - Basically you create a pipeline object by passing in a model, and the work needed(ex. text-generation)
+        - Then into that object, you just pass in your input text
+        - You take the output and parse it
+    - But this is just one script that you have to run every time when you have an input
+    - A real AI service has many users making requests at any time
+        - So something needs to be always on, listening to requests, and running efficiently
+            - The answer is a model server
+                - An example is vLLM
+                    - An always on server built on pytorch
+                    - Wraps a model into a service that can be accessed via a web api
+        - Using vLLM
+            - Use the serve command to load the model and load it into vRAM
+                - Will take a long time since all those weights have to be loaded into memory
+            - Then just send a web request from that same terminal to talk to it
+- But this model server is just one server, slow to start(loading all the parameters to memory), and expensive
+    - Plus it's just running on your computer
+- What is the model doing in the model server?
+    - Tokens
+        - LLMs do not read words the way we do
+            - It breaks down our inputs into “tokens”
+                - Basically a chunk of text that is treated as one unit
+                - Roughly 3/4s of an english word but the exact splitting of your prompt depends on the tokenizer/model used
+                - Tokens don’t have to be words- they can be an entire word, parts of a word, punctuation, whitespace 
+            - It does this because it needs to convert language into numbers
+                - The numbers are then the inputs to the model
+    - Your model is a prediction machine
+        - You’ve given your input, and the tokenizer has converted it into tokens
+        - Given those input tokens, it predicts the next token and adds it to the original token list and then repeats using that new token list to generate the next token in the sequence and keeps repeating until the entire output is generated that would make sense to a user
+            - So a 100 token answer would be like the model running the loop 100 times
+            - That’s why the model types the answer one word at a time, because you're watching each lap finish
+                - Hardware is strong enough that these laps are quick, so words come out quickly sequentially
+        - This loop in detail
+            - There are two halves
+                - When you provide an input, there is a pause for a moment by the model- sometimes you may notice this
+                    - The whole model is sitting in VRAM and gets loaded out of VRAM once and thousands of cores run through the entire prompt in a single pass
+                        - This produces
+                            - KV Cache- cache that stores the attention info for the tokens
+                                - Basically when your tokens run through the model, the model produces QKV tensors for each token that basically give each token context based on the other tokens
+                                    - Imagine having to recalculate those values every time a token had to be generated
+                                        - It's inefficient and compute heavy
+                                        - So the values are stored in the kv cache
+                            - Logits for the next token(next token probabilities)
+                            - Then followed by sampling, it chooses one of the logits to produce as the first token
+                    - This first half is called prefill
+                        - Compute heavy since the prompt can contain many tokens and the GPU needs to do many computations
+                            - It can do these in parallel which the GPU is good at
+                    - TTFT- time to first token
+                        - Counts the time from when the prefill is started to when it finishes to produce that first token
+                - Then the answer comes out steadily, the stream
+                    - This half is called decode
+                        - It writes the generated token as output and then goes back to repeat the cycle again and gets the next token
+                    - Far more sequential as now you’re just taking the new token generated and passing that through the model to yield a new token and add that to the KV Cache 
+                        - And repeat over and over until it's done
+                        - It can use the KV cache to not have to redo all the work it did before during that prefill stage
+                    - So now the compute bottleneck is gone, but the output still depends on how fast the model can be read out of memory each time for a new token and also bring in the growing size of the KV cache
+                    - Cores are barely doing any work here since you’re only working on that one new token
+                        - The work for the previous tokens was already done, so you don't have to compare every token to each other all over again for context, you only need to compare each to the new token and add the resulting QK tensors to the kv cache to make it easier for each new token
+                    - TPOT- time per output token
+                        - Will see this in comparison between model servers
+    - The LLM has a scratchpad
+        - Note, that for every prompt, there’s one GPU intensive prefill stage
+            - You take all the input tokens and generate a KV cache
+                - This is like saved work, which for every token from then on, the model does not have to repeat the steps for all the work it did on previous tokens
+                - It only has to do the compute work for the newly generated token
+                - Then the context info for each new token is added on top for the next run
+        - The kv cache is just for one request(a message and response)
+        - Every request you make restarts this prefill/decode cycle because you have a new input prompt that needs all the context work
+            - But it’s worse because the chat also needs to have context from the previous messages
+            - When you send your chat, you’re also including all the previous conversation along with your chat in the background
+            - So not only does the model have to do this expensive prefill stage every message but it also has to repeat the work for older messages along with each new message
+            - So the cost with a conversation grows with every message
+        - But there’s a fix to this issues; it’s called prefix caching
+            - You keep the kv cache from each request
+            - So now the model only has to do the costly prefill step for just the current message and uses the cache for all the previous messages
+            - So now each message takes about the same time as all the previous messages
+            - This is something you can enable for your chatbot application and save token costs
+- How can a single GPU serve many users at the same time
+    - Batching
+        - Pack many peoples request together and run them through the GPU at the same time
+        - You save on the costly loading of the model out of VRAM every time by just loading once and performing all the requests
+    - The limits to batching
+        - Memory is the ceiling
+            - Every user making a request as part of a batch has their own kv cache
+                - So now the models weights along with all these KV caches are taking up the GPUs memory 
+                    - So now new users have to wait or someone’s kv cache has to be thrown out
+            - So the cores are still available, but the memory is run out
+                - In real world, this causes an issue, because you don’t need more GPUs often, you just need more memory
+- What happens when your model is too big to fit on one GPU?
+    - You can bring in many GPUs and slice up your model
+        - Method is called sharding- solves the size issue
+    - vLLM can split your model and put them onto your GPUs and run them as one
+    - A model consists of layers
+        - Each layer is a formula( a sum of numbers)
+            - Your prompt enters at the top and flows down the stack
+            - Each layer adds up the number and provides it to the layers below it
+            - Until you get the final token
+    - So how to split your model?
+        - By layer
+            - Specific layers assigned to specific GPUs
+        - Within a layer
+            - Multiple GPUs work on parts of the same layer
+    - So which option?
+        - Depends on how your GPUs are located
+        - Inside a single machine, the GPUs are linked via NVLink
+            - This is ultra fast
+            - Most large models run this way
+            - Good for splitting within a layer where quick communication needs to happen
+        - GPUS split across many machines
+            - GPUs have to talk over the network
+            - Slower
+            - So with this method you now split via layers as with the slower communication, there will be a bottleneck if GPUS need to talk to each other on the same layer
+- To serve the world, you need a fleet of servers
+    - But how to split the request across to servers
+    - We can’t use a load balancer, because it assumes all messages are of equal importance and size and splits it out democratically and possibly to a server which does not have our kv cache, which makes things even slower
+    - So we need something that can tell when a servers memory is full, who's cache is saved where, and how long the queue is
+    - llm-d
+        - It’s a smart router that sits in front of the fleet of servers hosting llms
+        - When met with a request, it stops and thinks where that request should go
+            - To make the call, it looks at
+                - Which saved work a server has
+                - How full is the server’s memory right now
+                - Which pool of servers is for prefill and which is for decode
+                    - sends the request based on what task is needed
+                        - Remember prefills take longer, so does not make sense to stick a bunch of quicker decode tasks behind it
+                        - Also remember that prefill and decode have different bottlenecks
+                            - compute for prefill
+                                - so those servers would need stronger GPUs
+                            - memory for decode
+                                - So those servers would need more vram
+                    - A prefill server could then send the output to a decode server
+    - We have to tune llm-d right
+        - Need to know 
+            - How much a router should favor servers that have work already
+            - prefill vs decode server splits
+            - How many servers you're running
+            - How many GPUs a copy of a model spans
+            - How many requests each server batches
+        - right answer depends on model, hardware, and traffic
+        - Tuning by hand would take trial and error
+        - LLM offers a well lit path, meaning pre tuned knobs
+            - Each paths have been measured
+            - Three popular pathes for different decisions
+                - Optimized baseline
+                    - identical servers with cache aware routing and nothing else
+                - Split the work
+                    - prefill and decode split servers
+                - Spread the model
+                    - Spread the model across many GPUs
+- Kubernetes is the primary platform for all this to be deployed
+    - llm-d runs well on this
