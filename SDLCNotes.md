@@ -1,0 +1,185 @@
+# Software Development Life Cycle
+- SDLC is a structured process that software develpment teams follow to plan, design, build, test, deploy, and maintain applications
+    - Like a blueprint for building software
+- Rather than immediately jumping into writing code, a team follows a series of phases to make sure:
+    - The software solves the right problem
+    - Requirements are clearly understood
+    - The application is designed properly
+    - The code works as expected
+    - Security and quality standards are met
+    - The software can be maintained after release
+- The seven stages
+    - Phase 1: Planning
+        - Project begins here
+        - Team identifies the problem they are trying to solve and determines what it will take to build a solution
+        - Key activities
+            - Identify the problem
+            - Define the project goals and objectives
+            - Determine the project budget
+            - Establish timelines and milestones
+            - Identify risks
+            - Determine the resources and people needed
+            - Evaluate technical feasability
+        - People involved
+            - Project managers
+            - Business analysts
+            - Product owners
+            - Technical leads
+            - Stakeholders
+        - Deliverable: Project plan, feasibility study, budget, and initial project scope
+    - Phase 2: Requirement analysis
+        - Team begines gathering information about what the application needs to do
+        - Critical as it gives the developers instructions before building anything
+        - Requirements gathering falls into two categories
+            - Functional requiremenets
+                - These describe what the system must do
+                    - Ex. users can login, users can check account balances, users can transfer money, etc.
+            - Non- functional requirements
+                - Describe how well the system must operate
+                    - Ex. Application is secure, pages load within 2 seconds, supports thousands of simultaneous users, available 99% of time, etc
+        - People involved
+            - Business analysts
+            - Product owners
+            - Stakeholders
+            - Developers
+            - QA analysts
+        - Deliverable: Software Requirements Specification (SRS), user stories, acceptance criteria, and requirements documentation
+    - Phase 3: System design
+        - Once the team knows what the software must do, they need to decide how to build it
+        - Need to make decisions on
+            - System architecture
+            - Database structure
+            - User interface design
+            - Programming languages
+            - Frameworks and technologies
+            - Security architecture
+            - APIs and integration
+            - Infrastructure
+        - During the process may create
+            - Wireframes and screen mockups
+            - Database diagrams
+            - System architecture diagrams
+            - Data flow diagrams
+            - API specification
+        - Ex.
+            - Frontend: React
+            - Backend: Java/spring boot
+            - Database: Postgresql
+            - Hosting: AWS
+            - Authentication: OAuth 2.0
+            - APIs: REST APIs
+        - People involved
+            - Software architects
+            - UI/UX designers
+            - Database adminstrator
+            - Technical leads
+            - Developers
+            - Security engineers
+        - Deliverable: Software Design Document (SDD), architecture diagrams, database schemas, and UI prototypes
+    - Phase 4: Develpment(coding)
+        - Now the developers turn the designs and requirements into working software
+        - Key activities
+            - Build frontend components
+            - Develop backend functionality
+            - Create databases and tables
+            - Build APIs
+            - Integrate external services
+            - Implement authentication and security
+            - Perform code reviews
+            - Write unit tests
+        - Common tools
+            - VS Code
+            - Git
+            - GitHub
+        - People involved
+            - Software developers
+            - Frontend developers
+            - Backend developers
+            - Database developers
+            - Technical leads
+        - Deliverable: Working application code and completed software components
+    - Phase 5: Testing
+        - Software needs to be tested once it's developed to ensure quality
+            - The goal is to identify bugs, defects, security vulnerabilities, and performance issues before the software reaches customers
+        - Types of testing
+            - Unit testing 
+                - Tests individual functions or components.
+            - Integration testing
+                - Checks whether components work together.
+            - System testing
+                - Tests the entire application.
+            - User Acceptance Testing (UAT)
+                - Confirms the software meets business needs.
+            - Regression testing
+                - Ensures new changes haven't broken existing functionality.
+            - Peformance testing
+                - Checks speed, stability, and scalability
+            - Security testing
+                - Identifies vulnerabilities and security weaknesses
+        - If defects are found, they're documented and sent back to developers for correction
+            - Once fixed, the software is tested again
+        - People involved
+            - QA analysts
+            - Test engineers
+            - Automation engineers
+            - Developers
+            - Business usesrs
+        - Deliverable: Test plans, test cases, defect reports, and test results
+    - Phase 6: Deployment
+        - After the application passes the required testing and receives approval, it is released into the production environment
+        - Production is the live environment where actual customers use the application
+        - Activities include
+            - Preparing production servers
+            - Configuring databases
+            - Setting up application environments
+            - Deploying application code
+            - Configuring security and access
+            - Running production validation tests
+            - Monitoring the release
+        - Tools used in this stage
+            - Jenkins
+            - Github Actions
+            - Kubernetes
+            - Docker
+            - AWS
+        - People involved
+            - DevOps engineers
+            - Release managers
+            - Developers
+            - System adminstrators
+            - QA engineers
+        - Deliverable: Live production application
+    - Phase 7: Maintenance
+        - The SDLC doesn't end when the application is released
+        - With the application in consumer's hands, the team needs to continuously monitor and improve it
+        - Key activities
+            - Fix software bugs
+            - Apply security patches
+            - Improve performance
+            - Add new features
+            - Update dependencies
+            - Monitor application availability
+            - Respond to customer feedback
+            - Maintain infrastructure
+        - Eventually, when the software is obsolete, then it will no longer be maintained, and will be replaced
+        - Deliverable: Bug fixes, software updates, enhancements, and maintenance releases
+- Thing to note- 
+    - Real-world software development isn't always a straight line
+    - Teams often revisit earlier phases when requirements change, testing reveals problems, or customers request new features
+        - To structure this idea of revisitign old phases, there are SDLC methodologies
+- SDLC methodologies
+    - SDLC describes the phases of development
+    - A methodology describes how a team organizes and moves through those phases
+        - It's a mindset/ philosopy and there are specific frameworks to achieve each
+    - Two common methodologies
+        - Waterfall
+            - Each phase is generally completed before the next begins
+                - Basically run through the entire cycle with all the work and deliver the final product to customers at the end
+                    - Means that the customers won't see the product for a while
+                    - Changes are tough to make
+                    - More planning upfront
+            - Best for projects with stable, well-defined requirements
+        - Agile
+            - Work is delivered in smaller increments, with frequent feedback and adjustments, as stakeholders can see parts of the softare being delivered in chunks
+            - Best for projects where requirements evolve
+            - Scrum and Kanban are ways of implementing the agile methodology
