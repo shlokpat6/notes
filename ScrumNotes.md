@@ -1,0 +1,83 @@
+# Scrum
+- Scrum is one implementation of agile
+- Instead of spending months planning an entire project and delivering everything at the end, Scrum breaks work into short periods called Sprints
+    - A sprint typically lasts 1-4 weeks, with 2 being the most common time unit
+    - At the end of each sprint, the team should have completed a usuable piece of the product or project
+- The three scrum roles
+    - Product owner
+        - They are responsible for maximizing the value of the product
+        - Responsibilities
+            - Decide what needs to be built
+            - Prioritize work
+            - Manage the product backlog
+            - Communicate with stakeholders
+    - Scrum master
+        - Responsible for helping everyone understand and use scrum effectively
+        - Resonsibilities
+            - Facilitate scrum events
+            - Remove obstacles
+            - Coach the team
+            - Improve team collaboration
+    - Developers
+        - Resonsible for building the product
+        - Includes:
+            - Software engineers
+            - QA testers
+            - Designers
+            - Business analysts
+        - Resonsibilities
+            - Complete sprint work
+            - Collaborate with one another
+            - Deliver a usable product increment
+- The 5 scrum events
+    - Event 1: Sprint planning
+        - At the beginning of the sprint
+        - Team meets to decide what work they will accomplish during the upcoming sprint
+        - The result is the sprint backlog
+    - Event 2: daily scrum(daily stand-up)
+        - Every working day
+        - A short 15 minute meeting where developers inspect progress toward the sprint goal and adjust their plan
+        - Common topics include:
+            - What did I accomplish yesterday?
+            - What am I working on today?
+            - Are there any obstacles?
+        - The Daily Scrum isn't supposed to be a long status report to a manager. It's for the team to coordinate its work.
+    - Event 3: Sprint review
+        - End of the sprint
+        - The team demonstrates what it completed to stakeholders and gathers feedback
+        - Their feedback can influence future priorities
+    - Event 4: Sprint retrospective
+        - After the sprint review
+        - The team reflects on how it worked together and identifies improvements
+        - Focus on things like:
+            - What went well?
+            - What didn't go well?
+            - What should we improve next sprint?
+    - Event 5: The sprint
+        - The Sprint is the actual working period that contains the other events
+- The three scrum artifacts
+    - Artifact
+        - Everything that might need to be done for the project
+    - Sprint backlog
+        - Work select for the current sprint and the plan to deliver it
+    - Increment
+        - The usuable, completed product work produced during the sprint
+- The user story
+    - A user story describes a feature from the perspective of the person using the product
+    - Common format: "As a [type of user], I want [some functionality], so that [some benefit]."
+    - A user story can have acceptance criteria that explain what must happen for the story to be considered complete
+- Other scrum terminology
+    - Backlog refinement
+        - Review and clarifying upcoming work
+    - Story points
+        - Relative estimate of effort and complexity
+    - Velocity
+        - Amount of work completed over previous sprints
+    - Impediment
+        - Something blocking progress
+    - Definition of done
+        - Shared criteria for completed work
+    - Burndown chart
+        - Visual showing remaining work during a sprint
+    - Epic
+        - A larger body of work that can be broken into stories

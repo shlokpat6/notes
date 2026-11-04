@@ -17,3 +17,4 @@
 - Machine Learning
 - AI Agents
 - Software Development Lifecycle
+- Scrum
