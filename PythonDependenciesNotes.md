@@ -1,0 +1,59 @@
+# Python Dependencies
+- Dependencies in python are external python packages/libraries
+    - Packages/libraries are resusable collection of pre-written code modules that provide functions, classes, and utiltieis to perform specific tasks without writing the logic from scratch
+        - There are two cateogiries
+            - Standard libraries
+                - Bundled with every Python installation- do not need to install manually
+                - Provide access to system functionality and common programming solutions
+            - External libraries
+                - Third party packages available in the python package index that extend python's capabilities for specialized domains like data science, web development, machine learning, etc
+- Pip is the standard package installer for python
+    - Stands for pip install packages
+    - Use it to download, install, update, and manage libraries in python
+    - Connects to the Python Package Index (PyPI), a repository containing thousands of community-generated packages
+    - Common commands
+        - pip install package_name
+            - Downloads and installs the package from the Python Package Index
+        - pip uninstall package_name
+            - Uninstalls the packages
+        - pip --version
+            - Tells you the pip version
+            - Also gives you the path to the packages
+    - Where are packages installed
+        - Without a virtual environment
+            - Pip generally installs it into the Python installation's package directory 
+                - The site-packages folder is where Python stores installed third-party libraries
+        - With a virtual environment
+            - It does NOT install it into your global Python environment
+            - Installs the packages into the site-packages folder in the directory with the virtual environment
+- Requirements.txt
+    - A file in a python project used to list all the dependencies that your project needs to run
+        - Each line is a package
+            - Also you can provide the package version you want specifically using the ==
+                - Ex. flask==3.1.0
+    - Not necessary, but good to have so that anyone who downloads your project later can install all the necessary dependencies
+    - How to create it?
+        - Method 1: Manually
+            - Open the project folder
+            - Add a new file can call it requirements.txt
+                - Add the packages inside of it
+        - Method 2: Generate it automatically(recommended)
+            - If you have already installed all the libraries already for the project
+            - pip freeze > requirements .txt
+                - This automatically generates a list of installed packages and their versions in your current Python environment
+        - Method 3: In a virtual environment
+            - Typically the most common since virtual environments are recommended
+            - In your virtual environment, install the packages your project needs
+            - Then generate the requirements.txt
+                - pip freeze > requirements.txt
+    - How to use it?
+        - In the project folder, run 
+            - pip install -r requirements.txt
+        - Python's package installer will install all the dependencies listed in the file
+- Best practices
+    - Keep requirements.txt in your project's root folder
+    - Use a virtual environment (venv) for each project
+    - Avoid installing unnecessary packages
+    - Don't upload your venv folder to GitHub
+    - Commit requirements.txt to GitHub so other developers can reproduce your environment
+    

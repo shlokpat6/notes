@@ -18,3 +18,4 @@
 - AI Agents
 - Software Development Lifecycle
 - Scrum
+- Python Dependencies
