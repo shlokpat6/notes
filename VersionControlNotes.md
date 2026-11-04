@@ -1,0 +1,332 @@
+# Version Control
+## Git
+- Git is a version control system for code
+    - A version control system saves snapshots of code throughout the development cycle, allowing the developer to view - and go back to different snapshots of their code
+    - Process
+        - Work on code in a Git repository
+        - Allow Git to track the file(s) by adding them to a staging area
+        - Allow Git to commit( take snapshots of the file(s) in its current state)
+        - Make changes to the file(s)’s contents and submit it back to Git for staging and committing again
+        - Repeat step until no more changes are necessary
+        - End up with a series of snapshots of the file(s) over the time we worked on it
+        - At any point, we can view all the different versions of our file, spanning from our first savepoint to the most recent
+    - Benefits
+        - See and understand what we did and when
+        - Track down bugs
+        - Go back to previous versions of files, should something be unresolvable in the current one
+- Installing Git
+    - Mac and most Linux distributions will have Git pre-installed 
+    - Windows users will have to install git
+        - Download link - [Git - Downloads (git-scm.com)](http://git-scm.com)
+    - Note, if you’re the gitbash emulator, it also downloads git
+- Git configuration settings
+    - Username and email configuration settings are essential for associating your commits with your identity
+        - Git records author’s name and email address with each commit
+        - This way others and you can track who made what commits
+    - Different levels
+        - Global level
+            - Applies to all repositories of the current user
+            - Setting the username
+                - git config --global user.name “firstname lastname”
+                    - Quotes are needed because of spaces
+            - Setting the email
+                - git config --global user.email “emailaccount”
+            - Setting the default editor
+                - git config --global core.editor “code --wait”
+                    - For vs code
+                - git config –global core.editor “vim”
+                    - For vim
+            - Viewing and/or making changes to the git config file
+                - git config --global -e
+                    - Will open file in default editor
+        - Local level
+            - Applies to the current repository
+                - Useful when you have multiple github profiles and each repo is tied to a specific one
+                - The config will need to be made within the repo
+            - Will override any global settings
+            - Will be stored in the hidden .git/config file within the repo
+            - Username setting
+                - git config user.name “firstname lastname”
+            - Email setting
+                - git config user.email email_account
+            - Default editor
+                - git config core.editor “code --wait”
+                    - For vs code
+                - git config core.editor “vim”
+                    - For VIM
+            - Viewing and/or making changes to the text file with the settings
+                - git config -e
+                    - Will open file in default editor
+- Repository
+    - A directory/folder where a Git project is kept
+    - This is where we’ll be working; you create a repo for each new project
+    - Also known as a repo
+- Important files to have in your repos
+    - README.md file
+        - Recommended that every repo has one
+            - Contains the description of project, its importance, and how to use it
+        - Markdown is a lightweight text formatting syntax
+            - Basically a set of agreed-upon symbols that mean "format this text this way"
+            - You just type symbols around your text, so that when compiled, the file contents can be converted into nicely - rendered HTML
+                - Basically it’s a way to write HTML without having to write HTML
+        - Can be written in any text editor
+        - It's designed to be readable even in its raw, unrendered form — which is why it became so popular for README files
+    - Ignore files
+        - create .gitignore at root of the repo
+        - It should contain a list of whatever files, directories, and patterns you don’t want being committed and pushed to - a repo
+- First time setup
+    - If you’re going to be using git with github, it’s best to change what the default branch will be called in your git - config
+        - By default, github uses main, but git uses master, which causes conflict
+        - So change git to use main
+            - git config --global init.defaultBranch main
+        - Verify by running- should output main
+            - git config --global --get init.defaultBranch
+        - This changes the config globally, so you do not need to set this again on a per repo basis
+    - In all your repos, you should run the following commands to add readme and .gitignore files
+        - touch README.md
+        - touch .gitignore
+- Setup with GitHub
+    - Before pairing your local repo to the github remote repo, you must ensure there’s an ssh key pair setup between - your github profile and your computer
+        - If that is not setup, skip down to that step in the github section and then return
+    - Option 1- Create on Github first, then clone down
+        - Note, choose this path if you don’t have a local repo already
+        - 1. On GitHub, click New repository. Name it, choose public or private, and optionally tick Add a README, .gitignore, and license (GitHub will generate them for you)
+        - 2. Clone it
+            - On the repo home page on github, select the code button
+                - Select ssh and then copy the command below it
+                    - It should look like git clone https://github.com/username/repo.git
+            - On your pc, use the CLI to navigate to a location where you’d like the repo folder to be created and paste the command from above
+        - 3. Work normally: add files, commit, then git push. 
+            - Since we cloned from github, the origin remote is already configured, the default branch is already tracked, and - there's an initial commit if you chose a README. There's nothing to wire up by hand. 
+        - 4. For every new branch you add locally, you must run this command when pushing from that branch for the first - time, but with the branch name instead of main
+            - git push -u origin branch_name
+            - Subsequent pushes can just be git push because of -u flag
+    - Option 2- Create locally first, then push up
+        - Note, choose this path if you have a local repo already
+        - 1. If you have not set git to use main for its default branch globally, then you need to do that before you pair - with github
+            - git branch -M main 
+        - 2. On GitHub, create a new repository, but leave it empty: no README, no .gitignore, no license. Otherwise the histories will conflict when you push. 
+        - 3. Connect and push: We need to link our local repo to the remote one, so run the following commands (replace the username and repo with the details associated with github)
+            - git remote add origin https://github.com/username/repo.git
+                - This tells your local repo: "There's another copy of this project out there at this URL, and I'm going to call it origin."
+                    - git remote: the command family for managing connections to other copies of your repo.
+                    - add: create a new connection.
+                    origin: just a nickname for the connection. It's a convention, not a keyword. You could call it github or banana and it would work the same, but nearly everyone uses origin for the main remote, so tools and tutorials assume it.
+                    - The URL: where that remote copy lives.
+                - All this does is save a name-to-URL mapping in your local .git/config. Nothing is sent over the network. You can - see the result with:
+                    - git remote -v
+                        - Lists each remote with it’s url
+            - git push -u origin main
+                - This uploads your commits to the remote.
+                    - git push: send my commits to another repo.
+                    - origin: which remote to send them to (the nickname from above, so Git looks up the URL).
+                    - main: which local branch to send. It will create or update a branch of the same name on the remote.
+                    - -u (short for --set-upstream): remember this pairing, so my local main is linked to origin/main.
+                        - Without this, everytime you push up to the repo from local, you would have to type this full command
+                        - With this, for all subsequent pushes from this branch on this repo, you can just use git push
+                - For every new branch you add locally, you must run this command when pushing from that branch for the first time but with the branch name instead of main
+                    - Subsequent pushes can just be git push because of -u flag
+        - 4. Work normally: add files, commit, then git push
+
+
+- Git Commands
+    - Note, for many of the commands below, we could just use 1 dash and shorten the command down to the first letter
+    - git --version
+        - Check the git version
+    - git update-git-for-windows
+        - Downloads and installs the latest git version for windows
+    - git --help
+        - Shows a list and descriptions of common git commands based on situations
+    - git init
+        - To turn the current directory into a git repository
+        - When this is run, there are some hidden files found in the root of the directory
+            - Use ls- a to see them
+                - There is a .git folder, where all the info of the repo is stored it 
+    - git clone [link]
+        - Clones the repo to the current directory
+    - git status
+        - Tells you the status of your repo
+            - Untracked files
+                - New files that have never been tracked before
+            - Changes to be committed
+                - Files added to the staging area but not committed to git history via git commit
+            - nothing to commit, working tree clean
+                - All changes have been commit
+            - Changes not staged for commit
+                - A previously staged/commited file has changes which have not been added to the staging area again
+    - git add .
+        - Adds all the files in the repo to the staging area
+    - git add file_name
+        - Adds the selected file to the staging area
+        - You can add multiple files by keeping a space between the names
+    - git add -p filename
+        - opens the editor and allows you to select part of that file to add to the staging area
+            - Git will show each change individually and you just enter y or n if you want to add it to staging
+        - So now when you check git status, that file will be listed twice, once in the changes to be committed section and another in the changes not staged for commit
+    - git reset filename
+        - Will remove the file from the staging area
+    - git reset HEAD~1
+        - Head is a pointer to the last commit, so we’re telling git that the last commit should now be the one before the most recent, effectively disregarding our most recent commit
+    - git reset --hard commit-hash
+        - The changes will be completely removed
+    - git reset [commit hash]
+        - The changes will be unstaged
+    - Saving files/changes to git
+        - git commit -m “commit_message”
+            - Keep the quotes when inserting a message
+            - The message inside the quotes should indicate what the commit is for and why it is important
+                - Should be under 50 characters, in present tense, and concise
+        - git commit
+            - Will open the default editor
+            - Add subject message to top of file
+            - Add an empty line following that
+            - Then in the next line you can give the body if needed
+                - More detailed
+                    - What is now different than before
+                    - What’s the reason for the change?
+                    - Is there anything to watch out for?
+    - git log 
+        - Shows a list of all the commits so that we can go back
+    - git checkout commit-hash
+        - Grab the commit-hash from the git log
+        - Used when we want to see our files in a previous snapshot for debugging
+    - git push
+        - Push the committed changes from the local repo to the remote one for the brance you're in
+    - git pull
+        - Pull down the changes from the remote repo to the local one from the branc you're in
+    - Branching
+        - Branches are like an alternate timeline where we can work on new features and changes in a safe sandbox env where there isn’t a concern of damaging the codebase
+            - Changes made here only remain here, so a bug cannot impact the main branch
+        - Many branches can be open in parallel, as developers can be working on multiple features at once
+        - The main branch is called master
+            - This is where we are located when the repo is first initialized
+            - Can see which branch you’re on by looking at the tagline for the CLI
+        - When you create a branch, it contains all the changes from the root branch(where the branch was created= typically - master) up until that point
+        - But now changes made on one branch will not reflect on another branch, as they are technically separate timelines
+        - Branching strategies-
+            - A written convention
+                - Need to agree on a branching workflow in your team
+                - Git allows for the creation of branches, but does not tell you how to use them
+                - You need a written best practice of how work is ideally structured in the team
+                - It highly depends on your team/ your project/ and how you handle releases
+                - It helps to onboard new team members(“this is how we work here”)
+            - Two ends of the spectrum
+                - Mainline development (“Always be integrating”)- not very common
+                    - Few branches- things are constantly sent to production
+                    - Relatively small commits - to avoid issues
+                    - High quality testing and QA standards
+                - State, release, and feature branches
+                    - Branches enhance structures and workflows
+                    - Different types of branches, with each fulfilling different types of jobs
+                    - Feature branch, development branch, main branch, etc.
+                - Most teams work somewhere in between
+            - Two types of branches
+                - Long running
+                    - Exist through the lifetime of the project
+                    - Master/ main is one example
+                    - Integration branches called develop or staggings
+                        - They mirror stages in your dev life cycle
+                    - Common convention: no direct commits to long running branches
+                        - Commits should never reach these branches
+                        - Changes should be integrated using rebase or merge
+                - Short- lived branches
+                    - For new features, bug fixes, refactoring, experiments
+                    - Will be deleted after integration(merge/rebase)
+            - 2 example branching strategies
+                - Github flow
+                    - Very simple, very lean, only one long running branch(master) + feature branches
+                - Gitflow
+                    - More structure, more rules
+                    - Long running branches like master and develop
+                    - Short lived branches for features, releases, and hot fixes    
+        - Branching commands
+            - Old commands- still can use, but recommended to use new
+                - git checkout branch_name
+                    - Moving between branches
+                - git checkout -b branch_name
+                    - Creates a new branch and moves into it
+                - git checkout -
+                    - Switches back to previous branch
+            - New commands to replace the old ones in 2019
+                - git swtich branch_name
+                    - Moves to the provided branch
+                - git switch -c branch_name
+                    - Creates a new branch and moves into it
+                - git swtich -
+                    - Switches back to the previous branch
+            - Still active
+                - git branch
+                    - Lists all the branches
+                    - The star next to the name indicates which branch we’re on
+                    - When you are on a different commit, you’ll see that being referenced in git branch as well, as it will have a star next to it
+                - git branch branch_name
+                    - creates a new branch with the provided name but does not move into it
+                - git merge branch_name
+                    - Because our changes are localized only to the current branch, if we want to bring them over to another branch, we have to use this command
+                        - Especially useful to keep our branch updated with the latest from master, as others push to it
+                    - But we generally don’t use this to merge to master
+                    - This will bring the changes from the provided branch to the current branch we’re in
+                - git diff branch_name
+                    - Shows what’s different between the provided branch and the current branch we’re in
+                - git branch -d branch_name
+                    - Deletes the branch
+                    - Need to be in another branch at the time
+        - Instead of merging locally our branches to master, we use pull requests
+            - So we push our local branch changes to the remote equivalent and then making a pull request(PR) from the github web - interface
+                - A pull request is made to have code from one branch pulled into another branch 
+                    - Typically used for pulling code from a feature or hot-fix branch to a master branch
+                - Once a PR is approved, you generally delete the feature branch
+            - Whenever we push a commit in a branch to github, on it’s home screen, github will ask if we want to make a pull - request
+                - Or we can go to the pull request tab
+            - You can verify or select the branches you want merged
+            - Give a title and a comment 
+            - Github will let you know if there are merge conflicts or if a branch can be merged automatically 
+            - Once a PR has been submitted, viewers can leave comments, look through the commits, and files that were changed
+                - The idea is to have your changes peer reviewed by your team prior to integrating them
+            - This is also used when we want to contribute to repositories that we don’t have write access to
+        - Merge conflicts
+            - Can happen anytime you’re integrating commits from different sources
+                - git merge, git rebase, git pull, git stash reapply, git cherry pick
+            - Most of the time, merging works fine without conflicts, but if contradictory changes were made, then git cannot - tell which change you prefer
+            - Git will tell you when a conflict occured
+                - Right after you try integrating
+                - git status
+                    - Unmerged paths section
+            - You can undo an integration to not have to deal with the merge conflict right now
+                - git merge --abort
+                - git rebase --abort
+            - You can fix them in a few spaces
+                - You’ll see the merge conflict markers when you open the files with the merge conflicts
+                - One would be in github, another in the CLI using VIM, and another would be a code editor like VS Code
+                    - VS Code is ideal, as it is very visual
+                - Between the head symbols and the equal signs, is the code that is from the current branch we’re on
+                - Between the equal signs and the tail symbols, is the code coming from the other branch we’re trying to merge in from 
+                - Just make sure to make the changes, and remove the markers
+                    - Conflict resolution is about cleaning up the files
+                    - Might be necessary to talk to the other person who wrote the previous code
+            - You can set a default merge tool
+                - git config --global merge.tool vscode
+                - git config --global mergetool.vscode.cmd 'code --wait $MERGED'
+                    - or run git config --global mergetool.vscode.cmd 'code --wait --merge $REMOTE $LOCAL $BASE $MERGED'
+                        - If you want the base, local, and remote panels side by side in a dedicated merge editor, which is more visual and - easier to work with
+                - So now after you find a merge conflict, you can just run
+                    - git mergetool, and it opens that file in your editor
+                    - You resolve the conflict and close the file, and git continues
+        - Merge vs rebase
+            - The two most common ways to integrate changes
+                - Both combine changes from one branch into another, but they differ in how they handle commit history
+            - Merging
+                - Combines branches while preserving their original commit histories
+                    - Git combines the changes and typically creates a merge commit
+                    - The history still shows that two separate branches existed.
+            - Rebasing
+                - Moves your branch's commits on top of another branch, creating a cleaner, linear history
+                - Git has effectively rewritten your feature commits so that they appear to have been created after the branch you rebased into
+        - Forking
+            - This makes a complete copy of the repository to your Github account
+            - This is useful when we want to contribute to someone else’s repo, like an open source project, but we don’t have access to make changes to the original repo
+            - Then you can raise a pull request to merge your changes to that to the original repo
+    - Notes
+        - You should not commit all changes together
+            - It's better to add just a few related files to the staging area and commit those and do the same for others
+                - This way you have a better track record for the changes made if something goes wrong

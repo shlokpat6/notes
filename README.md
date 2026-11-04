@@ -19,3 +19,4 @@
 - Software Development Lifecycle
 - Scrum
 - Python Dependencies
+- Version Control
