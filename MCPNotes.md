@@ -1,0 +1,254 @@
+# Model Context Protocol (MCP)
+- Used to connect LLMs to external services
+- Not a replacement for APIs - its a layer that often sits on top o fthem that makes APIs reusable by LLMs in a standard way
+- The core issue with APIs
+    - Every API has it's own authentication, HTTP request, parameters, and response handling
+    - Someone had to write custom integrations for their LLM to work with these APIs
+        - This integration should handle things like:
+                - Authentication
+                    - Obtains and manages API credentials
+                - Request construction
+                    - Builds the correct URL< headers, and parameters
+                - Input validation
+                    - Makes sure required inputs are present
+                - Error handling
+                    - Handles timeouts, permissions, and API errors
+                - Response transformation
+                    - Converts API responses into useful output
+                - Tool deifinition
+                    - Explains to the AI what the operation does and how to invoke it
+    - So with N apps and M services, you end up with NxM custom integrations
+    - So the burden is the on AI application developer to write the code and write more redudant code for every additional AI service
+- What MCP adds
+    - One standard protocol
+        - Build a server for some service once, and any MCP compatible client(cluaude, IDES, agents, etc) can use it
+    - Built for models, not developers
+        - Tools come with machine readable descriptiosn and typed input schemas, so the LLM knows whats available and how to call it
+    - Runtime discovery
+        - The client asks the server what tools, resources, and prompts exists for it's underlying service at runtime
+    - Seperation of concerns
+        - The AI never sees the underlying implementation and execution of it's requests to the server
+    - So What MCP does is shifts the integration from the agent development side to the service side
+        - Our model never has to touch low level API integrations
+        - It can use NLP to interact with a server and get back content in a NLP manner it's also comfortable with
+            - All the low level details are obscured and handled by the server, keeping a speration of concerns
+        - The model is no longer responsible for handling the credentials, making the request, handling failures, and handing the result back to the model
+            - All of this is handled by the mcp server
+            - The model just makes the request to it
+            - So even if you're model was aware of all the api details if you provide it the OpenAPI docs, it would still need to handle all of this
+- Think of it as a translator
+    - It sits in front of an api or service so that the model can efficiently utilize them in a way works best for a model
+- Major external service developers often build their own MCP servers for their services
+    - Meaning you can just utilize that without building anything additioanl
+- But for your own internal services like a database or internal tool, you need to build it youself
+- The three roles
+    - MCP host
+        - The actual AI application
+        - Responsible for the user experience, deciding which servers to connect to, and enforcing permissions( asking the user to approve a tool call)
+    - MCP client
+        - A component inside the host that speaks the MCP protocol to one server
+        - One client per server connection
+        - The host spins up clients per the servers it needs access to
+        - The client handls the handshake, discovers what the server offers, sends tool calls, and returns results to the host
+    - MCP server
+        - The program that exposes capabilities: tools(actions), resources(data)
+        - Wraps around an external system like a database or SaaS API, or local filesystem
+        - Can run locally as a subprocess(communicating over stdio) or remotely (over http)
+    - The reason for the the role split is isolation
+        - Each server connection is independent, so one server cannot see another's data, and the host is in control of what the model is allowed to do
+- You need to provide your AI application, as list of serves ahead of time
+    - It's a configuration step
+        - In Claude Desktop or Cursor, that’s a JSON config file listing servers, each with either a command to launch (local, stdio) or a URL (remote)
+        - In claude.ai, it’s the connectors you add in settings
+        - In a custom agent, it’s whatever you hardcode or load from config
+    - Then the MCP host spins up the appropriate amount of clients to handle a potential communcation with each
+- At app spin up, the host spins up the necessary clients
+    - Discovery
+        - Steps
+            - 1: Discovery and handshake
+                - The client opens a connection (stdio for local servers, HTTP for remote) and sends an initialize request
+                - It includes the protocol version it supports and its own capabilities
+                - The server replies with its protocol version, its capabilities, and some basic info about itself
+                - The capabilities are the key part
+                    -   They’re a declaration of what kinds of things the server offers:
+                - So this tells the client “I have tools, resources, and prompts, and I’ll notify you if my tool list changes.” 
+                    - The client then sends an initialized notification to confirm, and the session is live
+                    - If a server doesn’t declare, say, prompts, the client knows not to ask for them
+                - For remote HTTP servers, there’s a discovery step before any of the above
+                    - If the server requires authorization, it responds with a 401 and points to metadata (via .well-known endpoints, following OAuth standards) describing which authorization server to use and what’s supported
+                    - The client uses that to run the OAuth flow, then proceeds with the handshake. So the client can connect to a server it has never seen before knowing only its URL
+            - 2: List what's available
+                - Now the client asks for specifics, using only the categories the server declared
+                    - tools/list returns the actions the server can perform
+                    - resources/list returns data the server can expose
+                    - prompts/list returns reusable prompt templates
+            - 3: The host gives it to the model
+                - The host takes those tool definitions from all connected clients and includes them in the request to the LLM (as the tool/function definitions in the model’s API)
+                - The model never talks to the server directly
+                    - It just sees “here are the tools you can call, and here’s the schema for each.” 
+                    - When it decides to use one for a task, the host routes the call to the right client, which sends tools/call to the right server
+            - 4: Staying current
+                - Servers aren’t static
+                    - If the tool set changes (a plugin loads, permissions change, a new database table appears), a server that declared listChanged sends a notifications/tools/list_changed message
+                    - The client re-runs tools/list and the host updates what the model sees
+                    - Resources work similarly, with subscribe letting a client get notified when a specific resource’s contents change
+        - Why this matters
+            - With a plain API, adding a new endpoint means someone updates the docs, the integration code, and often the prompt
+            - With MCP, the server is the source of truth: change the server, and every connected client picks it up at runtime
+            - The tradeoff is that quality depends on how well the server author writes descriptions and schemas, since that’s all the model has to go on
+                - Vague descriptions lead to the model picking the wrong tool or passing bad arguments.
+                    - The description and inputSchema are what make this work for LLMs. 
+                    - They’re the model’s only documentation for the tool
+- Local vs Remote
+    - There's two ways an MCP server can run
+        - Local
+            - AI app talks to the server over stdio locally on your computer
+        - Remote
+            - Server runs on the internet, so there's a url
+            - Client can connect to it via HTTP
+            - Necessary for production
+- Access control
+    - Since your remote MCP is on the internet, anyone who has the url can call the tools
+    - Need to handle access control
+        - Who is calling this?
+        - What are they allowed to do?
+        - Who are they doing it behalf of?
+    - Proper authentican scheme is OAUTH
+        - A static API key is a probelm
+            - If many agents are using an identical api key to access a server
+                - You cannot tell them apart
+                - If one is compromised, you have to kill the key and kill all the connections
+        - OAuth
+            - You don't have to build this
+            - But we integrate it into things like our mcp server
+                - The mcp server never signs into anything
+                    - When an agent tries to access an mcp server, the server responds with a 401 and points to metadata (via .well-known endpoints, following OAuth standards) describing which authorization server to use and what’s supported
+                    - The client goes to the authorization server, registers, and asks the server to send a link where the user can login
+                        - Called dynamic client registration
+                    - The user sees a normal login screen, and signup with whatever method is allowed
+                    - The server then hands the client a token
+                        - The client can then send the token to the mcp server with every request
+                            - Server checks the signature of the token, make sure it's for this specific server, check the permissions or scope inside the token and then run the tool
+                                - Permissions inside the token is called scopes
+                                    - Controls what the agent is able to do
+                            - Token tells the serve who the user is
+                                - Embedded in token data is also the user id and some other user info so that it can scale out for many users
+- Ex.
+    - You ask the host, “Summarize my latest Drive doc.”
+    - The LLM, which was told about available tools at startup, decides to call a Drive tool.
+    - The host (after any permission check) routes that call through the Drive client.
+    - The client sends it to the Drive server, which calls the real Drive API with its own credentials.
+    - The result flows back up through the client to the host, and the LLM uses it to answer.
+- Note
+    - The web versions of claude and gemini and chatgpt support many prebuilt connectors
+    - You can also utilize your own remote prebuilt connectors running on a server by providing a url
+    - Only the desktop versions of all these services provide local mcp server access
+- The nice thing is we don't have to build out all the indidivual mcp server components ourselves
+    - We can use existing frameworks like fastmcp
+- Building our own MCP servers using fastmcp
+    - Need to install and import fastmcp into our project
+    - Then below the import create out mcp instance by 
+        mcp = FastMCP("mcp_server_name)
+    - Write functions how we normally would
+        - But typically these functions would just call APIs or run some other functions that we want to give agents access to as opposed to doing those actions here
+        - Above the function name, add the function decoration @mcp.tool() 
+            - FastMCP will automatically add these to the schema as tools
+                - So when a cp client reaches out during discovery, the mcp server can say these tools exist
+        - We should defintely use docstrings her for the function description, as by default, fastmcp will add that to the schema
+            - Alternateively inside the paranetheses of the functional decoration, add description = "whatever description"
+                - This is used and if missing, uses the docstring
+        - Also adds type hints and return types
+            - Also added to the schema
+        - Having this info in our functions will create a higher quality response from our model
+    - Then we need to run our mcp server
+        - Local MCP server
+            - In our python mcp server file
+                - mcp.run()
+                    - Runs as stdio(standard input and output), our agent will run this as a subprocess within the terminal
+            - We need to also add the configuration to our ai agent
+                - Remember this is how the agent knows which mcp servers exists at the beginning
+                - So we go to wherever that agent's mcp configuration json file is and add the following
+                    - {
+                        - "mcpServers": {
+                            - "mcp_server_name": { 
+                                - "command": "python" 
+                                - "args":[ # These are the arguments being passed to this command
+                                    - "run",
+                                    - "--directory",
+                                    - "/path_to_mcp_server",
+                                    - "mcp_server_file_name"
+                                - ]
+                            - }
+                        - }
+                    - }
+                - Because we're running this locally, our agent will communicate to this server using the terminal, so that's why it needs all this
+                    - It's the same as what we'd type if we were running this in the terminal ourself
+            - Once it's added to the config file, the mcp server and it's tools will show up in our agent's specific area for installed mcp servers
+            - From there, our agent can start using these tools.
+                - We can ask it to use the tools or describe them, or it can decide to use them itself
+        - Remote MCP server
+            - In our python mcp server file, instead of just mcp.run()
+                - mcp.run(transport="http", host="0.0.0.0", port=8000) # We'd substitute host and port with whatever the server's ip and port number is when the fastmcp is running
+            - Now, we have to actually run this mcp server script and keep it running because this is a remote server
+                - python run file_name
+            - Then go to the agent mcp config file
+                - Add the following:
+                    - {
+                        - "mcpServers": {
+                            - "mcp_server_name": {
+                                "url": "http://localhost:8000/mcp" #Grab this url from the running fastmcp instance. Also need to add the /mcp at the
+                            }
+                        - }
+                    - }
+    - Note, many of the agents make it even easier to add mcp servers than having to add all this info into the config file
+        - Often it's just going to the connectors section and clicking add custom mcp
+        - Web version claude and chatgpt will only accept remote mcp servers
+        - Desktop versions will take local as well
+    - Adding access control
+        - For preventing acess to only these necessary
+        - Also for giving some identity via login, so we can have this used by multiple people
+            - Also scopes what they have access to
+        - We can use descope 
+            - Login and go to descope console
+            - Create a new project from the home page by clicking on the drop down at the top
+                - Name it for the mcp server
+                - Give it an environment type
+                - Create
+            - Once it's created, go to the agentic identity hub
+                - Go to mcp server
+                    - Add the details for our mcp server
+                        - Like the name and url from before
+                            - Make sure to add the /mcp at the end
+                    - Add the scropes
+                        - Ex. 
+                            - Scope name: notes:read
+                            - Description: Allow the user to read the notes
+                        - Basically these should relate to the functions in our mcp server
+                    - Enable CIMD
+                    - Press create
+                    - Copy the url
+        - Now in our mcp server file directory, add a .env file
+            - Add the url for both the descope autherization server and the mcp server in variables
+        - Now back in our mcp server file at the top of the file
+            - Install and import descope_mcp and dotenv
+            - Load the env with load_dotenv()
+            - Set variables for the env variables by calling them from the other .env file
+                - CONFIG_URL = os.environ["DESCOPE_CONFIG_URL"]
+                - SERVER_URL = os.environ["MCP_SERVER_URL", "the_actual_url"]
+                - BASE_URL = SERVER_URL.removesuffix("/mcp")
+            - Intialize the auth provider
+                - auth = DescopeProvider(
+                    - config_url=CONFIG_URL,
+                    - base_url = BASE_URL,
+                    - scopes_supported=["scope1", "scope2"] # Replaces these scopes with actual scopes from the auth server setup in descope
+                - )
+            - Create our mcp instance
+                - mcp = FastMCP("notes", auth=auth)
+            - Intialize descope with our descope url
+                - init_descope_mcp(well_known_url=CONFIG_URL, mcp_server_url=SERVER_URL)
+            - Then the rest of our mcp server code
+                - We'd adjust it so that the user/ identify part is implemented
+        
+                        
+                
+            
