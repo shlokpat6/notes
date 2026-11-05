@@ -72,6 +72,12 @@
             - Untracked - green
             - Modified - yellow
             - Deleted - red
+    - Lines are numbered
+    - The the right of the number, if the project has a git repo, there will be colors associated with changes
+        - Green - added line
+        - Red- remove line
+    - For large files, rather than scrolling, you can jump around using the quick jump window in the top right of the editor area by clicking file areas
+    - For markdown files, you can preview the text by clicking the preview to the side button on the top right of the editor area
     - At the top left of the editor, VSCode displays a graphic of the langauge based on the file type
         - Makes it easy to locate your file in many tabs
     - When you create a new file, you'll be asked if you want AI to generate code for you or select a language
