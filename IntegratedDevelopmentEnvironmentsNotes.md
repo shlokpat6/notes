@@ -1,0 +1,188 @@
+# Integrated Development Environments
+## General Info
+- IDEs are software applications where programmers can write, edit, test, and debug computer code in one place
+- What they include at the least:
+    - Code editor - where ou write programming code
+    - Debugger - helps you find and fix mistakes in your code
+    - Compiler or intepretor- helps you turn your code into something a computer can run
+    - Terminal - lets you execute commands
+    - Autocomplete- suggests code as you type
+- Ex.
+    - Visual Studio Code
+        - Popular
+        - Built by microsoft
+        - Support multiple programming languages
+        - Free and lightweight
+        - Customizable with extensions to add more functionality
+        - Also has an interface for version control and file management
+    - IntelliJ Idea
+        - Popular for Java
+    - PyCharm
+        - Popular for Python
+    - Android studio
+        - Used to build android applications
+    - RStudio
+        - Popular for R
+- There are many standalone code editors as well that just allow you to write code without all the bells and whistles
+    - Notepad++
+    - VIM
+## Visual Studio Code
+- Download at [Visual Studio Download Link](https://code.visualstudio.com/download)
+- Welcome screen
+    - Starting point for a project
+        - Create new files
+        - Open folders
+        - Clone repositories
+        - Guided walkthroughs
+        - Sign in with GitHub(recommended)
+- On the far left - activity bar
+    - Main navigation system between the major views in VS code
+        - Explorer
+            - Browse, create, edit, and delete project files and folders
+        - Search
+            - Look across the project at once
+            - Run, find, and replace operations across all the files
+                - Filter results using the 3 dots below the search
+        - Source Control
+            - Shows project git status if you're in a project with git repository
+            - Alternative to using the command line
+            - Files start appearing in the panel as changes are made
+                - Shows the status of those files via colored icons
+                    - Untracked - green
+                    - Modified - yellow
+                    - Deleted - red
+            - You can view the list of commits in the graphs section
+            - You can stage and commit changes with messages
+            - Many other git functions by clicking the three dots next to either the repo or the changes sections
+        - Run and Debugging
+            - Execute application and step through code using breakpoints
+        - Extensions
+            - Marketplace for pre-built extensions adding functionality to vscode
+            - Many are user developed, but some are from organizations like Microsoft
+            - Add support for new programming languages, formatting, debugging tools, or anything else
+                - Note, these extnsions for languages provide additional support and functionality, but are not necessary for most languages
+                    - VS code may already supports the language, but in order to utilize things like syntax highlighting, intelligent code completion, debugging tools, and language specific features with that language, you have to download the language specific extensions
+                    - For other languages, you may need to download the right extensions
+                - You don't have to configure anything, these are plug and play
+    - When you click on an icon, the panel immediately to the right display's the appropriate content
+    - You can open and close the detailed panel via ctrl b
+- Center of the screen is the code editor
+    - Supports multiple open files at the same time via tabs at the top of the editor
+        - If your files are from a git repo, they'll be color coordinated by status
+            - Untracked - green
+            - Modified - yellow
+            - Deleted - red
+    - At the top left of the editor, VSCode displays a graphic of the langauge based on the file type
+        - Makes it easy to locate your file in many tabs
+    - When you create a new file, you'll be asked if you want AI to generate code for you or select a language
+        - You can just start typing as well, and the editor will pick up the language
+        - If you choose the generate option, you just provide in natural language what you want for that file
+    - Intellisense
+        - As you type, a drop down menu will appear with suggestions for variables, functions, methods, snippets, etc
+    - Inline suggestions
+        - Reads the context of your code and suggests code that makes sense as faint grey texts
+        - Tools like github copilot are doing this
+        - Just press a key to accept the suggestions
+    - Hovering over elements will show brief documention
+    - Editing tools
+        - Multi cursor editor
+            - Holding alt and clicking in multiple places, you get multiple cursors and edit multiple lines simultaneously
+        - Find and replace
+            - Ctrl f and a find and replace menu will apear at top of code editor
+            - For just the file unlike the global search in the navigation bar
+        - Formatting
+            - Automatically formats code based on language
+            - Good for coping and pasting code
+- At the very bottom of the program is the status bar
+    - Provides real time information about your open file
+        - Shows details like the current git branch, any errors or warnings, current line, the column number, file encoding, the programming language
+- Right above the status bar is the panel area
+    - To open it and close it
+        - Ctrl tilde or ctrl j
+        - Or drag up from the top of the status bar
+    - Tabs
+        - Integrated terminal
+            - A built in command line interface
+            - When you first open the terminal or a new instance, it will ask if you want to use copilot cli
+                - To use it, just type copilot
+                - Otherwise just start typing
+            - Top right of the terminal has the following info:
+                - Which CLI you are using
+                - Plus button to add another CLI of the existing one
+                - Down arrow that lets to create another cli instance of a cli of your choice
+                    - Doing so will create a cli list to the very right of the terminal panel
+                - Split terminal for multiple terminal view
+                - Kill terminal
+            - You can run your apps, work with stdio, and execute git and unix commands here
+        - Output 
+        - Debug console
+        - Problems
+- Github Copilot Integration
+    - Since Microsoft bought GitHub, they integrated their AI into VSCode as a coding agent
+    - Inside VScode, it acts as your built in assistant
+    - Inline suggestions are a part of this, as are the code generation options at the opening of a new file
+    - To access the agent, press the chatbox button on the right of the search bar at the top of vs code
+        - Opens the agent window in the right of VS code
+    - Can add customizations like MCP servers by clicking the customizations button at the top right of the agent window
+    - Can toggle between ask, agent, and plan modes
+        - Plan mode
+            - Starts suggesting proposed changes in the window before it makes changes in the editor
+                - You can accept or ignore changes
+            - Basically will go back and forth with you until it has what it needs to proceed with coding
+        - Ask mode
+            - Straight forward questions and explanations
+        - Agent mode
+            - Can handle multi step tasks about your project
+- Settings
+    - Ctrl comma
+    - Per user or workspace
+        - User applies globally to projects
+        - Workspace are just for the currently open project
+## VIM
+- A text editor built into the CLI
+- The successor to VI
+    - It stands for VI improved
+- It is keyboard based
+    - Increases productivity as your hands remain on the keyboard rather than moving to the mouse
+- Entering VIM
+    - In your CLI type vim file_name
+        - This can be a new file you want to create or an existing one
+- Toggling between modes- mode reflect in bottom of cli
+    - You can only move between insert, command, and visual by returning to normal
+        - When you first start, you’ll be in normal mode
+        - To go back to normal mode from the other 3 modes, press esc
+    - normal mode by pressing esc
+        - Allows us to modify the file within a limit- largely just for viewing the code
+        - Moving around using the HJKL or the arrow keys
+            - H is left
+            - J is up
+            - K is down
+            - L is right
+        - X to remove following characters
+        - dd will remove an entire line
+        - r followed by the character will replace a character
+        - u will undo a change
+    - Command mode
+        - To get to this press esc
+        - Commands require the colon key first followed by the command
+        - Some commands
+            - :set number
+                - Will give us line numbers
+            - :lineNum
+                - Where lineNum is the particular line will take us to a line
+            - Leaving VIM
+                - :q will quit an unmodified file
+                - :q! will quit and ignore changes
+                - :wq will save and quit
+            - Saving VIM 
+                - :w will save
+    - insert mode
+        - Access by press esc followed by i
+        - Frees up the full keyboard to modify the code
+        - +p command will allow you to paste
+    - visual mode
+- Running directly from VIM
+    - :! [whatever you would type in the cli to run]
+- Extra commands
+    - Shift-I will move you to the front of the line and in insert mode from normal or command mode
+    - Shift- A will move you to the back of the line and in insert mode from normal or command mode
