@@ -17,9 +17,9 @@
 - Markdown
 - Version Control
 - Github
-
 - JSON
-- A.I. Infrastructure
 - LLMs
 - Machine Learning
+- A.I. Infrastructure
+- Model Context Protocol
 - AI Agents
