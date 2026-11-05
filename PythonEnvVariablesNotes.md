@@ -1,0 +1,45 @@
+# Environment Variables with Python
+- An environment variable is a named value that your operating system makes available to a running program.
+- Ex. include the Windows Environment Varibles like PATH
+- These are particularily useful when building python applications that need API keys, database credentials, passwords, etc. that should remain private and could change depending on where the application runs. 
+- Instead of hardcoding those values in our python scripts, we can store them as environment variables and call them in our scripts
+    - You can intiate the variables 2 ways
+        - One is in the CLI
+            - These would only be available for the session while that CLI is still open
+                - Once the CLI is closed, you'll have to declare the variables again
+            - We can access them in our scripts using the built-in os module
+                - os.getenv() retrieves the value associated with the environment variable
+                    - If the variable doesn't exist, it returns None by default.
+                - Ex.
+                    - In our CLI, we can initate variables
+                        - OPENAI_API_KEY = dummykey
+                        - DATABASE_PASSWORD = dummkey2
+                    - then in our script
+                        - import os
+                        - api_key = os.getenv("OPENAI_API_KEY")
+        - Another is in a .env file
+            - A .env file is simply a text file that stores environment variable definitions
+            - Ex. the file might have
+                - OPENAI_API_KEY=dummy1
+                - DATABASE_PASSWORD=dummy2
+            - One variable per line
+            - Python does not automatically read .env files
+                - You need a library to load them
+                - A popular Python library for this is python-dotenv
+                - In our script
+                    - import os
+                    - from dotenv import load_dotenv
+                    - load_dotenv() # Loads the variables from .env
+                    - variable_name = os.getenv("ENV_KEY") # replace the key with the specific key name
+    - Also note, environment variables are strings by default, so you need to convert values like booleans and numbers
+    - In either case, the format is VARIABLE_NAME=value
+- We use environment variables rather than just hardcoding them into our python program for a few reasons
+    - Hardcoding has a number of problems
+        - Your credentials are sitting directly in your source code
+            - If you share your code, you might accidentally share your credentials
+            - Changing credentials requires editing your Python code
+    - In contrast, using environment variables means that the api keys can easily be swapped out without having to modify the python code
+        - Also no one can see our keys
+    - So we need to use .gitignore and include .env in there
+        - So when we push up to github, the .env will not go up
+        - If someone downloads our program, they can create their own .env file and add the keys
