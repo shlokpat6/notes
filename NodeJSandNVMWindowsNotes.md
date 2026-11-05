@@ -35,3 +35,15 @@
 - Switching between node.js version
     - In your cli, type nvm use version_number
     - This will switch to that version
+- Seeing which node.js versions are installed with nvm
+    - nvm list
+        - Also shows which one is active
+## Node Package eXecute (npx)
+    - This command comes bundled with npm
+    - Lets you run a package's command without installing it permanently
+        -  npx looks for the package locally first; if it isn’t there, it downloads it to a temporary cache, runs it, and leaves your global packages untouched
+        - While it doesn't permanently download to where you global packages are, it does download it and store it in a cache
+            - If that cache were cleared, then you'd the next time you run the command, it will take a while again to download
+    - It's useful if you just want to try things without commitment
+    - Just have to add the command npx in front of the command
+        - Ex. npx n8n
