@@ -168,8 +168,9 @@
                     - 300 = current (Zen 5 era)
                     - 400 = next (refresh / newer)
                 - 50 (in 350) → SKU level (higher = better)
-- Apple Unified Memory and Apple Silicon and the connection to AI
-    - CPU, GPU, and NPU shared a single pool of memory
-        - Compared to tradtional layout where there was seperate RAM for CPUs and VRAM GPUs
-    - With Apple silicon chips, the bandwith for the unified memory is higher than RAM and on par with VRAM
-    - Because the GPU has access to significantly more memory, it makes apple silicon devices with unified memory good devices for running local AI for inference
+- Unified Memory
+    - On many newer higher end windows laptops and all macbooks, there is unified memory    
+        - The CPU, GPU, and NPU shared a single pool of memory
+            - Compared to tradtional layout where there was seperate RAM for CPUs and VRAM GPUs
+        - The bandwith for the unified memory is higher than RAM and on par with VRAM
+        - Because the GPU has access to significantly more memory, it makes unified memory devices great for running local AI for inference
