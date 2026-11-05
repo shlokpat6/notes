@@ -1,0 +1,37 @@
+# Node.JS and NodeJS Version Manager for Windows
+## Node JS
+- Normally, Javascript only runs inside web browsers like chrome
+- Node.js is a software that allows Javascript programs to run on your computer or server without needing a web browser
+- Download it here [NodeJS Download](https://nodejs.org/?utm_source=chatgpt.com)
+- It comes with NPM- the node package manager
+    - It's like an app store for javascript software
+        - Let's you manage applications and libraries
+            - Install, update, and uninstall
+- Sometimes, these applications we download via NPM require certain nodejs versions, so we need a manager to switch between node.js versions
+## Node.js Version Manager for Windows
+- Before getting started, uninstall the node.js version you have installed from settings
+    - You'll install the node.js version via nvm later
+- Install link
+    - [NVM Download Page](https://docs.nvm-windows.com/install/installers)
+        - Clicking download will take you to the github page, where you'll select the most recent version for your architecture
+            - Link found in the asset section
+- Download and run the installer
+    - Follow the prompts with the default selections
+- Check if install went correctly
+    - In your cli, type nvm version
+        - Should see a version number
+- Installing a node.js version
+    - In your cli, type nvm install version_number
+        - you could provide the major install number like 24 or something specific like 24.6.3
+            - Major will just install the latest
+- Verifying node.js version install was succesful
+    - In your cli run the following
+        - node -v
+        - npm -v
+    - You should get a version number for the node.js install and the npm install
+- Activating a node.js version
+    - In your cli, type nvm use version_number
+    - This will now be the node.js version that your applications will use
+- Switching between node.js version
+    - In your cli, type nvm use version_number
+    - This will switch to that version

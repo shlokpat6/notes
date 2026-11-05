@@ -14,6 +14,7 @@
 - Integrated Developement Environments
 - Python Virtual Environments
 - Python Dependencies
+- Environment Variables in Python
 - Markdown
 - Version Control
 - Github
@@ -23,3 +24,4 @@
 - A.I. Infrastructure
 - Model Context Protocol
 - AI Agents
+- node.js and NVM Windows
