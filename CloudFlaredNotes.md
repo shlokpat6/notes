@@ -1,0 +1,28 @@
+# Cloudflare Tunnel (Cloudflared)
+- A free service that lets you securely expose an application or server running on your local computer or private network to the internet without opening ports on your router or exposing your public IP address
+- Normally, if you want someone on the internet to access a web application running on your home server, you might need to:
+    - Open ports on your router (port forwarding)
+    - Configure your firewall
+    - Have a public IP address
+    - Configure HTTPS and SSL certificates
+    - Deal with security risks from exposing your server
+- Cloudflared is Cloudflare's lightweight command-line application that makes this possible
+    - You install it on the machine hosting your application and run it via cli
+    - It:
+        - Establishes an encrypted connection to Cloudflare
+        - Maintains the tunnel
+        - Routes incoming requests to your local applications
+        - Handles communication between your private network and Cloudflare
+- This could be useful for
+    - Sharing a locally running website with someone without deploying it to a public hosting provider
+    - Accessing your home server, NAS, Docker containers, and dashboards remotely
+- Downloading and installing
+    - Download from [Cloudflared](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/downloads/?utm_source=chatgpt.com)
+    - Verify install with cloudflared --version in your cli
+- Using it
+    - Run in your cli
+        - cloudflared tunnel --url http://localhost:8080
+            - Replace the local url with whatever yours is
+    - It will give you a public address that you can then open on any other device even when you're away from home
+- Note, anyone who has the generated URL can access your application unless you add access restrictions
+    - Don't expose sensitive admin dashboards without authentication
