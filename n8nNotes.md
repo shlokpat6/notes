@@ -1,0 +1,160 @@
+# n8n
+- n8n is primarly a workflow automation and orchestration platform, similar to Zapier and Microsoft Power Automate, but it has stronger capabilities for building AI-powered workflows and agents
+    - Workflow automation tools connect applications, APIs, databases, and services
+    - Workflows triggered based on events, conditions, schedules, and business rules
+- From a workflow automation standpoint, it that allows you to take some input trigger(website form submission, database write, github issue, voice command, etc) and take the data from that event and run it through a pipeline of steps that might include 3rd party apps or your own code
+- It can be run 2 ways
+    - Cloud hosted via the website
+        - Not free
+        - But no real setup difficulty
+    - Self hosted
+        - Run locally on your computer
+        - A few options here as well
+            - Docker compose
+                - Best options, but only if you already know docker
+            - Running directly on node.js
+                - Recommended if just getting started due to ease of setup and no cost
+            - Running on a vps or another pc you can leave on all the time
+                - VPS usually charge a fixed monthly rate
+- It's not fully open source- while the source code is available on github and you can modify, you cannot release as your own product
+    - It's source availabl, meaning we can modify and keep internally
+- If running locally, needs nodejs and npm installed
+    - Ensure you have the appropriate node.js version installed
+- If using nvm manager, download the appropriate version and switch to it
+- Installing n8n
+    - In your cli, enter npm install -g n8n
+        - This could take up to 10 minutes or so with heavy cpu usage
+        - You might see some ersolve and depreciated messages
+            - That's fine
+    - Once it's done, you should see added some packages in some time and you'll have your cli access back
+- Using n8n
+    - In the cli, type n8n
+    - It may take a few seconds, but the cli will prompt you to type o or just copy the url into your browser
+    - For a first time setup, you'll be asked to create an account
+    - Then just follow the rest of the setup steps
+    - In the home page, you have the option to build an agent or build a workflow
+    - UI overview
+        - On the far left is the naviagation bar
+            - Plus
+                - For creating anything new like workflows, agents, credentials, folders, data tables, ai chats
+            - Search
+                - Look through documentations or find a project
+            - Assistant
+                - AI assisted development
+                    - Runs on any model you connect via api
+            - Overview
+                - Shows runtime, execution counts, failure rate, list of projects
+            - Personal  
+                - Shows a list of all projects
+            - Insights
+                - Just shows the metrics for all your projects
+            - Templates
+                - Other user built projects that you can import and use
+            - Help
+                - Documentation
+            - Settings
+        - Within a project
+            - In the middle is the canvas
+                - You add nodes here
+                - You can navigate around the canvas via trackpad on your laptop or by holding down the scroll wheel on your mouse
+                - Bottom left of canvas are view options
+                    - Zoom to fit
+                    - Zoom in
+                    - Zoom out
+                    - Tidy up
+                        - Lays out all the nodes in an ordered manner
+                - Bottom center of canvas
+                    - Execute button to run your workflow
+                - Bottom of screen
+                    - Log area to show errors post executing
+                - Right of canvas
+                    - Add nodes
+                - Top right
+                    - Publish
+                - Top center
+                    - Editor view
+                        - Where you add and edit nodes
+                    - Executions
+                        - See all the run executions
+                    - Evaluations
+    - Building a workflo    
+        - Click new workflow
+            - Brought to canvas
+        - Click the plus button to add a node
+        - All workflows start with a trigger- something to initate the workflow
+            - Drag the nodes to the canvas
+                - Every time you do this, the settings for that connector will appear
+        - Many apps/service have connectors built into n8n, but we can add additional ones ourselves
+        - Other than the trigger, the other connectors have an input and output sections
+        - For tools we add, we need to provide credentials
+            - Only need to do it once for each
+                - Credentials saved for any other time in new workflows
+            - For most, go the website for that service and grab the api key
+                - Paste the key in the access token field
+        - If you need to go back into the settings of a node, just double click it
+        - Connect nodes by dragging from the output of one to an input of another
+        - When in the settings for a node, you can execute it to test the functionality
+            - This produces elements in the output section
+            - You can pin it so that you don't have to keep running the node to have output schema for later
+        - Once you execute a node, it's output schema will appear as the input schema for the next connecting node
+            - Useful to drag schema elements into our message or output
+                - As you drag schema into your message boxes, a preview appears
+                    - But you can also see the expression for the json in the message box
+                - The $json just means it was a json object that cames from the previous node
+                    - The .field_name is just the specific field from that json object
+        - You can also modify data using functions
+            - Just search for common functions online
+        - Also it's best in options for the node settings to disable append n8n attribution
+            - Disables the sent with n8n message
+        - Once you've added all the nodes, you can run execute on the entire flow
+        - You can drag nodes all over the place to help you visualize
+- The 5 node types in n8n
+    - Trigger nodes
+        - Every workflow starts with on
+        - On schedule, on form submission, on chat input, webhook call, etc
+    - Actions
+        - Take actions in apps
+        - Many pre-built integrations to major services
+            - Airtable, Asana, Github, Calendar, Gmail, Sheets, Notion, Perplexity, Youtube, etc
+        - These are really just pre-filled http requests to services apis
+    - HTTP request node
+        - The universal adapter
+        - Lets you connect to any api when it's not on the pre-built list
+    - Logic nodes
+        - Control how data flows
+        - Filter, branch, merge, or loop on conditionals like if
+    - AI Agent Node
+        - AI agent node powers the final build
+        - Connects to language model
+        - Adds memory
+        - Attach tools
+        - Give it goals, and it decides which tools to use based on it's own reasoning
+- Automation vs agents
+    - Automation is static and rule based
+        - Follows a fixed path from A to B to C
+            - Even if it branches, merges, and uses AI along the way, its still just executing predefined steps
+    - Agent means dynamic and flexible
+        - Can reason, plan, and decide which tools to use based on context
+        - At their core, agents relie on three things and n8n's agent node allows you to setup all three
+            - The brain - llm
+            - Memory
+                - Gives agent context or pull from outside sources using rag
+            - Tools- how it interacts with external world  
+- Building an agent
+    - Can handle all sorts of tasks
+    - Need to add memory so that the model remembers things after a message
+        - Remember this isn't the full chatbot- so we're not creating a new chat where it has all the messages
+        - This is like a one and done situation, so we need to give it the memory
+    - We can use the built in chat connector if you want to provide a message using the chat section built into n8n, but you can also connect other chats like whatsapp or slack
+    - You can just have it be like a chatbot, but to build an agent, you need the tools
+    - Good to give it a system prompt
+        - This is done by double clicking the agent node
+            - Main things to include
+                - Role
+                - Instructions 
+                - Tools 
+                - Context
+                - Any restrictions
+- To end it
+    - Close the browser tab
+    - In the cli use ctrl c to end the program
