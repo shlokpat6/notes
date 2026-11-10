@@ -139,6 +139,11 @@
             - Straight forward questions and explanations
         - Agent mode
             - Can handle multi step tasks about your project
+- Other agent integrations
+    - We can install extensions for Claude Code and Codex, which would allow us to use them like GitHub Copilot
+    - You can do the same with your own local coding agent
+    - Alternatively, you can install CLI versions of codex and claude code, but they are not necessary
+    - Outside, vscode, you could use codex or claude desktop, which would be their own isolated space- nothing to do with vs code
 - Settings
     - Ctrl comma
     - Per user or workspace
