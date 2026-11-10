@@ -27,6 +27,7 @@
 - Python File Handling
 - Python Debugging
 - JSON
+- HTTP
 - node.js and NVM Windows
 - LLMs Basics
 - Machine Learning Basics
@@ -38,7 +39,6 @@
 ## Notes in progress now
 ### These are not in any order. Many of these topics are ones I've learned, but don't have notes for yet. Others I've yet to learn. I'll be adding more topics as I power through these over the next few weeks to months.
 - PyTest
-- HTTP
 - Rest APIs
 - Curl command unix
 - Postman

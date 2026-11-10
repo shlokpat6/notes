@@ -1,0 +1,176 @@
+# Hyper Text Transfer Protocol (HTTP)
+- A protocol is a set of rules that allow devices to communicate with each other
+    - It could be seen as a common langague like how we have English
+    - More specifically-
+        - The sending device needs to know how to package a message
+        - The network needs to know how to transport it
+        - The recieving device needs to know how to interpret it
+        - Addtional rules that both devices need to follow
+            - These rules are called protocols and they define things like
+                - How information is formatted
+                - How information is sent and recieved
+                - How devices identify each other
+                - What happens when something goes wrong
+                - How communication is secured
+- HTTP stands for hyper text tranfer protocol
+- It's a communication protocol that allows web browsers and web servers to exchange information
+- Ex. When you visit a website
+    - The browser(client) makes an http request to the web server, basically saying "give me this webpage"
+    - The web server recieves and processes the request and responds with and http response, basically saying "here is the webpage you requested"
+    - Your browser displays that webpage
+- This relationship is called the client-server communication model
+    - Client- the device or application requesting the information
+    - Server - the computer that provides the requested information
+    - HTTP - the protocol that defines how they communicate
+- HTTP is stateless
+    - The server does not automatically remember previous requests made by the client
+    - Every http request is treated as independent interactions unless something extra is implemented to maintain infromation between requests
+        - In order to remember things like login and user's lists/carts when a user perform new actions that generate requests, developers add things to maintain states
+        - Common examples
+            - Cookies- store small pieces of information in your browser
+            - Sessons - allow the server to maintain infromation about a user
+            - Tokens- Carry authentication or other infromation between requests
+            - Databases- store persistant infromation shuch as shopping carts and user profile
+    - Ex. with cookies and states
+        - You log in to a website, the browser makes a login request
+        - The web server creates a session and store it's information 
+            - Then sends a session id in a cookie
+        - Browser stores this cookie
+        - Browser sends this cookie with subsequent requests
+        - The web server identifies the session and retrieves user's information
+- HTTPS
+    - Stands for Hyper Text Tranfer Protocol Secure
+    - Data encrypted via TLS- transport layer security protocol
+        - Usually the default now
+    - Done by adding a TLS certificate on the server
+    - Can verify this by checking for the padlock in the address bar for a website
+- HTTP methods
+    - These are specific instructions for what we want to do within the http protocol
+    - When your browser/client communicates with the server, it sends an HTTP request
+        - A request involves
+            - A URL (What resource you're accessing)
+            - An HTTP method (what action you want to perform)
+            - Headers(additional information)
+            - Sometimes a body (data you're sending)
+        - Ex.
+            - GET /products HTTP/1.1
+            - Host: example.com
+            - Breaking this down
+                - GET is the HTTP method
+                - /products is the resource being requested
+                - HTTP/1.1 is the http protocol version
+                - Host is the server's domain
+                - So you're telling the server "get me the products"
+    - 5 most common
+        - GET
+            - Used when you want to read or retrieve data from a server
+            - Ex. View a list of products on a shopping website
+        - POST
+            - Used when you want to send data to a server, often to create something new
+            - Ex. Create a new user account
+        - PUT
+            - Used when you want to replace a resource within the server
+            - Ex. Replace a user's profile information
+        - PATCH
+            - Used when you want to want to make a partial update
+            - Ex. Change only a user's email address
+        - DELETE
+            - Used when you want to remove a resource in the server
+            - Ex. Delete a user's account
+    - How this looks in a real application
+        - Ex. online shopping application
+            - You have a resource called products
+            - Your application/ client could interact with the backend/server this way-
+                - View all products
+                    - GET /products
+                - View one product
+                    - GET /products/123
+                - Add a new product
+                    - POST /products
+                - Replace a product
+                    - PUT /products/123
+                - Update a product's price
+                    - PATCH /products/123
+                - Delete a product
+                    - DELETE /products/123
+- Structure of each request and response message
+    - Request
+        - 3 parts - You have headers and body fields along with the request line(METHOD,URL, and protocol version)
+        - Headers - Provide addtional information about the request- here are a few
+            - Tell the server things like
+                - Which host you're communicating with
+                    - Ex. HOST: example.com
+                - What format your data uses
+                    - Ex. Content-Type: application/json
+                - Whether you're authenticated
+                    - Authorization: Bearer abc123
+        - Body
+            - Contains the actual data you're sending( if needed)
+                - Ex. when creating a user
+                    - {
+                        - "name": "Jason,
+                        - "email": "jason@example.com"
+                    - }
+            - A get request often has no body, whereas POST and PUT requests commonly have one
+    - Response
+        - You have 3 parts
+            - Status line
+                - Tells you whether the request succeeded or failed
+                - Ex. HTTP/1.1 200 0k
+                    - HTTP/1.1 is the protocol version
+                    - 200 is the status cok
+                    - ok is the status description
+            - Headers - a few examples
+                - Provide infroamtion about the response
+                - Tell the borwser things like
+                    - What format the response uses
+                        - Ex. Content-Type: application/json
+                    - How much data is being returned
+                        - Ex. Content-Length: 45
+            - Body
+                - Contains the infromation the server is returning
+                - Ex. 
+                    - {
+                        - "id": 123,
+                        - "name": "jason"
+                    - }
+- Ex. of a request/ response cycle
+    - Client to server
+        - GET /users/123 HTTP/1.1
+        - Host: example.com
+        - Accept: application/json
+        - Authorization: Bearer abc123
+    - Server to clinet
+        - HTTP/1.1 200 OK
+        - Content-Type: application/json
+        - {
+            - "id":123,
+            - "name": "John",
+            - "email": "john@example.com"
+        - }
+    - So what happened here
+        - Client sent a get request asking for user 123
+        - Server recieved the request, processed it, and found the user
+        - The server return a 200 Ok response with a response body that contained hte user's information in JSON format
+- Common HTTP status codes
+    - 200 as status code and OK as message
+        - request succeeded
+    - 201 as status code and created as message
+        - A resource was successfully created
+    - 204 as status code and no content as message
+        - Request succeeded but no response body
+    - 400 as status code and bad request as message
+        - invalid request/ not possible
+    - 401 as status code and unathorized as message
+        - Authentication is required or invalid
+    - 403 as status code and forbidden as message
+        - You don't have permission
+    - 404 as status code and not found as message
+        - Resource doesn't exist
+    - 500 as status code and internal server error as message
+        - Something went wrong on the server
+- HTTP/2
+    - HTTP/2 is the second major version of the HTTP protocol, designed to make communication between clients (like browsers) and servers faster and more efficient
+    - Doesn't replace HTTP's fundamental concepts
+        - It improves how HTTP messages are transported on the network between the client and server
+
