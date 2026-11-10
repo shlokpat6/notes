@@ -27,10 +27,12 @@
                 - You need a library to load them
                 - A popular Python library for this is python-dotenv
                 - In our script
-                    - import os
+                    - import os 
+                        - Gives the program access to the windows file system
                     - from dotenv import load_dotenv
-                    - load_dotenv() # Loads the variables from .env
-                    - variable_name = os.getenv("ENV_KEY") # replace the key with the specific key name
+                        - Gives the program the ability to read the .env file
+                    - load_dotenv()
+                        - Loads the variables from .env
     - Also note, environment variables are strings by default, so you need to convert values like booleans and numbers
     - In either case, the format is VARIABLE_NAME=value
 - We use environment variables rather than just hardcoding them into our python program for a few reasons
