@@ -28,6 +28,7 @@
     - VIM
 ## Visual Studio Code
 - Download at [Visual Studio Download Link](https://code.visualstudio.com/download)
+- If you wanted to have two projects open at the same time, just open a second instance of a vs code window by going to file and new window
 - Welcome screen
     - Starting point for a project
         - Create new files

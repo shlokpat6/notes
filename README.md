@@ -24,6 +24,7 @@
 - Version Control
 - Github
 - Python Fundamentals
+- Python File Handling
 - JSON
 - node.js and NVM Windows
 - LLMs Basics
@@ -33,6 +34,7 @@
 - AI Agents Basics
 - n8n
 
-## In progress now, not in any order
+## Notes in progress now, not in any order
 - Bash Scripting
-- 
+- Curl command unix
+- Python Object Oriented Programming

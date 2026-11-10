@@ -1,0 +1,49 @@
+# Python File Handling
+- To read a file in python, we use the open() function
+    - This function returns a file object, which has a read method for reading the contents of the file
+- The open function takes 2 parameters
+    - Filename
+    - Mode
+        - "r"
+            - Read
+            - Default value
+            - Opens a file for reading
+        - "a" 
+            - Append
+            - Opens a file for appending
+        - "w"
+            - Write
+            - Opens a file for writing
+        - "x"
+            - Creates the specified file
+- Syntax for opening the file
+    - x = open("demo_file.txt")
+    - The r parameter is set by default if you don't pass it
+- Note, that this is opening a file within our project directory
+    - If we want something outside that, we'd have to provide the full path to it in the file name field
+- Syntax for reading the file
+    - print(x.read())
+- We can also use the with keyword when opening a file
+    - with open("demofile.txt") as f:
+        - print(f.read())
+    - The benefit to using the with keyword is that automatically closes the file once we're done with it
+- Closing a file
+    - It's good practice to always close the file when you're done with it
+    - Without the with statement, you have to write the close statement
+    - file_object.close()
+- Writing to a file
+    - We can either append to the file
+        - with open("file_name.txt", "a") as f:
+            - f.write("Some additional content")
+    - Or we can overwrite it
+        - with open("file_name.txt", "w") as f:
+            - f.write("Some new content")
+    - Only problem with using the with command is that every time you want to do a new operation on that file, you have to rewrite a with statement and create the file object again, just with a different argument and body
+- Creating a file
+    - Any of x, a, or w parameters can be used
+    - f = open("demo_file.txt", "x")
+- Deleting a file
+    - To delete a file you have to import the os moduele
+        - os.remove("file_name.txt")
+    - to delte a directory
+        - os.rmdir("directory_name")
