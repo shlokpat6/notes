@@ -1,5 +1,7 @@
 # Python Dependencies
-- Dependencies in python are external python packages/libraries
+- Dependencies in python are external python packages/libraries/ modules
+    - Note, that while the names are often used interchangeably, there is technically a difference
+        - Libraries/packages are collection of python files, with each file being called a module
     - Packages/libraries are resusable collection of pre-written code modules that provide functions, classes, and utiltieis to perform specific tasks without writing the logic from scratch
         - There are two cateogiries
             - Standard libraries
@@ -50,6 +52,39 @@
         - In the project folder, run 
             - pip install -r requirements.txt
         - Python's package installer will install all the dependencies listed in the file
+- How to load dependencies in to your program
+    - Once you'd installed a library to your system, you need to load the ones you want into your program
+    - At the top of your program, you put your import statements
+    - Two ways
+        - import library_name
+            - This means you want to import the entire library and all it's functions
+            - To use something inside that toolbox, you have to do 
+                - library_name.function_name()
+        - from library_name import function_name
+            - This is a more specific way of importing, where you only import the functions you need
+            - To get more functions, just seperate the names with commas
+            - But with this method you can use the function directly
+                - function_name()
+    - You may also see a third way
+        - import library_name as short_name
+            - This means we want to give the library an alias- often a shorter name
+            - To use the library's functions, we do
+                - short_name.function_name()
+    - We may also need to import from a package
+        - from library_name.module_name import function_name
+            - We're accessing a specific function from a specific module(python file) from a package
+    - We also may want to bring in functions from one file into another within a project
+        - We often keep code broken into different files for seperation of concerns
+            - But we sometimes need functions from another file
+        - Works similar to how we imported packages installed via pip
+            - from file_name import function_name
+                - for just select functions
+            - import file_name
+                - for the entire file's functions
+        - But if we have a package structure where our project contains folders which each contains files
+            - from package_name.file_name import function_name
+        - Note, that for any of these situations, you don't provide the file extension during the import
+            - You also don't do that for the pip installed packages/modules
 - Best practices
     - Keep requirements.txt in your project's root folder
     - Use a virtual environment (venv) for each project
