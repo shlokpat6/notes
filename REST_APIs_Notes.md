@@ -1,0 +1,100 @@
+# REST APIs
+- Overall summary
+    - REST APIS are a medium through which two web based services communicate
+    - We don't want the requesting service to have direct access to server
+        - 2 reasons
+            - One, the requesting service does not need to know all the underlying logic of what systems are available and how to utilize the functions to access and/or modify the data
+            - Two, the server is protected from the requesting service having access to whatever it wants
+        - So we give the client controlled access to the server through the APIs endpoints
+            - These endpoints are like doorways into the server
+            - Each endpoint is specifically for certain paths and actions
+                - An endpoint is basically a url to a a resource + whatever http method we have set for that resource
+                    - You can have many combinations of these to create different endpoints
+    - The client communicates thorugh the API to the server via an HTTP request
+        - The data being carried via these HTTP requests is often JSON
+    - Every HTTP request from a client to a server results in a response from the server to the client
+- REST is an architectural style for designing software systems communicate
+    - HTTP is the protocol that REST APIs used to communicate
+- Ex. You have two applications - A mobile banking application, and a banking system running on a server
+    - The mobile applicaiton needs to 
+        - Retrieve your account balance
+        - Retrieve your transactions
+        - Transfer money
+        - Update your personal information
+    - But we don't want the mobile application directly communicating to the server's database
+    - So we have the two systems communicate via an interface
+        - That interface is an API (application programming interface)
+        - So with that in mind, think of an API as a defined way for one software application to ask another software application to do something or provide information
+        - The API defines what the mobile application is allowed to request and what responses it can expect
+            - Ex. The mobile application might ask - "Please give me the account balance for customer 123"
+                - The server processes that request and returns the balance
+- REST is one way to design an API
+    - There are many other ways
+    - REST stands for Representational State Transfer
+    - Basically it wants use to think about the things our application manages as resources
+    - Ex. for the banking application, resources might include
+        - Customers, accounts, transactions, payments
+    - Each of these resources gets an address(a url) that points to it
+        - Ex. for the banking service
+            - All customers would have url /customers
+            - Customer 123 would have url /customers/123
+            - All accounts would have url /accounts
+            - Account 456 would have url /accounts/456
+            - Transactions for account 456 would have url accounts/456/transactions
+    - So with REST, we're only saying what resource we want access to, not what to do with it
+- HTTP methods allow us to tell apis what we want to do with the requested resource
+    Ex. banking application
+        - GET /accounts/456
+            - Retrieve the account 456
+        - POST /accounts
+            - Create a new account
+        - PUT /accounts/456
+            - Replace all the accounts information
+        - PATCH /accounts/456 
+            - Partially update the account 456
+        - DELETE /accounts/456
+            - Delete the account 456
+- So the distinction between REST and HTTP
+    - URL identifies the resource
+    - HTTP method describes what you want to do with it
+    - Request body contains the data you're sending
+    - Response contains the result of that interaction
+- Ex. Of a REST API interaction where we want the balance of account 456 in our banking application
+    - Client(our application) sends the HTTP request
+        - GET /accounts/456 HTTP/1.1
+        - HOST: api.bank.com
+        - Accept: application/json
+        - Authorization: Bearer your-token
+    - The API recieved the request through an endpoint
+    - The server identified the account resource from the url
+    - The server retrieved the account infromation from it's database
+    - The server created a JSON representation of that account
+    - Server sends back a response after completing the operation
+        - HTTP/1.1 200 OK
+        - Content-Type: application/json
+        - {
+            - "accountID":456,
+            - "accountHolder": "John",
+            - "balance": 2500.00,
+            - "currency": "USD"
+        - }
+    - What's important here is that the api didn't return the entire database record for that account
+        - It returned a representation of that resource for what's actually needed for that specific endpoint
+            - This is why REST has representation
+- But once a request comes in, how does the API know what to do?
+    - Your backend framework (Express, Spring Boot, Django, ASP.NET, FastAPI, Flask, etc) maps the incoming HTTP requests to an endpoint to the appropriate application logic
+- REST also assumes that each request contains the information necessary for the server to understand and process it
+    - Ex. The server doesn't need to remember that you previous logged in thorugh another request
+        - The authentication token provides the necessary context for this request
+    - The major benefit to this is that requests can be handled seperately, sometimes by different servers, without needing to preserve a conversation history on one server
+- Putting it all together
+    - Your application
+        - Mobile app, website, backend, etc
+    - REST API
+        - Defines the resources, their URLs, and how clients are expected to interact with them
+            - Ex. GET /account/456
+    - HTTP protocol
+        - The actual mechanism for communication
+    - Backend application
+        - Process the request, executes business logic, and interacts with the database
+- One important thing to remember: REST is the architectural approach, HTTP is the communication protocol, and FastAPI (or another framework) is the software toolkit you use to implement the API
