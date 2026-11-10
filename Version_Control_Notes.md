@@ -67,15 +67,15 @@
             - Contains the description of project, its importance, and how to use it
         - Markdown is a lightweight text formatting syntax
             - Basically a set of agreed-upon symbols that mean "format this text this way"
-            - You just type symbols around your text, so that when compiled, the file contents can be converted into nicely - rendered HTML
+            - You just type symbols around your text, so that when compiled, the file contents can be converted into nicely rendered HTML
                 - Basically it’s a way to write HTML without having to write HTML
         - Can be written in any text editor
         - It's designed to be readable even in its raw, unrendered form — which is why it became so popular for README files
     - Ignore files
         - create .gitignore at root of the repo
-        - It should contain a list of whatever files, directories, and patterns you don’t want being committed and pushed to - a repo
+        - It should contain a list of whatever files, directories, and patterns you don’t want being committed and pushed to a repo
 - First time setup
-    - If you’re going to be using git with github, it’s best to change what the default branch will be called in your git - config
+    - If you’re going to be using git with github, it’s best to change what the default branch will be called in your git config
         - By default, github uses main, but git uses master, which causes conflict
         - So change git to use main
             - git config --global init.defaultBranch main
@@ -86,7 +86,7 @@
         - touch README.md
         - touch .gitignore
 - Setup with GitHub
-    - Before pairing your local repo to the github remote repo, you must ensure there’s an ssh key pair setup between - your github profile and your computer
+    - Before pairing your local repo to the github remote repo, you must ensure there’s an ssh key pair setup between your github profile and your computer
         - If that is not setup, skip down to that step in the github section and then return
     - Option 1- Create on Github first, then clone down
         - Note, choose this path if you don’t have a local repo already
@@ -97,8 +97,8 @@
                     - It should look like git clone https://github.com/username/repo.git
             - On your pc, use the CLI to navigate to a location where you’d like the repo folder to be created and paste the command from above
         - 3. Work normally: add files, commit, then git push. 
-            - Since we cloned from github, the origin remote is already configured, the default branch is already tracked, and - there's an initial commit if you chose a README. There's nothing to wire up by hand. 
-        - 4. For every new branch you add locally, you must run this command when pushing from that branch for the first - time, but with the branch name instead of main
+            - Since we cloned from github, the origin remote is already configured, the default branch is already tracked, and there's an initial commit if you chose a README. There's nothing to wire up by hand. 
+        - 4. For every new branch you add locally, you must run this command when pushing from that branch for the first time, but with the branch name instead of main
             - git push -u origin branch_name
             - Subsequent pushes can just be git push because of -u flag
     - Option 2- Create locally first, then push up
@@ -113,7 +113,7 @@
                     - add: create a new connection.
                     origin: just a nickname for the connection. It's a convention, not a keyword. You could call it github or banana and it would work the same, but nearly everyone uses origin for the main remote, so tools and tutorials assume it.
                     - The URL: where that remote copy lives.
-                - All this does is save a name-to-URL mapping in your local .git/config. Nothing is sent over the network. You can - see the result with:
+                - All this does is save a name-to-URL mapping in your local .git/config. Nothing is sent over the network. You can see the result with:
                     - git remote -v
                         - Lists each remote with it’s url
             - git push -u origin main
@@ -127,8 +127,6 @@
                 - For every new branch you add locally, you must run this command when pushing from that branch for the first time but with the branch name instead of main
                     - Subsequent pushes can just be git push because of -u flag
         - 4. Work normally: add files, commit, then git push
-
-
 - Git Commands
     - Note, for many of the commands below, we could just use 1 dash and shorten the command down to the first letter
     - git --version
@@ -248,7 +246,7 @@
                 - git checkout -
                     - Switches back to previous branch
             - New commands to replace the old ones in 2019
-                - git swtich branch_name
+                - git switch branch_name
                     - Moves to the provided branch
                 - git switch -c branch_name
                     - Creates a new branch and moves into it
@@ -272,11 +270,11 @@
                     - Deletes the branch
                     - Need to be in another branch at the time
         - Instead of merging locally our branches to master, we use pull requests
-            - So we push our local branch changes to the remote equivalent and then making a pull request(PR) from the github web - interface
+            - So we push our local branch changes to the remote equivalent and then making a pull request(PR) from the github web interface
                 - A pull request is made to have code from one branch pulled into another branch 
                     - Typically used for pulling code from a feature or hot-fix branch to a master branch
                 - Once a PR is approved, you generally delete the feature branch
-            - Whenever we push a commit in a branch to github, on it’s home screen, github will ask if we want to make a pull - request
+            - Whenever we push a commit in a branch to github, on its home screen, github will ask if we want to make a pull request
                 - Or we can go to the pull request tab
             - You can verify or select the branches you want merged
             - Give a title and a comment 
@@ -287,7 +285,7 @@
         - Merge conflicts
             - Can happen anytime you’re integrating commits from different sources
                 - git merge, git rebase, git pull, git stash reapply, git cherry pick
-            - Most of the time, merging works fine without conflicts, but if contradictory changes were made, then git cannot - tell which change you prefer
+            - Most of the time, merging works fine without conflicts, but if contradictory changes were made, then git cannot tell which change you prefer
             - Git will tell you when a conflict occured
                 - Right after you try integrating
                 - git status

@@ -11,6 +11,7 @@
     - Null: null
     - Object: a collection of key/value pairs in curly braces { }
     - Array: an ordered list in square brackets [ ]
+- The keys will always have double quotes around them
 - Ex. Uses all data types
     - {
         - "name": "Ada Lovelace",
@@ -32,7 +33,7 @@
 - For python, at the top import JSON
 - When data comes from outside your program, it arrives as a string of characters, not as an object
     - Ex. 
-        - You download a response from a web API
+        - You get a response from a web API
         - You read a .json file from disk
         - Another program sends you a message
     - In all those scenarios, your object is of string type, not dict, which is how a JSON object looks
@@ -41,8 +42,8 @@
         - text = '{"name": "Ada", "languages": ["English", "French"]}'
         - data = json.loads(text)          # converts from string to dict
     - Ex. if we are reading from a file. Say you have a file called person.json on disk containing the json object. We need to use the .load() not .loads(). f can be anything. we're just creating a file object called f
-        - with open("person.json") as f:
-            - data = json.load(f)
+        - with open("person.json", "r") as file:
+            - data = json.load(file)
 - As a dict, we can access values, using key values pairs
     - Ex. If our dict looks like {"name": "Ada", "languages": ["English", "French"]}
         - data["name"]  # Gives us "Ada"
@@ -52,8 +53,13 @@
         - We use dumps() when we want to convert the python object dict to a string for sending as a response
             - text = json.dumps(person)
         - We use dump() when we want to convert the python object dict to a file for saving on disc. The w means open for writing. Without it, python opens the file read-only and dump will fail.
-            - with open("person.json", "w") as f:
-                - json.dump(person, f)
+            - with open("person.json", "w") as file:
+                - json.dump(person, file)
+            - Note this saves to the project directory
+            - We can save to a specific path by providng the specific path to the file
+                - Ex.
+                    - with open("data/"person.json", "w") as file:
+                        - json.dump(person, file)
         - Both dumps() and dump() will accept the argument indent=2 or other num to add line breaks and spacing
     
 
