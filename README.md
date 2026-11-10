@@ -25,6 +25,7 @@
 - Github
 - Python Fundamentals
 - Python File Handling
+- Python Debugging
 - JSON
 - node.js and NVM Windows
 - LLMs Basics
@@ -35,19 +36,24 @@
 - n8n
 
 ## Notes in progress now
-### These are not in any order. Some of these topics are ones I've learned, but don't have notes for yet. Others I've yet to learn. I'll be adding more topics as I power through these over the next few weeks to months.
-- Bash Scripting
+### These are not in any order. Many of these topics are ones I've learned, but don't have notes for yet. Others I've yet to learn. I'll be adding more topics as I power through these over the next few weeks to months.
+- PyTest
+- HTTP
+- Rest APIs
 - Curl command unix
-- Docker
-- Local AI Hosting/ Usage
-- Python Object Oriented Programming
-- Amazon Web Services
+- Postman
+- Requests Library for Python
 - FastAPI
 - FastMCP
-- Postman
-- Kubernetes
+- Python Object Oriented Programming
+- Docker
 - SQL (postgresql)
 - SQL Alchemy
+- Bash Scripting
+- VecorDBs
+- Local AI Hosting/ Usage
+- Amazon Web Services
+- Kubernetes
 - Langchain
 - Langgraph
 - Langsmith

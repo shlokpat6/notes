@@ -1,0 +1,58 @@
+- Debugging is the process of finding out where an error occured in our code and understanding why the code behaves the way it does
+- The normal debugging workflow
+    - 1. Reproduce the bug
+        - Trigger the problem yourself using the same inputs or steps that caused it
+    - 2. Understand the expected behavior
+        - What should happen? And how should we have gotten there?
+    - 3. Read the error message and traceback
+        - Python traceback tells you which lines were involved in the failure and the cal stack
+            - Start at the bottom of the traceback, where the exception type and message usually appear
+    - 4. Narrow down the problem using breakpoint, print statements, and a debugger
+        - Inspect the relevant function, inputs, variables, etc.
+    - 5. Identify the root cause
+    - 6. Implement a fix
+        - Make the smallest reasonable change that address the underlying issue
+    - 7. Test the fix
+        - Verify the original problem is gone and check that existing functionality still works
+    - 8. Add a regression test
+        - If beneficial, write a test that would have caught the bug in the first place
+            - Helps prevent the same bug from happening later
+- Common techniques
+    - Breakpoints with debugger
+        - Instead of using print statements, you can pause your code while it's running and inspect what's happening at that exact moment
+        - VScode has a an extension for python debugging experience
+            - How it works
+                - 1. Set a breakpoint
+                    - Click just to the left of a line number in your code and a red dot will appear
+                - 2. Start debugging
+                    - Open the run and debug panel
+                        - At the bottom, you'll see all the breakpoints you've added along with the lines
+                    - Click run and debug
+                        - Select python debugger
+                - 3. Inspect your variables
+                    - In that panel, you can see what the current value of your variables and data structures are as well as iterations of loops
+                        - Variables are added as you pass that breakpoint
+                    - You can also add a variable that you want to watch to the watch section
+                    - There's also the call stack
+                - 4. Step through the code 
+                    - Use the debugger controls to move through the code
+                        - Continue
+                            - Resume execution until the next breakpoint
+                        - Step over
+                            - Execute the current line without entering functions
+                        - Step into
+                            - Enter the function being called
+                        - Step out
+                            - Finish the current function and return to its caller
+                        - Restart
+                            - Restart the debugging experience
+                        - stop
+                            - stop debugging
+    - Print statements and logging module
+    - Read stack trace
+    - Unit testing
+        - Sometimes the best way to debug a problem is to write unit tests that would expose it
+        - Useful for complex applications because they let you isolate individual pieces of functionality
+    - Git History
+        - Useful when you know something used to work but don't know when it stopped working
+        - Commands like git diff
