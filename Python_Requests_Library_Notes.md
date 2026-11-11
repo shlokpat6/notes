@@ -1,0 +1,35 @@
+# Requests
+- Python Requests Library
+    - The python request library helps you consume(use) an API
+        - Helps you send HTTP requests to other servers
+    - We need to import requests to use it
+    - Then once it's imported the structure looks like this for a get request
+        - respone = requests.method_name("URL to resource")
+        - Maybe we also want to access the response status code and json payload from the response object
+            - print(response.status_code)
+            - print(response.json())
+            - What's happening
+                - requests.get() sents and HTTP get request
+                - The server recieves and processes the request
+                - The server sends back and HTTP response
+                - response.status_code gives you the http status code
+                - response.json() converts the JSON response into python data like a dict
+        - ex. response = requests.get("https://api.example.com/accounts/456")
+    - Requests library supports other HTTP methods
+        - requests.get()
+        - requests.post()
+        - requests.put()
+        - requests.patch()
+        - requests.delete()
+    - If we want to send a post request, we could do the following 
+        - response = requests.post(url, json = data)
+            - Note, in this case, we pass two arguments into the post method of the requests object
+                - URL to the resource and then the json data
+                    - In this case, we create the a dict called data and gave it the necessary fields
+                        - Then we can just pass that dict as an argument but we have to use json=data to convert our dict python object into json
+- So FastAPI and the requests library are not competing against one another
+    - The python request library helps you consume(use) an API
+            - Helps you send HTTP requests to other servers
+    - FastAPI helps you build a server that receives HTTP requests
+    - You can even build a rest API using FastAPI that itself needs to use requests to retrieve infromation from another API
+        - Imagine you make a request to an api's endpoint, and then that api needs to make a request to another API as part of the business logic before it can send a response back to the client
