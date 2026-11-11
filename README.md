@@ -31,7 +31,6 @@
 - Rest APIs
 - Python Requests Library
 - Postman
-- Curl command unix
 - node.js and NVM Windows
 - LLMs Basics
 - Machine Learning Basics
@@ -41,21 +40,36 @@
 - n8n
 
 ## Notes in progress now
-### These are not in any order. Many of these topics are ones I've learned, but don't have notes for yet. Others I've yet to learn. I'll be adding more topics as I power through these over the next few weeks to months.
+### These are not in any order. Many of these topics are ones I've learned, but don't have notes in MD yet. Others I've yet to learn. I'll be adding more topics as I power through these over the next few weeks to months.
+- Docker
 - FastAPI
-- PyTest
-- Requests Library for Python
 - FastMCP
 - Python Object Oriented Programming
-- Docker
+- PyTest
 - SQL (postgresql)
 - SQL Alchemy
-- Bash Scripting
-- VecorDBs
+- SDKs
+- Vercel
+- LlamaIndex
+- VectorrDBs
 - Local AI Hosting/ Usage
-- Amazon Web Services
-- Kubernetes
 - Langchain
+- System Design
+### Will need to hold off on these for now. Already have too many things I'm learning at once :). 
+- Amazon Web Services
+- Figma
+- Bash Scripting
 - Langgraph
 - Langsmith
 - MLFlow
+- Kubernetes
+- Pandas
+- SciKitLearn
+- NumPy
+- SciPy
+- Seaborn
+- Pytorch
+- Grafana
+- Promotheus
+- NGINX
+- Curl Command Unix

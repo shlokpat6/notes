@@ -98,3 +98,37 @@
     - Backend application
         - Process the request, executes business logic, and interacts with the database
 - One important thing to remember: REST is the architectural approach, HTTP is the communication protocol, and FastAPI (or another framework) is the software toolkit you use to implement the API
+- Understanding the URL
+    - Base URL- domain name and host
+        - Ex. google.com
+    - subpath - path to the resource
+        - Ex. regres.in/api/users
+            - Path to the users resource
+    - Query parameters
+        - Filters out the resource
+        - Writen as key value pairs 
+            - Ex. ?page=2
+        - Ex. regres.in/api/users?page=2
+- Authorization
+    - Not all APIs are open to the public
+    - Public APIs are open to everyone
+        - You can make requests to it without authenticating your program
+    - Private APIs are protected
+        - You need credentials, a token, or some form of identiy to access them
+        - Ex. For you bank account application
+            - It sends request using a unique access token that was generated just for you
+        - The most common place to put the authorization/ credentials is in the authorization header
+            - Ex. Authorization: Bearer yejdlfadfa
+            - The server reices the reques and checks whether the credentials are valid and whether it grants permission for that operation
+    - Common authorization methods
+        - API key 
+            - You send a key identifying your application or account
+        - Bearer token
+            - You send a token proving you have been granted access
+        - Basic authentication
+            - You send a username and password
+        - OAuth 2.0 
+            - An authorization framework that lets and application obtain limited access, often on behalf of a user
+            - Basically your application makes a request to the api
+            - The API bounces your application/ you over to an o-auth login
+            - Once logged in, you're sent back to the server for execution of the request

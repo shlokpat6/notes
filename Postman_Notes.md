@@ -1,0 +1,41 @@
+# Postman
+- Postman is a tool for testing and consuming APIs
+- It's like a graphical user interface alternative to writing code with Python's requests library or using the CURL command in the cli
+    - All three are considered clients, as they make requests
+- You can use it to
+    - Send HTTP requests
+    - Enter URLS and add headers, authentication, and JSON request bodies
+    - See the server's response, including status code, headers, and response data
+    - Save requests into collections, so you can test an API repeatedly
+- When you open the pogram, what you see is the workspace
+    - It's like a project folder where you have specific settings
+- On the left is the navigation bar
+    - Collections tab
+        - Group collections of API requests into folders
+- Click the plus button at the top or within the nav bar to create a new request
+    - Each request becomes a new tab like a browser
+        - In the center is where you build the request
+            - Enter URL, the method, headers, body
+        - At the bottom is where you see the server's response
+        - We can enter the query parameters directly in the url bar or in the params section
+        - Authorization tab
+            - Leave as no auth for public apis
+            - Some common authorization methods
+                - Bearer token
+                    - A long string you send with your request to prove you're authorized
+                    - Token usually comes from logging into the system or making a login request first
+                - Basic auth
+                    - Give a username and password that can be sent with your request
+                    - Mostly seen in legacy systems or internal applications
+            - If you're request returns 401 unauthorized, it means your token is missing, expired, or incorrect
+- Test automation
+    - Within a request, we can write automations in the scripts tab
+        - Add some code to validate the response
+        - You can use some built in templates to validate without writing javascript code yourself
+    - When you run the code, you'll see the test results in the response section
+- Postman collection runner
+    - We can run all our api calls in a collection at once
+    - Just right click the 3 dots to the right of the collection name and select run
+        - Choose the run options or leave default for just a simple run
+
+                     
