@@ -1,0 +1,120 @@
+# Local AI
+- Local AI is a model file sitting on your computer and a program that can run it
+    - No cloud, API key, internet, or subscription
+- When you use a chatbot, your computer did very little work
+    - It just sent the message to the ai company's servers through the internet and a response got sent back
+- With local AI, your computer does the work
+    - A local AI model file gets downloaded to your computer
+    - When you ask it a question, your own gpu does the work
+- Advantages with local AI
+    - It's private
+    - It's free
+    - It's offline
+- Tradeoffs
+    - Local models are much smaller than the frontier models
+        - However, they've gotten really good in recent years
+- Building blocks of the model
+    - A model is a really large file full of numbers called weights
+        - Likely billions of numbers that got adjusted when the model was trained
+            - Generally, more parameters means a smarter model
+                - But it requires more memory and compute to run it
+        - The file just sits there- it doesn't run or think
+        - Companies like Meta, Google, Alibaba, Mistral release these for free
+            - Llama, Gemma, Qwen, or Deepseek are examples
+    - Quantization
+        - It's like compressing a photo
+        - You take the billions of parameters and store them with less precision
+            - Model files get dramatically smaller with very little loss of quality
+        - GGUF is the standard file format for these compressed models
+        - This is primary technique that allows larger local AI models to run on our computer
+    - Inference engine
+        - A model is just a file of numbers that cannot run itself
+        - You need a program that can load the numbers into memory and do the math to make the model work and predict tokens
+            - This is called the inference engine
+                - The most famous one is llama.cpp
+        - Tools like Docker Model Runner, Ollama, LM Studio are just wrappers around this engine
+    - Hardware
+        - How much memory do you have own your computer and how fast
+        - With dedicated graphics, you're looking at vram
+        - With newer windows and mac devices, looked at the RAM because these devices have unified memory
+        - The model file needs to fit inside the memory with some room to spare
+        - Ideally 32 gb is the best spot
+            - You can get the best local models with this
+        - Also look at the memory speed
+            - Matters for the tokens per second and the inference speed
+        - Generally 14-35 billion parameters are the sweet spot between ability to load and usability
+- How to run local models
+    - Depends on how much control you want
+    - LM Studio
+        - Regular desktop app
+        - Click and download 
+        - Graphical user interface
+        - No terminal needed
+    - Ollama
+        - Terminal based
+    - Docker model runner
+        - Treats model like containers
+        - Good if you want to deploy your model along with your apps
+    - Full code
+        - Most control but also the most complex
+- Regardless of which option you choose, you'll choose a model, a size and quanitization, and how you want to talk to it(chat window or code)
+- LM Studio
+    - On the left, is the navigation bar
+        - Model search is how you find and download local models
+            - Each model has detailed information
+                - If you click on download options, you'll see the different quantatization versions for download
+                    - The lower the Q number, the more quantization there is
+                    - To the right of the thumbs up will tell you which version is recommended
+                    - To the right of that, you can see if hte model can fully run on the gpu, or partially
+                    - The right of that is the size
+                - At the top is the overall description and capabilities
+                    - Tool calling is necessary if you want it to work in an agentic harness
+        - Once you've downloaded a model, you can view them in the library section
+            - To use them, you need to select it and click load
+                - As a beginner, don't change anything in the following setup
+                - But it might be useful to mess with the context length to save space on your computer
+    - Once you've loaded the model, you can chat with them from the chat section
+        - At the top, you can switch between the models
+            - Eject the one you are using
+            - Click and load another
+            - You can also see how much memory the current model is using
+    - You can use the terminal section(Model server tab) to chat with your model via cli and api calls
+            - LM Studio also starts up a local server when you load it, so you can actually make api requests to it from your applications
+                - It has two api's to communicate with via a client like curl, postman, or your python code
+                    - It also has open ai compatible api that you can use with the open ai library
+                    - It's own native api
+- OLLAMA
+    - More popular for developers
+    - Download it from their website and use it from the cli mostly
+    - In the cli, type ollama
+        - It's bring up an interactive session where you can start sessiosn with different agent harnesses
+    - Note, when you download the program, it'll also come with a gui for some basic use
+        - You can start chatting with models that are downloaded on your computer
+        - You can also start sessions with the same agent harnesses that you saw in the cli
+    - You can get more models by going to ollama.com and the models page
+        - You can look through all the models and their descriptions
+        - To download, in your cli enter
+            - ollama pull model_id
+                - replace the id with whatever you saw in the website
+    - To see all the models you have currently downloaed
+        - ollama list
+    - To see what version of ollama you have, type in your cli
+        - ollama --version
+    - To run a model, you can type in your cli
+        - ollama run model_name
+            - Get the model_name from the results of ollmaa list
+        - Will load the model into your computer's memory
+            - Will take some time
+            - Then you can start chatting with it in the cli
+            - This is identical to using the gui
+        - When you're done just type
+            - /bye
+    - Ollama also starts up a local server, so you can actually make api requests to it from your applications
+        - It has two api's to communicate with via a client like curl, postman, or your python code
+            - It also has open ai compatible api that you can use with the open ai library
+            - It's own native api
+- Docker model runner
+    - Available as an experimental feature in docker desktop
+- Full code
+    - Interact directly with inference engines like vLLM and llama.cpp
+- Regardless of which option you choose, make sure your have enough storage to download and hold the model until it needs to be loaded into memory

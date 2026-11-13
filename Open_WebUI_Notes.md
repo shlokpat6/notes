@@ -1,0 +1,61 @@
+# Open WebUI
+- A free open source web interface designed to interact with local llms through a chatgpt style gui
+- You can run local llms via LM server or Ollama or full code
+    - If you choose ollama or lm server, they startup a local server that has an api
+        - Clients like curl, postman, and your own programs can reach this api via http requests
+        - Additionally, lm server and ollama have their own gui clients which can reach this server and communicate with the models
+- But you can get even more functionality with Open Web UI, another gui client, which is considerably more powerful than the gui clients that come native with ollama or lm studio
+    - It's also self hosted and runs locally and can connect to the ollama and lm studio's servers via apis to give you a clean chat gpt style user interface
+- Features
+    - One interface for multiple providers- lm studio, ollama
+    - Custom model profiles
+        - Give system prompts, tools, knowledge, and parameters
+    - RAG
+        - You can create knowledge collections, upload documents, and associate them with a model or conversation
+        - Open WebUI handles document processing, embeddings, retrieval, and context injection
+        - It supports multiple vector databases options
+    - MCP
+        - Allows your model to find MCP servers
+    - Tool use
+        - Via MCP, it can access other services
+    - Expose Open WebUI's functionality through its own API
+        - Open Web UI isn't just a front end
+        - It exposes it's own API, following the open ai/ anthropic format
+            - Your application could call Open WebUI rather than ollama directly and open Web UI could handle retrieval and tool execution before returning the answer
+- To install-
+    - You need ollama or lm studio as the runtime engines for your model
+    - You also need docker desktop setup on your computer
+        - Make sure you have wsl2 enabled in the settings if you're working with windows
+    - Start up ollma or lm studio and download and load a model
+        - Keep that service open
+    - Open docker desktop
+    - Open a cli
+        - Enter the following command- 
+            - docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+        - This will take some time
+    - In your web browser, enter localhost:3000
+        - This will open Open WebUI
+        - You'll have to create a local login for the first time
+        - If you have one of the servers running already, it will pick it up
+    - Each time you want to use Open Web UI, you need to ensure docker desktop and one of lm studio or ollama are running
+- How to allow others access to this client that is just running locally on your computer
+- Tailscale Serve
+    - Install Tailscale on the AI server.
+        - Create an account
+        - You'll use this to start a telnet(a tailscale network)
+    - Install Tailscale on family devices
+        - Others will need thier own login and can join your tel net
+    - Enable MagicDNS and HTTPS certificates.
+        - Done at https://login.tailscale.com/admin/dns?utm_source=chatgpt.com
+        - MagicDNS makes it so that users can enter a hostname instead of remembering the tailscale provided ip address
+        - HTTPS certificate allows tailscale to create a valid https certificate for your server
+    - Configure Tailscale Serve to proxy to Open WebUI.
+        - Ex. tailscale serve --bg http://127.0.0.1:3000
+        - This cretes the https endpoint, generates the tls certificate, forwards incoming requests from users to the open web ui port, and keeps everything running in the background
+    - Give family members the HTTPS address.
+    - They join your private network and can access open web ui using a private hostname
+        - Even when they are away from home, on cellular data, or on another network, they can still access
+- With the tailscale functionality enabled, to get everything working again after a restart or if you manually turned it off
+    - Run ollama or lm studio and load the model if necessary
+    - Run docker desktop and start the container for Open Web UI
+    - Run the tailscale program and then the serve command in the cli

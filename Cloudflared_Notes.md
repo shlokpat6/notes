@@ -19,10 +19,12 @@
 - Downloading and installing
     - Download from [Cloudflared](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/downloads/?utm_source=chatgpt.com)
     - Verify install with cloudflared --version in your cli
-- Using it
+- Using it quickly
     - Run in your cli
         - cloudflared tunnel --url http://localhost:8080
             - Replace the local url with whatever yours is
     - It will give you a public address that you can then open on any other device even when you're away from home
+- Proper long term solution
 - Note, anyone who has the generated URL can access your application unless you add access restrictions
     - Don't expose sensitive admin dashboards without authentication
+    - So it's best to also use cloudflare access with this
