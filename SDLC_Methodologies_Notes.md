@@ -1,0 +1,60 @@
+# SDLC methodologies
+- SDLC describes the phases of development
+- A methodology describes how a team organizes and moves through those phases
+    - It's a mindset/ philosophy and there are specific frameworks to achieve each
+- There are numerous, each suited for different project types
+    - Trandition/ plan driven
+        - Waterfall
+            - All the phases happen in strict order
+            - This works best when the requirements are already set and well understood
+            - Falls apart when requirements start to change
+        - V- model
+            - An extension of Waterfall
+            - Still have the linear structure, but testing is at the forefront
+            - So as you go through each stage, you're planning out the corresponding testing
+                - As you write user requriements, you also plan the acceptance testing
+                - As you write the high level architecture, you also plan the integration testing
+                - As you write the low level modules, you write the unit testing
+            - Then when you get to the testing phase, you have software that was ideally written with testing in mind
+        - Incremental
+            - You do all the planning and requirements up front
+            - Then break up the product into pieces and do a mini waterfall(design, build, and test)
+            - Because the requirements were gathered up front, like regular waterfall, change is tough to make
+        - Spiral
+            - The driver is risk
+            - Development loops through planning, risk analysis, engineering, and evaluation
+            - Each loop produces a more complete product
+            - Earlier loops are the riskiest(technical feasability, cost, unclear requirements), but the product becomes more clear over loops
+            - Heavely documented and process heavy with risk analysis at every cycle
+            - Best for large, expensive, high risk projects
+    - Interative/ Agile
+        - Agile is the philosopy here, not a actual method
+            - Emphasizes short cycles, working software, customer collaboration, and responding to change
+            - Basically, pick a small set of features → requirements, design, build, test, and release for those features → learn from feedback → repeat with the next set
+            - Best for projects where requirements evolve
+            - The methodologies
+                - Scrum
+                    - Fixed-length sprints (2-4 weeks) with a committed goal, a prioritized backlog, a daily stand-up, a sprint review where stakeholders see working software, and a retrospective where the team improves its own process
+                    - Provides rhythm, regular feedback, and built-in habit of improving
+                    - Good for teams build software continously
+                - The rest of these are mostly paired with Scrum since they're less about organizing the work as they are about improving elements of it
+                    - Kanban
+                        - Less about organizing the work and more about improving the flow of work using a A visual board(to do, in progress, and done)
+                        - Often paired with scrum
+                    - Extreme programming
+                        - Fast iteration can produce buggy code that is expensive to change
+                        - So XP puts engineering principles at the forefront during development like test-driven development, pair programming, continuous integration, refactoring, and small frequent changes
+                        - Keeps code quality high while changing quickly
+                        - Focuses more on how you code as opposed to how you manage work
+                            - So it's often paired with Scrum
+                    - Feature driven development
+                        - Work is planned around client valued features
+                        - Since it doesn't organize the work, it's often paired with scrum
+                    - Crystal 
+                        - A family of methods that says the process for delivery work should change based on team size and project criticality
+                    - Dynamic Systems Development Method(DSM)
+                        - Emphasises a need of fixing time and cost and working agile around that
+    - Rapid/ prototype based
+        - Rapid Application Development (RAD)
+            - Build working prototypes quickly, get feedback, and refine
+            - The idea is that the stakeholder doesn't know what they want until they see something
