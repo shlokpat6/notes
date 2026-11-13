@@ -1,39 +1,45 @@
 # Prompt Engineering
 - Chatting with an LLM is like programming in natural language
-    - We’re giving instructions in plain language
-- Prompt engineering is about crafting the prompts in such a way to get the best results in the most efficient manner
-    - By doing this, we minimize token usage and time
-- For lengthy prompts, it might be more efficient to just use the speech to text feature
-    - Could use the native speech to text functionality in the llm
-    - Or we can use something like Wispr Flow, which can be used for anything even outside of the LLMS
+    - But rather than writing code, we’re giving instructions in plain language
+    - And like our code, we want it to be optimal so that we get the best functionality
+- Prompt engineering is about crafting the prompts so that we get the best results in the most efficient manner
+    - By doing this, we minimize token usage and time spent
 - How LLMs think
-    - LLMs are large language models
-    - They are trained on large amounts of data
+    - LLM stands for large language model
+    - They are trained on large amounts of data to learn patterns on natural langauge(grammar, syntax, slang, phrasing, etc) and the actual information
     - They then use that data to act as text prediction models
-        - It’s trying to predict what the next token should be in a sequence
+        - A model is trying to predict what the next token should be in a sequence
             - A token might be:
                 - a full word → "apple"
                 - part of a word → "predict" + "ion"
                 - punctuation → "."
                 - even spaces/newline patterns
-        - The model looks at the preceding text and assigns probabilities to possible next tokens:
-            - Then it picks one (sometimes the highest-probability one, sometimes a more varied choice depending on settings like - temperature).
-    - And it’s giving an output via tokens(text)
+        - It generates a list of possible tokens
+        - It then looks at the preceding text and assigns probabilities to these possible next tokens
+            - Then it picks one (sometimes the highest-probability one, sometimes a more varied choice depending on settings like temperature).
+    - Then it gives an output via a long stream of tokens
         - So you give input tokens, and it gives output tokens
-    - By default, most LLMs will not use past chats to help with predicting
-        - We have to enable that part in the settings
-        - It will only use the previous chats in the current chat as part of its context
-    - Understand how “memory” works for LLMs
+    - By default, most LLMs will not use past chats for context to help with predicting
+        - We have to enable that part in the settings of the chatbot
+        - It will only use the previous messages in the current chat as part of its context
+    - Understand how memory works for LLMs
         - There is no memory
-        - The LLM is receiving all previous messages, other chats(if enabled), and a whole lot of other information injected - alongside your prompt
+        - The LLM is receiving all previous messages, other chats(if enabled), the system prompt, and your current prompt each time you press send
             - We just see the prompt, but the LLM is getting all this info in the background every time we send a prompt
-        - If we enable chat history recall, then that will be part of what is injected alongside your prompt
+            - As the chain of message grows, the list of tokens being sent to the model also grows because the chat history has grown
+                - To help with this, chatbots have an optimization called kv cache
+                    - It makes the re-send everything approach affordable
+                    - When a llm processes tokens, it computes intermeddiate values (keys and values) for every token at each layer
+                        - These existing values don't change change each time a new token is added, so those values can be saved
+                            - Each time a response is generated, it appends the kv values of the user's prompt and the new output to the existing kv cache
+                            - So the model only has to work hard for the current prompt
+                                - So it's response speed remains roughly consistent across messages
         - This other injected information alongside your prompt is called context
-    - Context, specificity, and structure directly shape predictions
-        - More relevant context and clearer instructions→ more relevant and consistent outputs
-    - Streering vs commanding
-        - Commanding is worse- you’re telling it to do something, but without guiding it in a direction
-        - Steering is better
+- Context, specificity, and structure directly shape predictions
+    - More relevant context and clearer instructions→ more relevant and consistent outputs
+- Streering vs commanding
+    - Commanding is worse- you’re telling it to do something, but without guiding it in a direction
+    - Steering is better
 - Best prompting techniques
     - Be specific and set the scene
          - Try to define the role, audience, tone, and format 
@@ -47,14 +53,14 @@
             - Reduces errors on logic, math, multi-step planning, and comparisons
         - Some models like planning or reasoning models do this by default
     - Structured output
-        - Ask the model to provide the output in some format(like JSON, table, XML, markdown, etc) and giving an example of - what you want
-            - The point is that you then have something you can parse and use in code or docs rather than some random markdown - format that the LLMs normally give that you then have to format yourself
+        - Ask the model to provide the output in some format(like JSON, table, XML, markdown, etc) and giving an example of what you want
+            - The point is that you then have something you can parse and use in code or docs rather than some random markdown format that the LLMs normally give that you then have to format yourself
     - Constraints and negative instructions
         - Telling the LLM what you don’t want and the constraints
         - Reduces too long, too casual, wrong structure, or off-topic tangents
     - Iterative refinement
         - Treat prompting as a conversation, not a one shot- keep refining
-        - The idea is that sometimes iteration is normal, and faster than writing the perfect oneshot prompt
+        - The idea is that sometimes iteration is normal and faster than writing the perfect oneshot prompt
     - Interview style prompting- let the model ask
         - Give the model the task, and ask it to interview you for what it needs
     - Advanced strategies
