@@ -1,5 +1,5 @@
 # Software Development Life Cycle
-- SDLC is a structured process that software development teams follow to plan, design, build, test, deploy, and maintain applications
+- The software development lifecycle(SDLC) is a structured process that software development teams follow to plan, design, build, test, deploy, and maintain applications
     - Like a blueprint for building software
 - Rather than immediately jumping into writing code, a team follows a series of phases to make sure:
     - The software solves the right problem
@@ -166,20 +166,4 @@
 - Thing to note- 
     - Real-world software development isn't always a straight line
     - Teams often revisit earlier phases when requirements change, testing reveals problems, or customers request new features
-        - To structure this idea of revisitign old phases, there are SDLC methodologies
-- SDLC methodologies
-    - SDLC describes the phases of development
-    - A methodology describes how a team organizes and moves through those phases
-        - It's a mindset/ philosopy and there are specific frameworks to achieve each
-    - Two common methodologies
-        - Waterfall
-            - Each phase is generally completed before the next begins
-                - Basically run through the entire cycle with all the work and deliver the final product to customers at the end
-                    - Means that the customers won't see the product for a while
-                    - Changes are tough to make
-                    - More planning upfront
-            - Best for projects with stable, well-defined requirements
-        - Agile
-            - Work is delivered in smaller increments, with frequent feedback and adjustments, as stakeholders can see parts of the softare being delivered in chunks
-            - Best for projects where requirements evolve
-            - Scrum and Kanban are ways of implementing the agile methodology
+- While the SDLC is a blueprint, teams choose how they want to implement it
