@@ -1,0 +1,47 @@
+# Software Engineering Principles
+- Widely accepted guidelines for developing code that is maintainable, reliable, and easy to change
+- General design principles - for all code
+    - DRY - don't repeat yourself
+        - Don't repeat code
+    - KISS - keep it simple stupid
+        - Go for the simplest solution that works
+    - YAGNI - You aren't gonna need it
+        - Don't build features or abstractions if you don't need them
+    - Seperation of concerns
+        - Split a system into part, where each part hands a distinct responsibility
+    - Composition over inheritance
+        - Build behavior by combining small objects rather than deep class hierachies
+    - Law of Demeter
+        - A component should talk only to it's immediate collaborators, not reach through a chain of objects
+- SOLID - for object oriented design
+    - S, Single Responsibility
+        - A class should have only one reason to change
+    - O, open/closed
+        - You should be able to add new behavior without editing existing code
+    - L, Liskov substitution
+        - If code works with a parent class, it should work with any subclass without surprises
+    - I, interface segregation
+        - Don’t force a class to implement methods it doesn’t need
+    - D, Dependency Inversion
+        - Your main logic should depend on a general abstraction, not a specific implementation
+- Structural qualities to aim for - applys to all code
+    - High cohesion
+        - Everything inside a module should belong together and serve one purpose
+    - Low coupling
+        - Modules should depend on each other as little as possible, so changing one doesn’t break others
+    - Modularity and abstraction
+        - Modularity - break the system into separate, self-contained pieces
+        - Abstraction - hide the complicated details behind a simple interface.
+- Process and practice principles - these focus on how you work rather than how you code
+    - Test early and often
+        - Automated tests make change safe
+    - Refactor continuously
+        - Improve structure in small steps as understanding grows
+    - Fail fast
+        - When something is wrong, stop immediately and loudly, rather than letting bad data travel further
+    - Code reviews and version control
+        - Catch problems early and keep history traceable
+    - Continuous integration and delivery
+        - Merge small changes often, and let automation test and release them
+    - Premature optimization is the root of all evil (Knuth)
+        - Don’t make code faster or more clever until you’ve measured that it’s actually a problem

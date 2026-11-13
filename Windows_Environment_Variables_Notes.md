@@ -3,14 +3,14 @@
 - The path variable is just one of these
     - It contains a list of directories where executables are located
     - Allows you to run that executable in the CLI by just typing its name rather the path to where it is located, which is how windows finds applications
-- Can be accessed by typing environment variables in your windows search
+- Can be accessed by typing "edit the environment variables" in your windows search
     - Will see two sections in the popup- one for user(the current one), and one for system wide(all users)
 - Generally, unless you have multiple users, just edit it in the system wide section
 - To edit the path variable, find it in the list of system variables and click edit
 - Now press new and paste the path to the bin folder in which that executable is located
 - To double check that the path variable is set properly, in a CLI, use the command-
-    - which executable
-        - where executable is replaced by the specific command, like python or ls or git
+    - which executable_name
+        - where executable_name is replaced by the specific command, like python or ls or git
 - The directory path will be listed out
 - You can also check what the path variable contains from the CLI by typing in echo $PATH
     - Each path is separated by a colon
