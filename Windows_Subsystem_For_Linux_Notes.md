@@ -4,18 +4,18 @@
     - Windows already ships with a hypervisor called Hyper-V
         - A hypervisor is software that sits between the hardware and operating systems, and it can run multiple OS kernels simultaneously by dividing up hardware resources between them.
     - When you launch WSL 2, the hypervisor spins up a tiny, stripped-down Linux kernel alongside the Windows kernel
-    - Both kernels are running at the same time, each thinking they have access to the hardware - but the hypervisor is quietly managing who gets what
-    - Microsoft also built deep integration points:
+    - Both kernels are running at the same time, each thinking they have access to the hardware but the hypervisor is quietly managing who gets what
+    - Microsoft also built deep integration points
         - A virtual network bridge lets Windows and Linux talk to each other
         - The file systems are linked through a protocol called 9P
         - Memory is shared and dynamically adjusted rather than statically reserved
-    - When you activate WSL, you actually have two completely different file systems running at the same time:
+    - When you activate WSL, you actually have two completely different file systems running at the same time
         - Windows uses NTFS, living on your actual physical drive
         - Each Linux distribution in WSL has its own file system, and it's stored as a virtual disk image (a .vhdx file) on your Windows drive
             - It's a complete, real Linux file system layout, identical to what you’d find on a Ubuntu system
     - They're separate, but WSL bridges them so you can cross between them:
         - From Linux, you can access Windows files at /mnt/c/ (your C: drive mounted in)
-        - From Windows, you can access Linux files via \\wsl$\Ubuntu\ in File Explorer
+        - From Windows, you can access Linux files via \\\wsl$\Ubuntu\ in file explorer
     - From a user perspective, running WSL2 is as simple as opening the Ubuntu CLI through windows terminal
 - Setup
     - In a CLI type the following
@@ -25,8 +25,6 @@
         - wsl --install
             - It will download wsl and ask that you reboot at the end
             - When you come back after restart, open the CLI again
-        - wsl --update
-            - Will update if possible
         - wsl --list --verbose
             - Will show all the unix distributions provided on this system
         - wsl --status
@@ -53,6 +51,9 @@
         - We have to redownload programs like python or java
         - Git comes pre-installed with ubuntu
         - To check what is already installed, use the which command
-        - Additionally, even if we’re accessing the windows mount through WSL, we still cannot use our windows downloaded executables because linux cannot execute the exes, even though they are visible
+        - Additionally, even if we’re accessing the windows mount through WSL, we still cannot use our windows downloaded executables via WSL because linux cannot execute the exes, even though they are visible
         - There is no conflict if we have the same executables in linux and windows
             - The two systems are completely isolated, with each only having access to each others files
+- To update wsl
+    - wsl --update
+         - Will update if possible

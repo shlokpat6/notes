@@ -8,17 +8,18 @@
 - Terminal is one command line interface
     - Found on Macs and Linux
     - Uses the bash shell
-- Command prompt and powershell are the windows CLIs
-    - Each respectively use the CMD and powershell shells
-    - Command prompt is relatively limited
-    - Powershell is more capable of the two
+- Command prompt and powershell are the default windows CLIs
+    - Use the CMD and powershell shells, respectively
+    - Command prompt is relatively limited outside of batch scripting and windows specific commands
+    - Powershell is the more capable of the two
     - But since most IT/ development work is done on bash based CLIs, it’s recommended to learn and use that
 - Git Bash is a unix based emulator of the bash shell which allows users to use unix commands on Windows
-    - But is is limited
-        - Basically every unix command typed in git bash has to be translated into something readable by windows
+    - You can download it as an application and it comes with git
+    - But it is limited
+        - Every unix command typed in git bash has to be translated into something readable by windows
             - This translation process leads to slower execution of commands
         - Additionally, not all unix commands are available
 - WSL on windows provides us with a full unix env, but requires some setup
-- Also Microsoft has provided a tool called Terminal which is just a CLI that allows you to use any shell as its base
+- Microsoft has provided a tool called Terminal which is just a CLI wrapper that allows you to use and switch between all the CLIs in one applicaiton
     - This is the program that opens when you run your linux distribution setup for WSL2
 - Due to the variety of operating systems, shells, and CLIs, terms like CLI and terminal are often used interchangeably

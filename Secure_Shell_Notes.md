@@ -37,11 +37,11 @@
     - On the windows machine, open a CLI and check if the ssh client is installed
         - By default windows 10 and 11 come with it
         - ssh -V
-        - If you see a version number, you're set
-        - If you don't see it, go to Settings → Apps → Optional features → Add a feature, and install OpenSSH Client
+            - If you see a version number, you're set
+            - If you don't see it, go to Settings → Apps → Optional features → Add a feature, and install OpenSSH Client
     - On the windows machine, run the following
         - ssh username@192.168.1.50
-            - Replace username and the IP with your actual values
+            - Replace username and the IP with the details from the server
             - This is just some dummy IP
         - The first time, type yes when asked about the fingerprint, then enter your Linux password (nothing shows as you type; that’s normal). You’re in when you see the Linux prompt
     - type exit on the windows machine to disconnect
