@@ -70,6 +70,7 @@
             - This means we want to give the library an alias- often a shorter name
             - To use the library's functions, we do
                 - short_name.function_name()
+            - There are agreed upon aliases for certain libraries like st for streamlit
     - We may also need to import from a package
         - from library_name.module_name import function_name
             - We're accessing a specific function from a specific module(python file) from a package
