@@ -30,37 +30,16 @@
     - No trailing commas. [1, 2, 3,] is an error.
     - No comments. JSON has no // or /* */.
     - Items are separated by commas, and keys are separated from values by colons.
-- For python, at the top import JSON
-- When data comes from outside your program, it arrives as a string of characters, not as an object
-    - Ex. 
-        - You get a response from a web API
-        - You read a .json file from disk
-        - Another program sends you a message
-    - In all those scenarios, your object is of string type, not dict, which is how a JSON object looks
-        - Python has no idea the string is structured data, so we need to load the string as that structured data to turn it into a dict
-    - Ex. if we are getting from a response. Use the .loads() not .load() as we're loading a string from memory not file
-        - text = '{"name": "Ada", "languages": ["English", "French"]}'
-        - data = json.loads(text)          # converts from string to dict
-    - Ex. if we are reading from a file. Say you have a file called person.json on disk containing the json object. We need to use the .load() not .loads(). f can be anything. we're just creating a file object called f
-        - with open("person.json", "r") as file:
-            - data = json.load(file)
+- Working with JSON in Python
+    - At the top of the file, import json
+    - When you use a client like the requests library, we'll get back a response object
+        - The body of this respone object will contain JSON, which needs to be converted into a python data type so we can use it
+        - In this scenario, you can use the .json() method on the response object
+            - This will read the response body, and parse it's JSON into a python dict
+            - Make sure to store this in a variable
 - As a dict, we can access values, using key values pairs
     - Ex. If our dict looks like {"name": "Ada", "languages": ["English", "French"]}
         - data["name"]  # Gives us "Ada"
         - data["languages"][0] # Gives us English; remember that languages is an array in our dict
-- When you need to send or save your data as text, use json.dumps and json.dump
-    - Ex. with our dict as person = {"name": "Ada", "age": 36, "isActive": True, "spouse": None, "languages": ["English", "French"]}
-        - We use dumps() when we want to convert the python object dict to a string for sending as a response
-            - text = json.dumps(person)
-        - We use dump() when we want to convert the python object dict to a file for saving on disc. The w means open for writing. Without it, python opens the file read-only and dump will fail.
-            - with open("person.json", "w") as file:
-                - json.dump(person, file)
-            - Note this saves to the project directory
-            - We can save to a specific path by providng the specific path to the file
-                - Ex.
-                    - with open("data/"person.json", "w") as file:
-                        - json.dump(person, file)
-        - Both dumps() and dump() will accept the argument indent=2 or other num to add line breaks and spacing
-    
 
 
