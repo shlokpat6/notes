@@ -21,6 +21,7 @@
     - The r parameter is set by default if you don't pass it
 - Note, that this is opening a file within our project directory
     - If we want something outside that, we'd have to provide the full path to it in the file name field
+    - Also remember that when running the code via the terminal to be in the directory where you script is located or provide the path to it
 - Syntax for reading the file
     - print(x.read())
 - We can also use the with keyword when opening a file
@@ -28,7 +29,7 @@
         - print(f.read())
     - The benefit to using the with keyword is that automatically closes the file once we're done with it
 - Closing a file
-    - It's good practice to always close the file when you're done with it
+    - It's good practice to always close the file when you're done with it, so that python doesn't keep system resources to keep track of that file
     - Without the with statement, you have to write the close statement
     - file_object.close()
 - Writing to a file
@@ -39,11 +40,12 @@
         - with open("file_name.txt", "w") as f:
             - f.write("Some new content")
     - Only problem with using the with command is that every time you want to do a new operation on that file, you have to rewrite a with statement and create the file object again, just with a different argument and body
+        - The file object does not persist
 - Creating a file
-    - Any of x, a, or w parameters can be used
+    - Any of x, a, or w parameters can be used, but we typically use x
     - f = open("demo_file.txt", "x")
 - Deleting a file
-    - To delete a file you have to import the os moduele
+    - To delete a file you have to import the os module
         - os.remove("file_name.txt")
     - to delte a directory
         - os.rmdir("directory_name")
