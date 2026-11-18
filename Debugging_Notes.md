@@ -5,7 +5,7 @@
     - 2. Understand the expected behavior
         - What should happen? And how should we have gotten there?
     - 3. Read the error message and traceback
-        - Python traceback tells you which lines were involved in the failure and the cal stack
+        - Python traceback tells you which lines were involved in the failure and the call stack
             - Start at the bottom of the traceback, where the exception type and message usually appear
     - 4. Narrow down the problem using breakpoint, print statements, and a debugger
         - Inspect the relevant function, inputs, variables, etc.
@@ -49,7 +49,7 @@
                         - stop
                             - stop debugging
     - Print statements and logging module
-    - Read stack trace
+    - Read stack trace(the error messages in the console)
     - Unit testing
         - Sometimes the best way to debug a problem is to write unit tests that would expose it
         - Useful for complex applications because they let you isolate individual pieces of functionality
