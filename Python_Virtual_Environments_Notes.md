@@ -1,23 +1,36 @@
 # Python Virtual Environments
-- A Python virtual environment is an isolated space for a Python project where you can install its own libraries and dependencies without affecting other Python projects on your computer
-- If multiple projects use the same Python environment, their dependencies might conflict
-- With separate virtual environments, each project can use its own version of libraries and modules without interfering with the other
+- We'll often be juggling multiple projects
+        - And each project might require different versions of packages
+            - Packages are pre-written code that others have created
+            - Instead of rewriting the code from scratch, we can import these packages
+    - For each project we can create virtual environemtnts
+        - These are like local copies of our python installation that allows us to install different libraries for different projects
 - It’s recommended that you set up a virtual env for each project for this reason
-Once you’re in a directory with a venv, just use the pip install package_name command to download the package inside the venv
-- The virtual environment uses whichever python version was used to create it, so you don’t have a separate version
-    - Only the libraries are different
-- Additionally, any libraries installed outside a virtual environment, are not available inside one, and libraries installed inside a virtual environment are not available outside it
 - Creating python virtual environments
-    - Go to the directory where your python project is located
+    - Using the CLI, go to the directory where your python project is located
     - Run the following command: python -m venv .{name}
         - Replace the curly braces and name with the name of your environment
         - Standard practice is to use .venv
     - This creates a .{name} folder in the directory
 - To activate the virtual environment
-    - Run the following command on windows if using gitbash:
+    - Without activation, you'll be using the global python install and the global packages
+        - With a activated venv, you're pointing at the local python env
+    - Run the following command on windows if using gitbash
         - If you’re using git bash, then it’s 
             - source .venv/Scripts/activate
     - You will see (venv) before your terminal prompt if activated successfully
+- Once you’re in a directory with a venv, just use the pip install package_name command to download the package inside the venv
+- The virtual environment uses whichever python version was used to create it, so you don’t have a separate version
+    - Only the libraries are different
+- Additionally, any libraries installed outside a virtual environment, are not available inside one, and libraries installed inside a virtual environment are not available outside it
 - To deactivate
     - Run the following command: deactivate
     - You should always deactivate once you want to stop working on a project
+- Notice, that when you execute the code now, the python interpretor used is the one in our virtual environment, not the global version from earlier
+    - If you think your virtual environment is broken, you can just delete the folder and create a new virtual environment
+    - Sometimes, vs code can be wonky with which interpreter it chose when using a venv
+        - In the bottom bar on the right, you should see .venv(python_version) 
+            - Indicates your local python install interpreter is being used
+        - If it's incorrect, press ctrl shift p
+            - In the command pallete, search for Python: Select Interpreter
+                - Make sure the .venv option is selected
