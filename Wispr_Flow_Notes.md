@@ -1,0 +1,17 @@
+# Wispr Flow
+- Wispr Flow is an AI-powered speech-to-text app that lets you dictate into almost any Windows application, including emails, documents, browsers, IDEs and messaging apps
+    - Available on desktop and mobile
+- Standard dication(Microsoft Voice Typing) vs Wispr Flow
+    - Standard dictation mostly transcribes what you say
+    - Wispr Flow tries to work out what you mean from context and produces well-written text
+        - It focuses on polished output, cleanup, punctuation, shortcuts, snippets, and AI-assisted editing
+        - In practice, it removes filler words, handles mid-sentence self-corrections, and fixes grammar as you speak
+        - It also lets you whisper and it can pick it up
+    - However, on Copilot capable pcs, Windows has unveiled the AI-powered Fluid Dicatation, which offers some similar capabilities
+        - So the gap may be narrowing
+- Wispr Flow has a free option, but it has daily word limits that is fine for casual users
+- The processing also happens on the cloud, so privacy concerns remain
+- To use Wispr Flow after its installed
+    - Click anywhere where you would type (textbox, documents, etc) and hold down the cap locks key
+        - Speak or wispr while holding down the cap lock key
+        - Let go of the key when you're down speaking and the text will be autofilled with the processed words

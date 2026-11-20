@@ -1,9 +1,9 @@
 # AI Chatbots
 - AI chatbots like Claude, ChatGPT, Grok, and Gemini are computer programs that you can converse with via natural language
-    - Unlike traditional chatbots, which just querie business rules, these can understand questions, have conversations, provide information, solve problems, and generate things
-        - Like a personal assistant, that are always available, and knowledgeable across the board
+    - Unlike traditional chatbots, which just querie business rules for their responses, these can understand questions, have conversations, provide information, solve problems, and generate things
+        - Like a personal assistant, that are always available and knowledgeable across the board
         - And you can have a conversation with them
-- You can use them to do all sorts of tasks such as-
+- You can use them to do all sorts of tasks such as
     - Teach you something
     - Write something
     - Research
@@ -11,9 +11,10 @@
     - Summarize information
     - Create content
     - Calculate something
+    - Give you code snippets
     - Troubleshoot issues
     - And more!
-- You don't need to be a developer to use them - just type a prompt in english as you would to an assistant
+- You don't need to be a developer to use them - just type a prompt in english as you would to an assistant, press enter, and get back a response
 - There are many competing AI chabots from many providers
     - The most popular are-
         - ChatGPT
@@ -31,21 +32,72 @@
             - There might be an option to upload files
         - You can create new chats
             - Good to isolate information, as the AI could be skewed by existing information in a chat
-    - The most popular ones are general purpose, meaning they can perform a variety of tasks and are knowledgable in multiple areas
-        - That breadth of knowledge can come at the expense of depth
+                - That "memory" within a chat is called context- basically it's all the information sent back and forth throughout the chat, so the chatbot has context
+    - The most popular chatbots are general purpose, meaning they can perform a variety of tasks and are knowledgable in multiple areas
+        - That breadth of knowledge can come at the expense of depth in some things
             - So other smaller providers have models which are suited for specific tasks
-    - You do not need to use every model
+    - Within a chatbot, you can often select different models
+        - The is the part that actually comprehends your prompts and outputs and answer
+        - Some models are more powerful or better at specific tasks
+        - Some are free, others are paid
+    - You do not need to use every chatbot
         - Pick one(they generally perform the same on everyday tasks)
         - You may want to switch back and forth to bypass the context window limits
-            - Each chatbot has a certain amount of cumulative messages that can be sent back and forth between you and your chatbot 
+            - Each chatbot has a certain amount of cumulative messages that can be sent back and forth between you and your chatbot
                 - Once you hit that limit, you will lose access to certain features like image or file upload, or be unable to chat for a certain amount of time
             - In that scenario, you can use another service and go back to the other when the chat pause is over
-    - Regardless of the company backing them, these models are available through
+    - Regardless of the company backing them, these chatbots are available through
         - Website
         - Mobile apps
         - Some also have desktop versions you can install
         - Others like Gemini and Copilot come bundled with the company's products, allowing them to access their ecosystem
             - You can still use these standalone via the web and mobile apps
+        - They are practically the same despite the different mediums
+            - Only difference is what they have access to
+                - Desktop chatbots have access to your filesystem
+                - Desktop versions also give you access to other agentic services like claude code, codex, claude cowork, etc.
+                - The integrated options can access your bundled services like office 365 or google's suite
+- Newer chatbots have the ability to integrate connectors and tools
+    - This basically gives them access to external services(like google drive) where they can perform actions based on your prompts
+    - Without these connectors, your chatbot would act as isolated unit, relying on its own knowledge base and web search if needed
+        - That would be fine if all you want is a q/a session
+    - There are many connectors available from major providers that give access to their services
+- Chatbot vs Agentic
+    - Claude, ChatGPT, Microsoft Copilot, Gemini, Grok are chatbots
+        - They respond to you but don't go off and carry out multi-step tasks on their own
+        - These are generally free with some of their base models, but the higher models require a subscription
+    - Agentic options
+        - Some of the major providers and many others have agentic ai services
+            - Anthropic
+                - Claude Code
+                    - Agentic tool for developers
+                    - For writing, debugging, and shipping code
+                    - Runs in the terminal, the desktop app, and IDEs like VS Code
+                        - Each way requires a different installation method
+                            - You can download claude code cli
+                            - The desktop app has a tab for claude code
+                            - There is a claude code extension in vscode
+                    - You could also access it via mobile and web, but those instances are limited
+                    - To use it, install it, open it inside a project folder, and tell it what to build or fix
+                        - It reads your codebase, edits files, runs commands and tests, and can push to GitHub
+                - Claude Cowork
+                    - Agentic tool for non-developers
+                    - Not free
+                    - You describe a task in the claude desktop app, point cowork at a folder, and it plans and executes work while you watch
+                    - You can walk away and come back when the task is done
+                    - You can schedule tasks
+            - OpenAI
+                - Codex
+                    - Agentic tool for developers
+                    - For writing, debugging, and shipping code
+                    - Runs in the terminal, the desktop app, and IDEs like VS Code
+                        - Each way requires a different installation method
+                            - You can download codex cli
+                            - The desktop app has a tab for codex
+                            - There is a codex extension in vscode
+                    - You could also access it via mobile and web, but those instances are limited
+                    - To use it, install it, open it inside a project folder, and tell it what to build or fix
+                        - It reads your codebase, edits files, runs commands and tests, and can push to GitHub
 - Remember that AI is not perfect
     - They can-
         - Give incorrect information
@@ -55,9 +107,6 @@
         - Sound confident even when they're wrong
     - For important matters invovling money, health, legal, and major decisions, verify their answers via a credible source
 - Like with anything on the internet, do not provide private information, passwords, financial account numbers, or senstive personal details
-- Newer chatbots have the ability to integrate connectors and tools
-    - This basically gives them access to external services(like google drive) where they can perform actions based on your prompts
-    - Without these connectors, your chatbot would act as isolated unit, relying on it's own knowledge base and web search if needed
 - One last thing- chatbots need good prompts to be effective and efficient
     - With bad prompts, you'll be spending time going back and forth refining what you want and exahusting your chat limits
     - So prompt engineering are techniques that we can leverage to be better prompters
