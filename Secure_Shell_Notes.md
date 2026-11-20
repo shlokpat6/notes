@@ -44,7 +44,7 @@
             - Replace username and the IP with the details from the server
             - This is just some dummy IP
         - The first time, type yes when asked about the fingerprint, then enter your Linux password (nothing shows as you type; that’s normal). You’re in when you see the Linux prompt
-    - type exit on the windows machine to disconnect
+    - Type exit on the windows machine to disconnect
     - It's recommended to use the key value pair for security and convenience
         - On windows, generate a key pair in the CLI
             - ssh-keygen -t ed25519
@@ -54,3 +54,11 @@
                 - Replace the IP with the linux machine's 
         - Now, when you ssh into the linux machine, you don't need the password
             - If you provided a key passphrase during generation, you'll have to type that though
+- You can also setup a windows to windows ssh connection
+    - Only difference is that on one computer, make sure ssh server is downloaded
+    - On that device, open a CLI and check if the ssh server is installed
+        - By default windows 10 and 11 come with it
+        - ssh -V
+            - If you see a version number, you're set
+            - If you don't see it, go to Settings → Apps → Optional features → Add a feature, and install OpenSSH Server
+    - Then just goes follow the steps from the windows to linux connection for setting up the connection
