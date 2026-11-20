@@ -102,7 +102,7 @@
             - Good for coping and pasting code
 - At the very bottom of the program is the status bar
     - Provides real time information about your open file
-        - Shows details like the current git branch, any errors or warnings, current line, the column number, file encoding, the programming language
+        - Shows details like the current git branch, any errors or warnings, current line, the column number, file encoding, the programming language/ interpretor
 - Right above the status bar is the panel area
     - To open it and close it
         - Ctrl tilde or ctrl j
