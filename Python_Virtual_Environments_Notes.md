@@ -8,7 +8,10 @@
 - It’s recommended that you set up a virtual env for each project for this reason
 - Creating python virtual environments
     - Using the CLI, go to the directory where your python project is located
-    - Run the following command: python -m venv .{name}
+    - Run the following command: 
+    
+            python -m venv .{name}
+
         - Replace the curly braces and name with the name of your environment
         - Standard practice is to use .venv
     - This creates a .{name} folder in the directory
@@ -17,20 +20,26 @@
         - With a activated venv, you're pointing at the local python env
     - Run the following command on windows if using gitbash
         - If you’re using git bash, then it’s 
-            - source .venv/Scripts/activate
+
+                source .venv/Scripts/activate
+
     - You will see (venv) before your terminal prompt if activated successfully
 - Once you’re in a directory with a venv, just use the pip install package_name command to download the package inside the venv
 - The virtual environment uses whichever python version was used to create it, so you don’t have a separate version
     - Only the libraries are different
 - Additionally, any libraries installed outside a virtual environment, are not available inside one, and libraries installed inside a virtual environment are not available outside it
 - To deactivate
-    - Run the following command: deactivate
+    - Run the following command: 
+    
+            deactivate
+    
     - You should always deactivate once you want to stop working on a project
 - Notice, that when you execute the code now, the python interpretor used is the one in our virtual environment, not the global version from earlier
     - If you think your virtual environment is broken, you can just delete the folder and create a new virtual environment
     - Sometimes, vs code can be wonky with which interpreter it chose when using a venv
         - In the bottom bar on the right, you should see .venv(python_version) 
             - Indicates your local python install interpreter is being used
-        - If it's incorrect, press ctrl shift p
-            - In the command pallete, search for Python: Select Interpreter
+        - If it's incorrect, click on it
+            - In the command pallete, search for the venv python interpreator that is pointed at your project
                 - Make sure the .venv option is selected
+            - Another fix could be just killing the terminal and reopening it
