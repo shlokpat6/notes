@@ -61,14 +61,14 @@
             - r flag needed to delete a directory
         - rm -r -f [directoryname]
             - f flag needed to delete a directory with contents
-    - Start [file name, directory, or URL]
+    - start [file name, directory, or URL]
         - Will open the file, a file browser for the directory or the URL in a browser
         - Only a windows based command- so can be used in command prompt or git bash
         - For unix systems, use xdg-open [file_name]
     - history
         - Shows the last few commands run with associated key
         - To run a recent command again
-    - ![key]
+            - ![key]
     - grep [searchterm] [filename]
         - Outputs onto the console all patterns that match the search term in the file
     - cat > [filename]
@@ -116,12 +116,12 @@
             - tar - tzvf [filename]
         - To extract
             - tar -xzvf [filename]
-- Commands - linux specific- for windows use wsl
-    - Sudo command
+- Linux specific commands- for windows use wsl
+    - sudo command
         - Replace the command with the command you want
         - This gives you superuser permission to perform an action that is restricted
             - Will need to type your account password
-    - Sudo apt install [application]
+    - sudo apt install [application]
         - Will install the application or package
     - tldr command
         - Gives you information about the command
@@ -142,7 +142,7 @@
         - Ex. ls -a - l or ls -al
     - Remember that instead of putting a filename or directory, we can put a path to those elements
         - Allows us to perform operations when we’re not in a directory where those content are located
-    - When you provide the filename, also provide the extension\
+    - When you provide the filename, also provide the extension
     - We can use piping via the > symbol to redirect output
         - By default the output of all commands goes to stdout- standard output to display onto the cli, but we can redirect it to - files and other commands
             - Ex. command > file.txt
