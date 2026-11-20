@@ -3,82 +3,96 @@
 - Some notes might be incomplete, but I'll be updating files and adding to this repo as I continue to learn.
     - Sometimes notes might look incomplete just due to the nature of the topic. While I try to add code snippets where I can, some things are tricky to add in written form. In the future, I'll embed screenshots. 
 - If you notice anything looks off or incorrect, reach out at shlokpat6@gmail.com. Just mention this repo, the specific page(s) and what needs to be corrected or added. 
-- I've listed the content in order that I found best to learn in, but skip around as needed.
+- I've listed the content in order that I found best to learn in, but skip around as needed
+- Note all the notes are present that are listed in the content section, but I just wanted an outline.
 
 ## Content
-- ***Computer Hardware- This should slot in here when done***
+- Computer Hardware
+- Computer Architecture
+- AI Chatbots
 - Prompt Engineering
+- Whisper Flow
 - Software Development Lifecycle
 - SDLC Methodologies
 - Scrum in Detail
 - Software Engineering Principles
-- ***Operating Systems - This should slot in here when done***
+- Operating Systems
 - Windows Environment Variables
 - Command Line Interface
 - Unix Commands
 - Secure Shell
 - Windows Subsystem For Linux
 - Command Line Text Editors
+    - VIM
 - Integrated Developement Environments
+- Figma
+- AI Assisted Coding
+    - Devin
+    - Cursor
+    - Codex
+    - Claude Code
+    - Github Copilot
 - Markdown
 - Git
 - GitHub
+- Python
 - Python Virtual Environments
 - Debugging
 - Python File Handling
 - Python Dependencies
 - Python Environment Variables
+- UV
+- Python Objected Orinted Programming
+- Python DSA
+- PyTest
 - JSON
 - HTTP
 - Rest APIs
 - Postman
+- Curl Command Unix
+- Python Requests Library
+- FastAPI
 - Local AI
     - Ollama
     - LM Studio
 - Open Web UI
-___
-#### Needs document cleaning
-- AI Agents
-___
-#### On hold for now, but just needs cleaning
-- node.js and NVM Windows
+- Cline
 - LLMs Basics
 - Machine Learning Basics
 - A.I. Infrastructure Basics
-- Model Context Protocol
 - AI Agents Basics
+- Model Context Protocol
+- FastMCP
+- node.js and NVM Windows
 - n8n
 - TailScale
 - Cloudflare Tunnel
+- VectorrDBs
+- LlamaIndex
+- Langchain
+- SQL (postgresql)
+- Amazon Web Services
 
 ## Notes in progress now
-### These are not in any order. Many of these topics are ones I've learned, but don't have notes in MD yet. Others I've yet to learn. I'll be adding more topics as I power through these over the next few weeks to months.
-- FastAPI
-- FastMCP
-- PyTest
-- SQL (postgresql)
-- SQL Alchemy
-- SDKs
-- Vercel
-- LlamaIndex
-- VectorrDBs
-- Langchain
-- System Design
-- Juptyr notebook
-- Amazon Web Services
-- Figma
-- Bash Scripting
+### These are not in any order. I'll be adding more topics as I power through these over the next few months to year.
 - Langgraph
 - Langsmith
 - MLFlow
+---
 - Kubernetes
+- Grafana
+- Promotheus
+- NGINX
+---
+- SDKs
+- Vercel
+- System Design
+- Bash Scripting
+---
+- Juptyr notebook
 - Pandas
 - SciKitLearn
 - NumPy
 - SciPy
 - Seaborn
 - Pytorch
-- Grafana
-- Promotheus
-- NGINX
-- Curl Command Unix
