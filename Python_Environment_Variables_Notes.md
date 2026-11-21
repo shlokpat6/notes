@@ -12,28 +12,32 @@
                     - If the variable doesn't exist, it returns None by default.
                 - Ex.
                     - In our CLI, we can initate variables
-                        - OPENAI_API_KEY = dummykey
-                        - DATABASE_PASSWORD = dummkey2
+                        - `OPENAI_API_KEY = dummykey`
+                        - `DATABASE_PASSWORD = dummkey2`
                     - then in our script
-                        - import os
-                        - api_key = os.getenv("OPENAI_API_KEY")
-        - Another is in a .env file
+                        ```
+                        import os
+                        api_key = os.getenv("OPENAI_API_KEY")
+                        ```
+        - Another is in a .env file (recommended)
             - A .env file is simply a text file that stores environment variable definitions
             - Ex. the file might have
-                - OPENAI_API_KEY=dummy1
-                - DATABASE_PASSWORD=dummy2
+                ```
+                OPENAI_API_KEY=dummy1
+                DATABASE_PASSWORD=dummy2
+                ```
             - One variable per line
             - Python does not automatically read .env files
                 - You need a library to load them
                 - A popular Python library for this is python-dotenv
                 - In our script
-                    - import os 
+                    - `import os`
                         - Gives the program access to the windows file system
-                    - from dotenv import load_dotenv
+                    - `from dotenv import load_dotenv`
                         - Gives the program the ability to read the .env file
-                    - load_dotenv()
+                    - `load_dotenv()`
                         - Loads the variables from .env
-                    - api_key = os.environ.get("variable_name")
+                    - `api_key = os.environ.get("variable_name")`
     - Also note, environment variables are strings by default, so you need to convert values like booleans and numbers
     - In either case, the format is VARIABLE_NAME=value
 - We use environment variables rather than just hardcoding them into our python program for a few reasons

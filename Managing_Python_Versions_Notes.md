@@ -1,0 +1,27 @@
+# Managing Different Python Versions
+- There might be times when you have to work with different python versions on the same computer
+    - Maybe one project requires you to have one version and the others need another version
+- In order to manage the different versions, there are Python Version Managers
+    - pyenv
+        - Find the installation method for your os her- [pyenv install link](https://pyenv-win.github.io/pyenv-win/docs/installation.html?utm_source=chatgpt.com#python-pip)
+        - You can use it to install different python versions
+            - `pyenv install version_number`
+                - Just replace the version_numebr with the specific version
+            - Note if you already had a python version installed before you installed pyenv, pyenv can track the existing installation, but you'll have to pass the name system to pyenv instead of its version number
+                - However, unlike python installations installed via pyenv, pyenv cannot manage it, meaning it cannot delete or do anything else with it
+                - It can only switch to it
+        - If you install the different versions via pyenv, then it can keep track of them
+            - To check which python versions you have installed
+                - `pyenv versions`
+                    - Asterisk indicates the current version
+        - Then you can switch between them
+            - Globally
+                - `pyenv global 3.12.8`
+                - This will be the default installation used for everything, including creating venvs, unless overwritten by a local version
+            - Locally
+                - `pyenv local 3.11.11`
+                - Only changes the version in the current directory
+                - You go into the directory where you have a python project
+                - You enter the command above
+                    - This creates a `.python-version` file in that directory, which mentions the python version used
+                - So when you go to create a venv in that directory, it uses the version defined in `.python_version`

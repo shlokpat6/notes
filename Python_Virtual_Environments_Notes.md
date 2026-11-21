@@ -9,20 +9,16 @@
 - Creating python virtual environments
     - Using the CLI, go to the directory where your python project is located
     - Run the following command: 
-    
-            python -m venv .{name}
-
-        - Replace the curly braces and name with the name of your environment
-        - Standard practice is to use .venv
-    - This creates a .{name} folder in the directory
+        - `python -m venv .ven_name`
+            - Replace the venv_name with the name of your environment
+            - Standard practice is to use .venv
+    - This creates a .venv_name folder in the directory
 - To activate the virtual environment
     - Without activation, you'll be using the global python install and the global packages
         - With a activated venv, you're pointing at the local python env
     - Run the following command on windows if using gitbash
         - If you’re using git bash, then it’s 
-
-                source .venv/Scripts/activate
-
+            - `source .venv/Scripts/activate`
     - You will see (venv) before your terminal prompt if activated successfully
 - Once you’re in a directory with a venv, just use the pip install package_name command to download the package inside the venv
 - The virtual environment uses whichever python version was used to create it, so you don’t have a separate version
@@ -30,9 +26,7 @@
 - Additionally, any libraries installed outside a virtual environment, are not available inside one, and libraries installed inside a virtual environment are not available outside it
 - To deactivate
     - Run the following command: 
-    
-            deactivate
-    
+        - `deactivate`
     - You should always deactivate once you want to stop working on a project
 - Notice, that when you execute the code now, the python interpretor used is the one in our virtual environment, not the global version from earlier
     - If you think your virtual environment is broken, you can just delete the folder and create a new virtual environment

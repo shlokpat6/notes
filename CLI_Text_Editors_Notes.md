@@ -5,7 +5,7 @@
 - It is keyboard based
     - Increases productivity as your hands remain on the keyboard rather than moving to the mouse
 - Entering VIM
-    - In your CLI type vim file_name
+    - In your CLI type `vim file_name`
         - This can be a new file you want to create or an existing one
 - Toggling between modes- mode reflect in bottom of cli
     - You can only move between insert, command, and visual by returning to normal
@@ -26,23 +26,23 @@
         - To get to this press esc
         - Commands require the colon key first followed by the command
         - Some commands
-            - :set number
+            - `:set number`
                 - Will give us line numbers
-            - :lineNum
+            - `:lineNum`
                 - Where lineNum is the particular line will take us to a line
             - Leaving VIM
-                - :q will quit an unmodified file
-                - :q! will quit and ignore changes
-                - :wq will save and quit
+                - `:q` will quit an unmodified file
+                - `:q!` will quit and ignore changes
+                - `:wq` will save and quit
             - Saving VIM 
-                - :w will save
+                - `:w` will save
     - insert mode
         - Access by press esc followed by i
         - Frees up the full keyboard to modify the code
-        - +p command will allow you to paste
+        - `+p` command will allow you to paste
     - visual mode
 - Running directly from VIM
-    - :! [whatever you would type in the cli to run]
+    - `:! [whatever you would type in the cli to run]`
 - Extra commands
     - Shift-I will move you to the front of the line and in insert mode from normal or command mode
     - Shift- A will move you to the back of the line and in insert mode from normal or command mode

@@ -29,7 +29,7 @@
         - Only time the process would have to be performed again is when you’re setting up the ssh keys between a new computer and your github account
     - Setup for first time
         - Generating a key
-            - ssh-keygen -t ed25519 -C "your_email@example.com"
+            - `ssh-keygen -t ed25519 -C "your_email@example.com"`
                 - this should be your github email
                 - -t ed25519: the key type. Ed25519 is modern, fast, and what GitHub recommends
                 - When you press enter, it will ask for the file name
@@ -41,18 +41,20 @@
                     - If you give it a password, you’ll have to enter it every time you interact with github
                     - To avoid having to enter the password everytime, we can setup an ssh agent
         - This creates two files:
-            - ~/.ssh/id_ed25519: the private key. Never share this or upload it anywhere.
-            - ~/.ssh/id_ed25519.pub: the public key. This is the one you give to GitHub.
+            - ~/.ssh/id_ed25519
+                - the private key. Never share this or upload it anywhere.
+            - ~/.ssh/id_ed25519.pub
+                - the public key. This is the one you give to GitHub.
         - Optional- add the key to an ssh agent
             - Recommended if you added a password
             - The agent holds your key in memory so you don't retype the passphrase on every push
             - Commands
-                - eval "$(ssh-agent -s)"
-                - ssh-add ~/.ssh/id_ed25519
+                - `eval "$(ssh-agent -s)"`
+                - `ssh-add ~/.ssh/id_ed25519`
         - Adding the public key to github
             - Go to .ssh directory at the root of your device and copy the contents of the public key we created
                 - Can use the cat command
-                    - cat id_ed25519.pub
+                    - `cat id_ed25519.pub`
             - Go to github.com and settings
             - Look for ssh section
                 - Select add a new key
@@ -60,7 +62,7 @@
                         - Could just be the name of the device
                     - Paste the copied public key into the field and select add key
         - Test the connection
-            - ssh -T git@github.com
+            - `ssh -T git@github.com`
                 - The first time, you'll see a warning that the authenticity of github.com can't be established, along with a fingerprint. Compare it against the fingerprints published in GitHub's docs, then type yes. You should then see:
                     - Hi username! You've successfully authenticated, but GitHub does not provide shell access.
                 - That message means it worked. (The "no shell access" part is normal.)

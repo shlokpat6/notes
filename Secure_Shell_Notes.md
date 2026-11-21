@@ -25,32 +25,32 @@
         - On the computer being ssh'd into, there's another terminal that's opened up
 - Setup with a windows client and linux server on the same network
     - On the linux machine, open a terminal and install and start the ssh server
-        - sudo apt update
-        - sudo apt install openssh-server
-        - sudo systemctl enable --now ssh
+        - `sudo apt update`
+        - `sudo apt install openssh-server`
+        - `sudo systemctl enable --now ssh`
     - Check that it's running
-        - sudo systemctl status ssh
+        - `sudo systemctl status ssh`
     - Find the linux machine's IP
-        - hostname -I
+        - `hostname -I`
     - Find the linux machine's username
-        - whoami
+        - `whoami`
     - On the windows machine, open a CLI and check if the ssh client is installed
         - By default windows 10 and 11 come with it
-        - ssh -V
+        - `ssh -V`
             - If you see a version number, you're set
             - If you don't see it, go to Settings → Apps → Optional features → Add a feature, and install OpenSSH Client
     - On the windows machine, run the following
-        - ssh username@192.168.1.50
+        - `ssh username@192.168.1.50`
             - Replace username and the IP with the details from the server
             - This is just some dummy IP
         - The first time, type yes when asked about the fingerprint, then enter your Linux password (nothing shows as you type; that’s normal). You’re in when you see the Linux prompt
     - Type exit on the windows machine to disconnect
     - It's recommended to use the key value pair for security and convenience
         - On windows, generate a key pair in the CLI
-            - ssh-keygen -t ed25519
+            - `ssh-keygen -t ed25519`
             - Press enter to accept the default location, and skip the password unless you want one
         - Copy the public key to the linux machine
-            - type $env:USERPROFILE\.ssh\id_ed25519.pub | ssh username@192.168.1.50 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
+            - `$env:USERPROFILE\.ssh\id_ed25519.pub | ssh username@192.168.1.50 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"`
                 - Replace the IP with the linux machine's 
         - Now, when you ssh into the linux machine, you don't need the password
             - If you provided a key passphrase during generation, you'll have to type that though
@@ -58,7 +58,7 @@
     - Only difference is that on one computer, make sure ssh server is downloaded
     - On that device, open a CLI and check if the ssh server is installed
         - By default windows 10 and 11 come with it
-        - ssh -V
+        - `ssh -V`
             - If you see a version number, you're set
             - If you don't see it, go to Settings → Apps → Optional features → Add a feature, and install OpenSSH Server
     - Then just goes follow the steps from the windows to linux connection for setting up the connection

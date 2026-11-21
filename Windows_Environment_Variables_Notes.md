@@ -8,9 +8,8 @@
 - Generally, unless you have multiple users, just edit it in the system wide section
 - To edit the path variable, find it in the list of system variables and click edit
 - Now press new and paste the path to the bin folder in which that executable is located
-- To double check that the path variable is set properly, in a CLI, use the command-
-    - which executable_name
-        - where executable_name is replaced by the specific command, like python or ls or git
+- To double check that the path variable is set properly, in a CLI, use the command `which executable_name`
+    - where executable_name is replaced by the specific command, like python or ls or git
 - The directory path will be listed out
-- You can also check what the path variable contains from the CLI by typing in echo $PATH
+- You can also check what the path variable contains from the CLI by typing in `echo $PATH`
     - Each path is separated by a colon

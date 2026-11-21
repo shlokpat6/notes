@@ -14,23 +14,23 @@
         - Each Linux distribution in WSL has its own file system, and it's stored as a virtual disk image (a .vhdx file) on your Windows drive
             - It's a complete, real Linux file system layout, identical to what you’d find on a Ubuntu system
     - They're separate, but WSL bridges them so you can cross between them:
-        - From Linux, you can access Windows files at /mnt/c/ (your C: drive mounted in)
-        - From Windows, you can access Linux files via \\\wsl$\Ubuntu\ in file explorer
+        - From Linux, you can access Windows files at `/mnt/c/`
+        - From Windows, you can access Linux files via `\\\wsl$\Ubuntu\` in file explorer
     - From a user perspective, running WSL2 is as simple as opening the Ubuntu CLI through windows terminal
 - Setup
     - In a CLI type the following
-        - wsl --version
+        - `wsl --version`
             - Checks for the WSL version on the device
             - If it comes back as false, then we need to install WSL
-        - wsl --install
+        - `wsl --install`
             - It will download wsl and ask that you reboot at the end
             - When you come back after restart, open the CLI again
-        - wsl --list --verbose
+        - `wsl --list --verbose`
             - Will show all the unix distributions provided on this system
-        - wsl --status
+        - `wsl --status`
             - Will give you the version of wsl
             - 2 is the latest and often required
-        - wsl --install -d Ubuntu
+        - `wsl --install -d Ubuntu`
             - This will install the Ubuntu distribution
     - To access our linux env, just search for Ubuntu in windows search
         - It will open up the windows provided terminal wrapper application, in which Ubuntu is selected as the CLI
@@ -55,5 +55,5 @@
         - There is no conflict if we have the same executables in linux and windows
             - The two systems are completely isolated, with each only having access to each others files
 - To update wsl
-    - wsl --update
+    - `wsl --update`
          - Will update if possible

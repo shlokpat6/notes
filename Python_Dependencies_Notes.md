@@ -2,37 +2,43 @@
 - Dependencies in python are external python packages/libraries/ modules
     - Note, that while the names are often used interchangeably, there is technically a difference
         - Libraries/packages are collection of python files, with each file being called a module
-    - Packages/libraries are resusable collection of pre-written code modules that provide functions, classes, and utiltieis to perform specific tasks without writing the logic from scratch
+    - Packages/libraries are resusable collection of pre-written code modules that provide functions, classes, and utilities to perform specific tasks without writing the logic from scratch
         - There are two cateogiries
             - Standard libraries
                 - Bundled with every Python installation- do not need to install manually
                 - Provide access to system functionality and common programming solutions
             - External libraries
                 - Third party packages available in the python package index that extend python's capabilities for specialized domains like data science, web development, machine learning, etc
-- Pip is the standard package installer for python
+- pip is the standard package installer that comes bundled with Python
     - Stands for pip install packages
     - Use it to download, install, update, and manage libraries in python
     - Connects to the Python Package Index (PyPI), a repository containing thousands of community-generated packages
     - Common commands
-        - pip install package_name
+        - `pip install package_name`
             - Downloads and installs the package from the Python Package Index
-        - pip uninstall package_name
-            - Uninstalls the packages
-        - pip --version
+        - `pip uninstall package_name`
+            - Uninstalls the package
+        - `pip --version`
             - Tells you the pip version
             - Also gives you the path to the packages
-    - Where are packages installed
+        - `pip list`
+            - Lists all the packages installed
+        - `pipx install package_name`
+            - Use this instead of `pip install package_name` when you have some tool that you want to be used across all projects
+                - This differs than just doing `pip install package_name` outside the venv because it's specifically designed for tools/packages that are meant to be run as CLI commands and not within the python program
+    - Where are packages installed?
         - Without a virtual environment
-            - Pip generally installs it into the Python installation's package directory 
+            - pip generally installs it into the Python installation's package directory 
                 - The site-packages folder is where Python stores installed third-party libraries
+            - Generally, it's not good practice to install packages outside the virtual environment
         - With a virtual environment
-            - It does NOT install it into your global Python environment
-            - Installs the packages into the site-packages folder in the directory with the virtual environment
+            - It does not install it into your global Python environment
+            - Installs the packages into the site-packages folder in the virtual environment
 - Requirements.txt
     - A file in a python project used to list all the dependencies that your project needs to run
         - Each line is a package
             - Also you can provide the package version you want specifically using the ==
-                - Ex. flask==3.1.0
+                - Ex. `flask==3.1.0`
     - Not necessary, but good to have so that anyone who downloads your project later can install all the necessary dependencies
     - How to create it?
         - Method 1: Manually
@@ -41,54 +47,54 @@
                 - Add the packages inside of it
         - Method 2: Generate it automatically(recommended)
             - If you have already installed all the libraries already for the project
-            - pip freeze > requirements .txt
+            - `pip freeze > requirements .txt`
                 - This automatically generates a list of installed packages and their versions in your current Python environment
         - Method 3: In a virtual environment
             - Typically the most common since virtual environments are recommended
             - In your virtual environment, install the packages your project needs
             - Then generate the requirements.txt
-                - pip freeze > requirements.txt
+                - `pip freeze > requirements.txt`
     - How to use it?
         - In the project folder, run 
-            - pip install -r requirements.txt
+            - `pip install -r requirements.txt`
         - Python's package installer will install all the dependencies listed in the file
 - How to load dependencies in to your program
     - Once you'd installed a library to your system, you need to load the ones you want into your program
     - At the top of your program, you put your import statements
     - Two ways
-        - import library_name
+        - `import library_name`
             - This means you want to import the entire library and all it's functions
             - To use something inside that toolbox, you have to do 
                 - library_name.function_name()
-        - from library_name import function_name
+        - `from library_name import function_name`
             - This is a more specific way of importing, where you only import the functions you need
             - To get more functions, just seperate the names with commas
             - But with this method you can use the function directly
                 - function_name()
     - You may also see a third way
-        - import library_name as short_name
+        - `import library_name as short_name`
             - This means we want to give the library an alias- often a shorter name
             - To use the library's functions, we do
-                - short_name.function_name()
-            - There are agreed upon aliases for certain libraries like st for streamlit
+                - `short_name.function_name()`
+            - There are agreed upon aliases for certain libraries like st for streamlit and pd for pandas
     - We may also need to import from a package
-        - from library_name.module_name import function_name
+        - `from package_name.module_name import function_name`
             - We're accessing a specific function from a specific module(python file) from a package
     - We also may want to bring in functions from one file into another within a project
         - We often keep code broken into different files for seperation of concerns
             - But we sometimes need functions from another file
         - Works similar to how we imported packages installed via pip
-            - from file_name import function_name
+            - `from file_name import function_name`
                 - for just select functions
-            - import file_name
+            - `import file_name`
                 - for the entire file's functions
         - But if we have a package structure where our project contains folders which each contains files
-            - from package_name.file_name import function_name
+            - `from package_name.file_name import function_name`
         - Note, that for any of these situations, you don't provide the file extension during the import
-            - You also don't do that for the pip installed packages/modules
 - Best practices
     - Keep requirements.txt in your project's root folder
     - Use a virtual environment (venv) for each project
+    - Don't install packages globally
     - Avoid installing unnecessary packages
     - Don't upload your venv folder to GitHub
     - Commit requirements.txt to GitHub so other developers can reproduce your environment
