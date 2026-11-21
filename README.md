@@ -45,6 +45,8 @@
 - Python Objected Orinted Programming
 - Python DSA
 - PyTest
+- Python Linting
+    - Ruff
 - JSON
 - HTTP
 - Rest APIs
@@ -56,7 +58,10 @@
     - Ollama
     - LM Studio
 - Open Web UI
-- Cline
+- Open Source Agents
+    - Hermes Agent
+    - Claude Code
+    - Cline
 - LLMs Basics
 - Machine Learning Basics
 - A.I. Infrastructure Basics
@@ -70,25 +75,38 @@
 - VectorrDBs
 - LlamaIndex
 - Langchain
-- SQL (postgresql)
+- Docker
+- HTML/ CSS
+- Javascript
+- Astro
+- Netlify
+- SQL 
+    - Postgresql
+    - Supabase
+    - sqllite
 - Amazon Web Services
 
-## Notes in progress now
-### These are not in any order. I'll be adding more topics as I power through these over the next few months to year.
+## Future plans
+### I'll be adding more topics as I power through these over the next few months to year.
+
+### AI Engineering Higher Level
 - Langgraph
 - Langsmith
 - MLFlow
----
+
+### Infrastructure
 - Kubernetes
 - Grafana
 - Promotheus
 - NGINX
----
+- System Design
+
+### Not necessary, but useful
 - SDKs
 - Vercel
-- System Design
 - Bash Scripting
----
+
+### Machine learning topics
 - Juptyr notebook
 - Pandas
 - SciKitLearn
@@ -96,3 +114,4 @@
 - SciPy
 - Seaborn
 - Pytorch
+- Hugging Face Transformers
