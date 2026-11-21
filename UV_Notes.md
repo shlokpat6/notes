@@ -1,6 +1,7 @@
 # UV
 - It's a Python package, project, and environment manager
 - Takes several Python development tools and brings them into one fast workflow
+    - UV is fast for installing packages and python installations because it's written entirely in Rust and uses caching for libraries
     - Traditionally Python development involved several different tools
         - Python
             - Runs the Python code
